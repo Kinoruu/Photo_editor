@@ -405,7 +405,6 @@ namespace Podstawowy_foto_edytor
                         Color pixel = newBitmap.GetPixel(x, yt);
 
                         newBitmap.SetPixel(x, yb, pixel);
-
                     }
                     catch (Exception) { }
                 }
