@@ -57,7 +57,7 @@ namespace Podstawowy_foto_edytor
             else { MessageBox.Show("No image loaded, first upload image "); }
         }
 
-        void hue()
+        void hue()    //funkcja zmieniająca wartości RGB obrazu
         {
             float changered = trackBar1.Value * 0.1f;
             float changegreen = trackBar2.Value * 0.1f;
@@ -97,7 +97,7 @@ namespace Podstawowy_foto_edytor
             }
         }
 
-        void brightness()
+        void brightness()   //funkcja zmieniająca jasność obrazu
         {
             float changebrightness = trackBar6.Value / 255.0f;
 
@@ -135,7 +135,7 @@ namespace Podstawowy_foto_edytor
             }
         }
 
-        void contrast()
+        void contrast()  //funkcja zmieniająca kontrast obrazu
         {
             float changecontrast = trackBar5.Value * 0.041f;
 
@@ -191,7 +191,7 @@ namespace Podstawowy_foto_edytor
             }
         }
 
-        void grayscale()
+        void grayscale()   //funkcja zmieniająca kolory w odcienie szarości
         {
             if (!opened)
             {
@@ -225,7 +225,7 @@ namespace Podstawowy_foto_edytor
             }
         }
 
-        void blur()
+        void blur()   // funkcja rozmywająca obraz poprzez uśrednianiewartości pikseli
         {
             if (!opened)
             {
@@ -257,7 +257,7 @@ namespace Podstawowy_foto_edytor
             }
         }
 
-        void invert()
+        void invert()   // funkcja odwracająca kolory(negatyw)
         {
             for (int x = 1; x < newBitmap.Width; x++)
             {
@@ -279,7 +279,7 @@ namespace Podstawowy_foto_edytor
             pictureBox1.Image = newBitmap;
         }
 
-        void edge()
+        void edge()   //funkcja znajdująca krawędzie na podstawie różnicy wartości piikseli( imitacja emboss)
         {
             Bitmap nB = new Bitmap(newBitmap.Width, newBitmap.Height);
 
@@ -357,7 +357,7 @@ namespace Podstawowy_foto_edytor
             pictureBox1.Image = nB;
         }
 
-        void mirror_l()
+        void mirror_l()  //funkcja odbijająca lewą połowę obrazu 
         {
             for (int xl = 1, xr = newBitmap.Width; xl < newBitmap.Width; xl++, xr--)
             {
@@ -376,7 +376,7 @@ namespace Podstawowy_foto_edytor
             pictureBox1.Image = newBitmap;
         }
 
-        void mirror_r()
+        void mirror_r()     //funkcja odbijająca prawą połowę obrazu 
         {
             for (int xl = 1, xr = newBitmap.Width; xl < newBitmap.Width; xl++, xr--)
             {
@@ -394,7 +394,7 @@ namespace Podstawowy_foto_edytor
             }
             pictureBox1.Image = newBitmap;
         }
-        void mirror_t()
+        void mirror_t()    //funkcja odbijająca górną połowę obrazu 
         {
             for (int x = 1; x < newBitmap.Width; x++)
             {
@@ -412,7 +412,7 @@ namespace Podstawowy_foto_edytor
             pictureBox1.Image = newBitmap;
         }
 
-        void mirror_b()
+        void mirror_b()    //funkcja odbijająca dolną połowę obrazu 
         {
             for (int x = 1; x < newBitmap.Width; x++)
             {
@@ -431,10 +431,16 @@ namespace Podstawowy_foto_edytor
             pictureBox1.Image = newBitmap;
         }
 
-        Bitmap newBitmap;
-        Image file;
-        int lastCol = 0;
-        Boolean opened = false;  //zmienna do sprawdzenia czy jakiekolwiek zdjęcie zostało otwarte
+        Bitmap newBitmap;        //
+        Image file;              // implemerntacja zmiennych wykorzystywanych w funkcjach
+        int lastCol = 0;         //
+        Boolean opened = false;  //
+
+        //
+        // poniżej znajduje się funkcjonalność odpowiadająca za reakcje na poszczególne 
+        // przesunięcia/kliknięcia w oknie aplikacji
+        //
+
         private void pictureBox1_Click(object sender, EventArgs e)
         {
 
