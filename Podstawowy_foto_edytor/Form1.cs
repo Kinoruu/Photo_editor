@@ -92,8 +92,6 @@ namespace Podstawowy_foto_edytor
                 g.DrawImage(img, new Rectangle(0, 0, img.Width, img.Height), 0, 0, img.Width, img.Height, GraphicsUnit.Pixel, ia);
                 g.Dispose();                          
                 pictureBox1.Image = bmpInverted;
-
-
             }
         }
 
