@@ -34,6 +34,7 @@ namespace Podstawowy_foto_edytor
                 file = Image.FromFile(openFileDialog1.FileName);
                 newBitmap = new Bitmap(openFileDialog1.FileName);
                 newBitmapTemp = new Bitmap(openFileDialog1.FileName);
+                newBitmapSize2 = new Bitmap(openFileDialog1.FileName);
                 pictureBox.Image = file;
                 opened = true;
             }
@@ -522,8 +523,84 @@ namespace Podstawowy_foto_edytor
             pictureBox.Image = newBitmapTemp;
         }
 
-        Bitmap newBitmap;        //
+        void bilinear()   // funkcja zmieniająca rozmiar obrazu w sposób biliniowy tj za pomocą wyliczania średniej/stosunku odleglości
+        {
+            if (!opened)
+            {
+                MessageBox.Show("Open an Image then apply changes");
+            }
+            else
+            {
+                int width = pictureBox.Image.Width;
+                int height = pictureBox.Image.Height;
+       
+                Bitmap newBitmapTemp = new Bitmap(2 * width, height);
+                Bitmap newBitmapSize2 = new Bitmap(2 * width, 2 * height);
+                for (int y = 1; y < newBitmap.Height; y++)
+                {
+                    for (int x = 1; x < 2 * newBitmap.Width; x++)
+                    {
+                        try
+                        {
+                            if(x % 2 == 1)
+                            {
+                                Color pixel = newBitmap.GetPixel((x + 1) / 2, y);
+                                newBitmapTemp.SetPixel(x, y, pixel);
+                            }
+                            if(x == (newBitmap.Width))
+                            {
+                                Color pixel = newBitmap.GetPixel(x / 2, y);
+                                newBitmapTemp.SetPixel(x, y, pixel);
+                            }
+                            else
+                            {
+                                Color pixelP = newBitmap.GetPixel((x / 2), y);
+                                Color pixelN = newBitmap.GetPixel((x / 2) + 1, y);
+                                int avgR = (int)((pixelP.R + pixelN.R) / 2);
+                                int avgG = (int)((pixelP.G + pixelN.G) / 2);
+                                int avgB = (int)((pixelP.B + pixelN.B) / 2);
+                                newBitmapTemp.SetPixel(x, y, Color.FromArgb(avgR, avgG, avgB));
+                            }
+                        }
+                        catch (Exception) { }
+                    }
+                }
+                for (int x = 1; x < newBitmapTemp.Width; x++)
+                {
+                    for (int y = 1; y < 2 * newBitmapTemp.Height; y++)
+                    {
+                        try
+                        {
+                            if (y % 2 == 1)
+                            {
+                                Color pixel = newBitmapTemp.GetPixel(x, (y + 1) / 2);
+                                newBitmapSize2.SetPixel(x, y, pixel);
+                            }
+                            if (y == (newBitmapTemp.Height))
+                            {
+                                Color pixel = newBitmapTemp.GetPixel(x, y / 2);
+                                newBitmapSize2.SetPixel(x, y, pixel);
+                            }
+                            else
+                            {
+                                Color pixelP = newBitmapTemp.GetPixel(x, (y / 2) - 1);
+                                Color pixelN = newBitmapTemp.GetPixel(x, (y / 2) + 1);
+                                int avgR = (int)((pixelP.R + pixelN.R) / 2);
+                                int avgG = (int)((pixelP.G + pixelN.G) / 2);
+                                int avgB = (int)((pixelP.B + pixelN.B) / 2);
+                                newBitmapSize2.SetPixel(x, y, Color.FromArgb(avgR, avgG, avgB));
+                            }
+                        }
+                        catch (Exception) { }
+                    }
+                }
+                pictureBox.Image = newBitmapSize2;
+            }
+        }
+
+        Bitmap newBitmap;        // 
         Bitmap newBitmapTemp;
+        Bitmap newBitmapSize2;        // 2x większe niż newBitmap w obu kierunkach
         Image file;              // implemerntacja zmiennych wykorzystywanych w funkcjach
         int lastCol = 0;         //
         Boolean opened = false;  //
@@ -647,6 +724,11 @@ namespace Podstawowy_foto_edytor
         private void histogramToolStripMenuItem_Click(object sender, EventArgs e)
         {
             //ShowHistogram(!config.histogramVisible);
+        }
+
+        private void biLinearToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            bilinear();
         }
     }
 }

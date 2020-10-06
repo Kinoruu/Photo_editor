@@ -71,11 +71,13 @@
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statisticsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.histogramToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.resizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.nearestNeighbourToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.biLinearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.biCubicToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.colorDialog1 = new System.Windows.Forms.ColorDialog();
+            this.x2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.x3ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Red_Bar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Green_Bar)).BeginInit();
@@ -409,7 +411,7 @@
             // colorToolStripMenuItem
             // 
             this.colorToolStripMenuItem.Name = "colorToolStripMenuItem";
-            this.colorToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.colorToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.colorToolStripMenuItem.Text = "Color";
             // 
             // helpToolStripMenuItem
@@ -437,7 +439,7 @@
             // histogramToolStripMenuItem
             // 
             this.histogramToolStripMenuItem.Name = "histogramToolStripMenuItem";
-            this.histogramToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.histogramToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
             this.histogramToolStripMenuItem.Text = "Histogram";
             this.histogramToolStripMenuItem.Click += new System.EventHandler(this.histogramToolStripMenuItem_Click);
             // 
@@ -453,6 +455,9 @@
             // 
             // nearestNeighbourToolStripMenuItem
             // 
+            this.nearestNeighbourToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.x2ToolStripMenuItem,
+            this.x3ToolStripMenuItem});
             this.nearestNeighbourToolStripMenuItem.Name = "nearestNeighbourToolStripMenuItem";
             this.nearestNeighbourToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.nearestNeighbourToolStripMenuItem.Text = "Nearest neighbour";
@@ -462,12 +467,25 @@
             this.biLinearToolStripMenuItem.Name = "biLinearToolStripMenuItem";
             this.biLinearToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.biLinearToolStripMenuItem.Text = "BiLinear";
+            this.biLinearToolStripMenuItem.Click += new System.EventHandler(this.biLinearToolStripMenuItem_Click);
             // 
             // biCubicToolStripMenuItem
             // 
             this.biCubicToolStripMenuItem.Name = "biCubicToolStripMenuItem";
             this.biCubicToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.biCubicToolStripMenuItem.Text = "BiCubic";
+            // 
+            // x2ToolStripMenuItem
+            // 
+            this.x2ToolStripMenuItem.Name = "x2ToolStripMenuItem";
+            this.x2ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.x2ToolStripMenuItem.Text = "x2";
+            // 
+            // x3ToolStripMenuItem
+            // 
+            this.x3ToolStripMenuItem.Name = "x3ToolStripMenuItem";
+            this.x3ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.x3ToolStripMenuItem.Text = "x3";
             // 
             // Form1
             // 
@@ -559,6 +577,8 @@
         private System.Windows.Forms.ToolStripMenuItem nearestNeighbourToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem biLinearToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem biCubicToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem x2ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem x3ToolStripMenuItem;
     }
 }
 
