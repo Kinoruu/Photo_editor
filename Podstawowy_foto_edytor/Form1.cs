@@ -523,7 +523,7 @@ namespace Podstawowy_foto_edytor
             pictureBox.Image = newBitmapTemp;
         }
 
-        void bilinear()   // funkcja zmieniająca rozmiar obrazu w sposób biliniowy tj za pomocą wyliczania średniej/stosunku odleglości
+        void bilinear_x2()   // funkcja zmieniająca rozmiar obrazu w sposób biliniowy tj za pomocą wyliczania średniej/stosunku odleglości
         {
             if (!opened)
             {
@@ -726,9 +726,9 @@ namespace Podstawowy_foto_edytor
             //ShowHistogram(!config.histogramVisible);
         }
 
-        private void biLinearToolStripMenuItem_Click(object sender, EventArgs e)
+        private void x2ToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            bilinear();
+            bilinear_x2();
         }
     }
 }
