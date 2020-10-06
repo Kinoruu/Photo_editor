@@ -14,9 +14,15 @@ namespace Podstawowy_foto_edytor
 {
     public partial class Form1 : Form
     {
+        private Histogram histogramWin = new Histogram();
+
         public Form1()
         {
             InitializeComponent();
+
+            //histogramWin.DockStateChanged += new EventHandler(histogram_DockStateChanged);
+
+            //histogramWin.VisibleChanged += new EventHandler(histogram_VisibleChanged);
         }
 
        
@@ -27,7 +33,8 @@ namespace Podstawowy_foto_edytor
             {
                 file = Image.FromFile(openFileDialog1.FileName);
                 newBitmap = new Bitmap(openFileDialog1.FileName);
-                pictureBox1.Image = file;
+                newBitmapTemp = new Bitmap(openFileDialog1.FileName);
+                pictureBox.Image = file;
                 opened = true;
             }
         }
@@ -51,21 +58,37 @@ namespace Podstawowy_foto_edytor
                             format = ImageFormat.Bmp;
                             break;
                     }
-                    pictureBox1.Image.Save(sfd.FileName, format);
+                    pictureBox.Image.Save(sfd.FileName, format);
                 }
             }
             else { MessageBox.Show("No image loaded, first upload image "); }
         }
+        /*private void ShowHistogram(bool show)
+        {
+            config.histogramVisible = show;
+
+            histogramViewItem.Checked = show;
+            histogramButton.Pushed = show;
+
+            if (show)
+            {
+                histogramWin.Show(dockManager);
+            }
+            else
+            {
+                histogramWin.Hide();
+            }
+        }*/
 
         void hue()    //funkcja zmieniająca wartości RGB obrazu
         {
-            float changered = trackBar1.Value * 0.1f;
-            float changegreen = trackBar2.Value * 0.1f;
-            float changeblue = trackBar3.Value * 0.1f;
+            float changered = Red_Bar.Value * 0.1f;
+            float changegreen = Green_Bar.Value * 0.1f;
+            float changeblue = Blue_Bar.Value * 0.1f;
 
-            label7.Text = (changered*10).ToString();
-            label9.Text = (changeblue*10).ToString();
-            label8.Text = (changegreen*10).ToString();
+            Red_Value_label.Text = (changered*10).ToString();
+            Blue_Value_label.Text = (changeblue*10).ToString();
+            Green_Value_label.Text = (changegreen*10).ToString();
 
             reload();
             if (!opened)
@@ -73,7 +96,7 @@ namespace Podstawowy_foto_edytor
             }
             else
             {
-                Image img = pictureBox1.Image;                            
+                Image img = pictureBox.Image;                            
                 Bitmap bmpInverted = new Bitmap(img.Width, img.Height);  
 
                 ImageAttributes ia = new ImageAttributes();                
@@ -91,25 +114,25 @@ namespace Podstawowy_foto_edytor
 
                 g.DrawImage(img, new Rectangle(0, 0, img.Width, img.Height), 0, 0, img.Width, img.Height, GraphicsUnit.Pixel, ia);
                 g.Dispose();                          
-                pictureBox1.Image = bmpInverted;
+                pictureBox.Image = bmpInverted;
             }
         }
 
         void brightness()   //funkcja zmieniająca jasność obrazu
         {
-            float changebrightness = trackBar6.Value / 255.0f;
+            float changebrightness = Brightness_Bar.Value / 255.0f;
 
             int val = (int)(changebrightness * 255);
 
-            label10.Text = val.ToString();
+            Brightness_Value_label.Text = val.ToString();
 
-            reload();
+            //reload();
             if (!opened)
             {
             }
             else
             {
-                Image img = pictureBox1.Image;
+                Image img = pictureBox.Image;
                 Bitmap bmpInverted = new Bitmap(img.Width, img.Height);
 
                 ImageAttributes ia = new ImageAttributes();
@@ -127,7 +150,7 @@ namespace Podstawowy_foto_edytor
 
                 g.DrawImage(img, new Rectangle(0, 0, img.Width, img.Height), 0, 0, img.Width, img.Height, GraphicsUnit.Pixel, ia);
                 g.Dispose();
-                pictureBox1.Image = bmpInverted;
+                pictureBox.Image = bmpInverted;
 
 
             }
@@ -135,19 +158,19 @@ namespace Podstawowy_foto_edytor
 
         void contrast()  //funkcja zmieniająca kontrast obrazu
         {
-            float changecontrast = trackBar5.Value * 0.041f;
+            float changecontrast = Contrast_Bar.Value * 0.041f;
 
             int val = (int)(changecontrast * 24.4);
 
-            label11.Text = val.ToString();
+            Contrast_Value_label.Text = val.ToString();
 
-            reload();
+            //reload();
             if (!opened)
             {
             }
             else
             {
-                Image img = pictureBox1.Image;
+                Image img = pictureBox.Image;
                 Bitmap bmpInverted = new Bitmap(img.Width, img.Height);
 
                 ImageAttributes ia = new ImageAttributes();
@@ -165,7 +188,7 @@ namespace Podstawowy_foto_edytor
 
                 g.DrawImage(img, new Rectangle(0, 0, img.Width, img.Height), 0, 0, img.Width, img.Height, GraphicsUnit.Pixel, ia);
                 g.Dispose();
-                pictureBox1.Image = bmpInverted;
+                pictureBox.Image = bmpInverted;
 
 
             }
@@ -183,7 +206,7 @@ namespace Podstawowy_foto_edytor
                 {
                     file = Image.FromFile(openFileDialog1.FileName);
                     newBitmap = new Bitmap(openFileDialog1.FileName);
-                    pictureBox1.Image = file;
+                    pictureBox.Image = file;
                     opened = true;
                 }
             }
@@ -197,10 +220,10 @@ namespace Podstawowy_foto_edytor
             }
             else
             {
-                trackBar1.Value = 0;
-                trackBar2.Value = 0;
-                trackBar3.Value = 0;
-                Image img = pictureBox1.Image;                             
+                Red_Bar.Value = 0;
+                Green_Bar.Value = 0;
+                Blue_Bar.Value = 0;
+                Image img = pictureBox.Image;                             
                 Bitmap bmpInverted = new Bitmap(img.Width, img.Height);   
 
                 ImageAttributes ia = new ImageAttributes();                 
@@ -219,7 +242,40 @@ namespace Podstawowy_foto_edytor
                 
 
                 g.Dispose();                            
-                pictureBox1.Image = bmpInverted;
+                pictureBox.Image = bmpInverted;
+            }
+        }
+
+        void sepia()   //funkcja zmieniająca kolory w odcienie szarości
+        {
+            if (!opened)
+            {
+                MessageBox.Show("Open an Image then apply changes");
+            }
+            else
+            {
+                Red_Bar.Value = 0;
+                Green_Bar.Value = 0;
+                Blue_Bar.Value = 0;
+                Image img = pictureBox.Image;
+                Bitmap bmpInverted = new Bitmap(img.Width, img.Height);
+
+                ImageAttributes ia = new ImageAttributes();
+                ColorMatrix cmPicture = new ColorMatrix(new float[][]
+                {
+                    new float[]{0.393f, 0.349f, 0.272f, 0, 0},
+                    new float[]{0.769f, 0.686f, 0.534f, 0, 0},
+                    new float[]{0.189f, 0.168f, 0.131f, 0, 0},
+                    new float[]{0, 0, 0, 1, 0},
+                    new float[]{0, 0, 0, 0, 1}
+                });
+                ia.SetColorMatrix(cmPicture);
+                Graphics g = Graphics.FromImage(bmpInverted);
+
+                g.DrawImage(img, new Rectangle(0, 0, img.Width, img.Height), 0, 0, img.Width, img.Height, GraphicsUnit.Pixel, ia);
+
+                g.Dispose();
+                pictureBox.Image = bmpInverted;
             }
         }
 
@@ -251,7 +307,7 @@ namespace Podstawowy_foto_edytor
                         catch (Exception) { }
                     }
                 }
-                pictureBox1.Image = newBitmap;
+                pictureBox.Image = newBitmap;
             }
         }
 
@@ -274,7 +330,7 @@ namespace Podstawowy_foto_edytor
                     catch (Exception) { }
                 }
             }
-            pictureBox1.Image = newBitmap;
+            pictureBox.Image = newBitmap;
         }
 
         void edge()   //funkcja znajdująca krawędzie na podstawie różnicy wartości piikseli( imitacja emboss)
@@ -285,7 +341,7 @@ namespace Podstawowy_foto_edytor
             {
                 for (int y = 1; y <= newBitmap.Height - 1; y++)
                 {  
-                    nB.SetPixel(x, y, Color.DarkGray); 
+                    nB.SetPixel(x, y, Color.White); 
                 }
             }
             for (int x = 1; x <= newBitmap.Width - 1; x++)
@@ -313,7 +369,7 @@ namespace Podstawowy_foto_edytor
 
                         if(diff > 100)
                         {
-                            nB.SetPixel(x, y, Color.Gray);
+                            nB.SetPixel(x, y, Color.Black);
                             lastCol = colVal;
                         }
 
@@ -344,7 +400,7 @@ namespace Podstawowy_foto_edytor
 
                         if (diff > 100)
                         {
-                            nB.SetPixel(x, y, Color.Gray);
+                            nB.SetPixel(x, y, Color.Black);
                             lastCol = colVal;
                         }
 
@@ -352,7 +408,7 @@ namespace Podstawowy_foto_edytor
                     catch (Exception) { }
                 }
             }
-            pictureBox1.Image = nB;
+            pictureBox.Image = nB;
         }
 
         void mirror_l()  //funkcja odbijająca lewą połowę obrazu 
@@ -371,7 +427,7 @@ namespace Podstawowy_foto_edytor
                     catch (Exception) { }
                 }
             }
-            pictureBox1.Image = newBitmap;
+            pictureBox.Image = newBitmap;
         }
 
         void mirror_r()     //funkcja odbijająca prawą połowę obrazu 
@@ -390,7 +446,7 @@ namespace Podstawowy_foto_edytor
                     catch (Exception) { }
                 }
             }
-            pictureBox1.Image = newBitmap;
+            pictureBox.Image = newBitmap;
         }
         void mirror_t()    //funkcja odbijająca górną połowę obrazu 
         {
@@ -407,7 +463,7 @@ namespace Podstawowy_foto_edytor
                     catch (Exception) { }
                 }
             }
-            pictureBox1.Image = newBitmap;
+            pictureBox.Image = newBitmap;
         }
 
         void mirror_b()    //funkcja odbijająca dolną połowę obrazu 
@@ -426,10 +482,48 @@ namespace Podstawowy_foto_edytor
                     catch (Exception) { }
                 }
             }
-            pictureBox1.Image = newBitmap;
+            pictureBox.Image = newBitmap;
+        }
+
+        void mirror_horizontal()  //funkcja odwracająca horyzontalnielewo-prawo
+        {
+            for (int xl = 1, xr = newBitmap.Width; xl < newBitmap.Width; xl++, xr--)
+            {
+                for (int y = 1; y < newBitmap.Height; y++)
+                {
+                    try
+                    {
+                        Color pixel = newBitmap.GetPixel(xl, y);
+
+                        newBitmapTemp.SetPixel(xr, y, pixel);
+
+                    }
+                    catch (Exception) { }
+                }
+            }
+            pictureBox.Image = newBitmapTemp;
+        }
+
+        void mirror_vertical()    //funkcja odwracająca wertykalnie góra-dół
+        {
+            for (int x = 1; x < newBitmap.Width; x++)
+            {
+                for (int yt = 1, yb = newBitmap.Height; yt < newBitmap.Height; yt++, yb--)
+                {
+                    try
+                    {
+                        Color pixel = newBitmap.GetPixel(x, yt);
+
+                        newBitmapTemp.SetPixel(x, yb, pixel);
+                    }
+                    catch (Exception) { }
+                }
+            }
+            pictureBox.Image = newBitmapTemp;
         }
 
         Bitmap newBitmap;        //
+        Bitmap newBitmapTemp;
         Image file;              // implemerntacja zmiennych wykorzystywanych w funkcjach
         int lastCol = 0;         //
         Boolean opened = false;  //
@@ -439,29 +533,14 @@ namespace Podstawowy_foto_edytor
         // przesunięcia/kliknięcia w oknie aplikacji
         //
 
-        private void pictureBox1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button9_Click(object sender, EventArgs e)
-        {
-            openImage();
-        }
-
-        private void button10_Click(object sender, EventArgs e)
-        {
-            saveImage();
-        }
-
         private void button1_Click(object sender, EventArgs e)
         {
             reload();
-            trackBar1.Value = 0;
-            trackBar2.Value = 0;
-            trackBar3.Value = 0;
-            trackBar5.Value = 0;
-            trackBar6.Value = 0;
+            Red_Bar.Value = 0;
+            Green_Bar.Value = 0;
+            Blue_Bar.Value = 0;
+            Contrast_Bar.Value = 25;
+            Brightness_Bar.Value = 0;
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -495,39 +574,79 @@ namespace Podstawowy_foto_edytor
             brightness();
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void saveImageToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            saveImage();
+        }
+
+        private void openImageToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            openImage();
+        }
+
+        private void grayscaleToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            grayscale();
+        }
+
+        private void sepiaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            sepia();
+        }
+
+        private void blurToolStripMenuItem_Click(object sender, EventArgs e)
         {
             blur();
         }
 
-        private void button4_Click(object sender, EventArgs e)
+        private void negativeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             invert();
         }
 
-        private void button5_Click(object sender, EventArgs e)
+        private void edgeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             edge();
         }
 
-        private void button6_Click(object sender, EventArgs e)
+        private void mirrorLeftSideToolStripMenuItem_Click(object sender, EventArgs e)
         {
             mirror_l();
         }
 
-        private void button7_Click(object sender, EventArgs e)
+        private void mirrorRightSideToolStripMenuItem_Click(object sender, EventArgs e)
         {
             mirror_r();
         }
 
-        private void button8_Click(object sender, EventArgs e)
+        private void mirrorTopSideToolStripMenuItem_Click(object sender, EventArgs e)
         {
             mirror_t();
         }
 
-        private void button11_Click(object sender, EventArgs e)
+        private void mirrorBottomSideToolStripMenuItem_Click(object sender, EventArgs e)
         {
             mirror_b();
+        }
+
+        private void invertHorizontalToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            mirror_horizontal();
+        }
+
+        private void invertVerticalToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            mirror_vertical();
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void histogramToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //ShowHistogram(!config.histogramVisible);
         }
     }
 }

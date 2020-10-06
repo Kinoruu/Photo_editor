@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.1062
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Podstawowy_foto_edytor", "Podstawowy_foto_edytor\Podstawowy_foto_edytor.csproj", "{5E2B32AE-3F7A-4DC3-963C-DF15754F6AA1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Photo_editor", "Podstawowy_foto_edytor\Photo_editor.csproj", "{5E2B32AE-3F7A-4DC3-963C-DF15754F6AA1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F40FCD05-7873-49BC-B242-3F7CAADB712D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
