@@ -76,9 +76,15 @@
             this.x2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.x3ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.biLinearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.x2ToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.biCubicToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
-            this.x2ToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.x3ToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.label1 = new System.Windows.Forms.Label();
+            this.trackBar1 = new System.Windows.Forms.TrackBar();
+            this.label2 = new System.Windows.Forms.Label();
+            this.addRGBVersionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.addRGBV2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Red_Bar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Green_Bar)).BeginInit();
@@ -86,12 +92,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.Contrast_Bar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Brightness_Bar)).BeginInit();
             this.menuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.SuspendLayout();
             // 
             // pictureBox
             // 
             this.pictureBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBox.Location = new System.Drawing.Point(116, 27);
+            this.pictureBox.Location = new System.Drawing.Point(184, 27);
             this.pictureBox.Name = "pictureBox";
             this.pictureBox.Size = new System.Drawing.Size(892, 505);
             this.pictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -111,7 +118,7 @@
             // 
             // Red_Bar
             // 
-            this.Red_Bar.Location = new System.Drawing.Point(145, 556);
+            this.Red_Bar.Location = new System.Drawing.Point(213, 556);
             this.Red_Bar.Maximum = 100;
             this.Red_Bar.Name = "Red_Bar";
             this.Red_Bar.Size = new System.Drawing.Size(741, 45);
@@ -120,7 +127,7 @@
             // 
             // Green_Bar
             // 
-            this.Green_Bar.Location = new System.Drawing.Point(145, 607);
+            this.Green_Bar.Location = new System.Drawing.Point(213, 607);
             this.Green_Bar.Maximum = 100;
             this.Green_Bar.Name = "Green_Bar";
             this.Green_Bar.Size = new System.Drawing.Size(741, 45);
@@ -129,7 +136,7 @@
             // 
             // Blue_Bar
             // 
-            this.Blue_Bar.Location = new System.Drawing.Point(145, 658);
+            this.Blue_Bar.Location = new System.Drawing.Point(213, 658);
             this.Blue_Bar.Maximum = 100;
             this.Blue_Bar.Name = "Blue_Bar";
             this.Blue_Bar.Size = new System.Drawing.Size(741, 45);
@@ -139,7 +146,7 @@
             // Red_Name_label
             // 
             this.Red_Name_label.AutoSize = true;
-            this.Red_Name_label.Location = new System.Drawing.Point(113, 556);
+            this.Red_Name_label.Location = new System.Drawing.Point(181, 556);
             this.Red_Name_label.Name = "Red_Name_label";
             this.Red_Name_label.Size = new System.Drawing.Size(27, 13);
             this.Red_Name_label.TabIndex = 14;
@@ -148,7 +155,7 @@
             // Green_Name_label
             // 
             this.Green_Name_label.AutoSize = true;
-            this.Green_Name_label.Location = new System.Drawing.Point(113, 609);
+            this.Green_Name_label.Location = new System.Drawing.Point(181, 609);
             this.Green_Name_label.Name = "Green_Name_label";
             this.Green_Name_label.Size = new System.Drawing.Size(36, 13);
             this.Green_Name_label.TabIndex = 15;
@@ -157,7 +164,7 @@
             // Blue_Name_label
             // 
             this.Blue_Name_label.AutoSize = true;
-            this.Blue_Name_label.Location = new System.Drawing.Point(111, 660);
+            this.Blue_Name_label.Location = new System.Drawing.Point(179, 660);
             this.Blue_Name_label.Name = "Blue_Name_label";
             this.Blue_Name_label.Size = new System.Drawing.Size(28, 13);
             this.Blue_Name_label.TabIndex = 16;
@@ -209,7 +216,7 @@
             // Red_Value_label
             // 
             this.Red_Value_label.AutoSize = true;
-            this.Red_Value_label.Location = new System.Drawing.Point(892, 556);
+            this.Red_Value_label.Location = new System.Drawing.Point(938, 556);
             this.Red_Value_label.Name = "Red_Value_label";
             this.Red_Value_label.Size = new System.Drawing.Size(13, 13);
             this.Red_Value_label.TabIndex = 24;
@@ -218,7 +225,7 @@
             // Green_Value_label
             // 
             this.Green_Value_label.AutoSize = true;
-            this.Green_Value_label.Location = new System.Drawing.Point(892, 609);
+            this.Green_Value_label.Location = new System.Drawing.Point(938, 609);
             this.Green_Value_label.Name = "Green_Value_label";
             this.Green_Value_label.Size = new System.Drawing.Size(13, 13);
             this.Green_Value_label.TabIndex = 25;
@@ -227,7 +234,7 @@
             // Blue_Value_label
             // 
             this.Blue_Value_label.AutoSize = true;
-            this.Blue_Value_label.Location = new System.Drawing.Point(892, 660);
+            this.Blue_Value_label.Location = new System.Drawing.Point(938, 660);
             this.Blue_Value_label.Name = "Blue_Value_label";
             this.Blue_Value_label.Size = new System.Drawing.Size(13, 13);
             this.Blue_Value_label.TabIndex = 26;
@@ -236,7 +243,7 @@
             // Brightness_Value_label
             // 
             this.Brightness_Value_label.AutoSize = true;
-            this.Brightness_Value_label.Location = new System.Drawing.Point(7, 544);
+            this.Brightness_Value_label.Location = new System.Drawing.Point(12, 544);
             this.Brightness_Value_label.Name = "Brightness_Value_label";
             this.Brightness_Value_label.Size = new System.Drawing.Size(13, 13);
             this.Brightness_Value_label.TabIndex = 27;
@@ -254,7 +261,7 @@
             // Copyrights_label
             // 
             this.Copyrights_label.AutoSize = true;
-            this.Copyrights_label.Location = new System.Drawing.Point(849, 696);
+            this.Copyrights_label.Location = new System.Drawing.Point(931, 696);
             this.Copyrights_label.Name = "Copyrights_label";
             this.Copyrights_label.Size = new System.Drawing.Size(159, 13);
             this.Copyrights_label.TabIndex = 30;
@@ -272,7 +279,7 @@
             this.resizeToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1020, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1102, 24);
             this.menuStrip1.TabIndex = 34;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -306,7 +313,9 @@
             this.sepiaToolStripMenuItem,
             this.blurToolStripMenuItem,
             this.negativeToolStripMenuItem,
-            this.edgeToolStripMenuItem});
+            this.edgeToolStripMenuItem,
+            this.addRGBVersionToolStripMenuItem,
+            this.addRGBV2ToolStripMenuItem});
             this.filtersToolStripMenuItem.Name = "filtersToolStripMenuItem";
             this.filtersToolStripMenuItem.Size = new System.Drawing.Size(50, 20);
             this.filtersToolStripMenuItem.Text = "Filters";
@@ -466,7 +475,7 @@
             // x2ToolStripMenuItem
             // 
             this.x2ToolStripMenuItem.Name = "x2ToolStripMenuItem";
-            this.x2ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.x2ToolStripMenuItem.Size = new System.Drawing.Size(86, 22);
             this.x2ToolStripMenuItem.Text = "x2";
             // 
             // x3ToolStripMenuItem
@@ -474,20 +483,16 @@
             this.x3ToolStripMenuItem.Name = "x3ToolStripMenuItem";
             this.x3ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.x3ToolStripMenuItem.Text = "x3";
+            this.x3ToolStripMenuItem.Click += new System.EventHandler(this.x3ToolStripMenuItem_Click);
             // 
             // biLinearToolStripMenuItem
             // 
             this.biLinearToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.x2ToolStripMenuItem1});
+            this.x2ToolStripMenuItem1,
+            this.x3ToolStripMenuItem1});
             this.biLinearToolStripMenuItem.Name = "biLinearToolStripMenuItem";
             this.biLinearToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.biLinearToolStripMenuItem.Text = "BiLinear";
-            // 
-            // biCubicToolStripMenuItem
-            // 
-            this.biCubicToolStripMenuItem.Name = "biCubicToolStripMenuItem";
-            this.biCubicToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.biCubicToolStripMenuItem.Text = "BiCubic";
             // 
             // x2ToolStripMenuItem1
             // 
@@ -496,11 +501,67 @@
             this.x2ToolStripMenuItem1.Text = "x2";
             this.x2ToolStripMenuItem1.Click += new System.EventHandler(this.x2ToolStripMenuItem1_Click);
             // 
+            // biCubicToolStripMenuItem
+            // 
+            this.biCubicToolStripMenuItem.Name = "biCubicToolStripMenuItem";
+            this.biCubicToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.biCubicToolStripMenuItem.Text = "BiCubic";
+            // 
+            // x3ToolStripMenuItem1
+            // 
+            this.x3ToolStripMenuItem1.Name = "x3ToolStripMenuItem1";
+            this.x3ToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.x3ToolStripMenuItem1.Text = "x3";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(115, 39);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(46, 13);
+            this.label1.TabIndex = 35;
+            this.label1.Text = "Contrast";
+            // 
+            // trackBar1
+            // 
+            this.trackBar1.Location = new System.Drawing.Point(116, 55);
+            this.trackBar1.Maximum = 100;
+            this.trackBar1.Name = "trackBar1";
+            this.trackBar1.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.trackBar1.Size = new System.Drawing.Size(45, 477);
+            this.trackBar1.TabIndex = 36;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(115, 544);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(13, 13);
+            this.label2.TabIndex = 37;
+            this.label2.Text = "0";
+            // 
+            // addRGBVersionToolStripMenuItem
+            // 
+            this.addRGBVersionToolStripMenuItem.Name = "addRGBVersionToolStripMenuItem";
+            this.addRGBVersionToolStripMenuItem.Size = new System.Drawing.Size(185, 22);
+            this.addRGBVersionToolStripMenuItem.Text = "Add RGB version";
+            this.addRGBVersionToolStripMenuItem.Click += new System.EventHandler(this.addRGBVersionToolStripMenuItem_Click);
+            // 
+            // addRGBV2ToolStripMenuItem
+            // 
+            this.addRGBV2ToolStripMenuItem.Name = "addRGBV2ToolStripMenuItem";
+            this.addRGBV2ToolStripMenuItem.Size = new System.Drawing.Size(185, 22);
+            this.addRGBV2ToolStripMenuItem.Text = "Add RGB v2";
+            this.addRGBV2ToolStripMenuItem.Click += new System.EventHandler(this.addRGBV2ToolStripMenuItem_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1020, 718);
+            this.ClientSize = new System.Drawing.Size(1102, 746);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.trackBar1);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.Copyrights_label);
             this.Controls.Add(this.Contrast_Value_label);
             this.Controls.Add(this.Brightness_Value_label);
@@ -531,6 +592,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.Brightness_Bar)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -589,6 +651,11 @@
         private System.Windows.Forms.ToolStripMenuItem x2ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem x3ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem x2ToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem x3ToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem addRGBVersionToolStripMenuItem;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TrackBar trackBar1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ToolStripMenuItem addRGBV2ToolStripMenuItem;
     }
 }
-
