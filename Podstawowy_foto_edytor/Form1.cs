@@ -769,6 +769,54 @@ namespace Podstawowy_foto_edytor
             pictureBox.Image = newBitmap;
         }
 
+        void rotate_right()    // funkcja sklejająca
+        {
+            int width = pictureBox.Image.Width;
+            int height = pictureBox.Image.Height;
+
+            Bitmap newBitmapTemp = new Bitmap(height , width);
+
+            for (int y = 1; y < newBitmap.Height; y++)
+            {
+                for (int x = 1; x < newBitmap.Width; x++)
+                {
+                    try
+                    {
+                        Color pixel = newBitmap.GetPixel(x, height - y);
+
+                        newBitmapTemp.SetPixel(y, x, pixel);
+                    }
+                    catch (Exception) { }
+                }
+            }
+            newBitmap = newBitmapTemp;
+            pictureBox.Image = newBitmap;
+        }
+
+        void rotate_left()    // funkcja sklejająca
+        {
+            int width = pictureBox.Image.Width;
+            int height = pictureBox.Image.Height;
+
+            Bitmap newBitmapTemp = new Bitmap(height, width);
+
+            for (int y = 1; y < newBitmap.Height; y++)
+            {
+                for (int x = 1; x < newBitmap.Width; x++)
+                {
+                    try
+                    {
+                        Color pixel = newBitmap.GetPixel(width - x, y);
+
+                        newBitmapTemp.SetPixel(y, x, pixel);
+                    }
+                    catch (Exception) { }
+                }
+            }
+            newBitmap = newBitmapTemp;
+            pictureBox.Image = newBitmap;
+        }
+
         void bilinear_x2()   // funkcja zmieniająca rozmiar obrazu w sposób biliniowy tj za pomocą wyliczania średniej/stosunku odleglości
         {
             if (!opened)
@@ -1276,6 +1324,16 @@ namespace Podstawowy_foto_edytor
         private void bottomSideToolStripMenuItem_Click(object sender, EventArgs e)
         {
             mirror_stich_bottom();
+        }
+
+        private void leftToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            rotate_left();
+        }
+
+        private void rightToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            rotate_right();
         }
     }
 }
