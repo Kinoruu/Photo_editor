@@ -373,7 +373,6 @@ namespace Podstawowy_foto_edytor
                             nB.SetPixel(x, y, Color.Black);
                             lastCol = colVal;
                         }
-
                     }
                     catch (Exception) { }
                 }
@@ -398,18 +397,165 @@ namespace Podstawowy_foto_edytor
                         {
                             diff = lastCol - colVal;
                         }
-
                         if (diff > 100)
                         {
                             nB.SetPixel(x, y, Color.Black);
                             lastCol = colVal;
                         }
-
                     }
                     catch (Exception) { }
                 }
             }
             pictureBox.Image = nB;
+        }
+
+        void add_RGB_ver()  //funkcja skejająca 4 takie same obrazy w formacie rgb
+        {
+            int width = pictureBox.Image.Width;
+            int height = pictureBox.Image.Height;
+
+            Bitmap newBitmapSize2 = new Bitmap(2 * width, 2 * height);
+
+            for (int x = 1; x < newBitmapSize2.Width; x++)
+            {
+                for (int y = 1; y < newBitmapSize2.Height; y++)
+                {
+                    try
+                    {
+                        if (((x > 0) && (x <= width)) && ((y > 0) && (y < height)))
+                        {
+                            Color pixel = newBitmap.GetPixel(x, y);
+                            int R = (int)pixel.R;
+                            int G = (int)pixel.G;
+                            int B = (int)pixel.B;
+                            newBitmapSize2.SetPixel(x, y, Color.FromArgb(R, G, B));
+                        }
+                        else if (((x > width) && (x <= (2 * width))) && ((y > 0) && (y <= height)))
+                        {
+                            Color pixel = newBitmap.GetPixel((x - width), y);
+                            int R = (int)pixel.R;
+                            int G = (int)pixel.G;
+                            int B = (int)pixel.B;
+                            newBitmapSize2.SetPixel(x, y, Color.FromArgb(R, 0, 0));
+                        }
+                        else if (((x > 0) && (x <= width)) && ((y > height) && (y <= (2 * height))))
+                        {
+                            Color pixel = newBitmap.GetPixel(x, (y - height));
+                            int R = (int)pixel.R;
+                            int G = (int)pixel.G;
+                            int B = (int)pixel.B;
+                            newBitmapSize2.SetPixel(x, y, Color.FromArgb(0, G, 0));
+                        }
+                        else if (((x > width) && (x <= (2 * width))) && ((y > height) && (y <= (2 * height))))
+                        {
+                            Color pixel = newBitmap.GetPixel((x - width), (y - height));
+                            int R = (int)pixel.R;
+                            int G = (int)pixel.G;
+                            int B = (int)pixel.B;
+                            newBitmapSize2.SetPixel(x, y, Color.FromArgb(0, 0, B));
+                        }
+                    }
+                    catch (Exception) { }
+                }
+            }
+            newBitmap = newBitmapSize2;
+            pictureBox.Image = newBitmap;
+        }
+
+        void add_RGB_ver_extended()  //funkcja skejająca 4 takie same obrazy w formacie rgb
+        {
+            int width = pictureBox.Image.Width;
+            int height = pictureBox.Image.Height;
+
+            Bitmap newBitmapSize2 = new Bitmap(3 * width, 3 * height);
+
+            for (int x = 1; x < newBitmapSize2.Width; x++)
+            {
+                for (int y = 1; y < newBitmapSize2.Height; y++)
+                {
+                    try
+                    {
+                        if (((x > 0) && (x <= width)) && ((y > 0) && (y < height))) //1,1
+                        {
+                            Color pixel = newBitmap.GetPixel(x, y);
+                            int R = (int)pixel.R;
+                            int G = (int)pixel.G;
+                            int B = (int)pixel.B;
+                            newBitmapSize2.SetPixel(x, y, Color.FromArgb(R, G, 0));
+                        }
+                        else if (((x > width) && (x <= (2 * width))) && ((y > 0) && (y <= height)))   //1,2
+                        {
+                            Color pixel = newBitmap.GetPixel((x - width), y);
+                            int R = (int)pixel.R;
+                            int G = (int)pixel.G;
+                            int B = (int)pixel.B;
+                            newBitmapSize2.SetPixel(x, y, Color.FromArgb(0, G, 0));
+                        }
+                        else if (((x > 0) && (x <= width)) && ((y > height) && (y <= (2 * height))))   //2,1
+                        {
+                            Color pixel = newBitmap.GetPixel(x, (y - height));
+                            int R = (int)pixel.R;
+                            int G = (int)pixel.G;
+                            int B = (int)pixel.B;
+                            newBitmapSize2.SetPixel(x, y, Color.FromArgb(R, 0, 0));
+                        }
+                        else if (((x > width) && (x <= (2 * width))) && ((y > height) && (y <= (2 * height))))   //2,2
+                        {
+                            Color pixel = newBitmap.GetPixel((x - width), (y - height));
+                            int R = (int)pixel.R;
+                            int G = (int)pixel.G;
+                            int B = (int)pixel.B;
+                            newBitmapSize2.SetPixel(x, y, Color.FromArgb(R, G, B));
+                        }
+                        else if (((x > 0) && (x <= width)) && ((y > 2 * height) && (y <= 3 * height)))  //1,3
+                        {
+                            Color pixel = newBitmap.GetPixel(x, (y - (2 * height)));
+                            int R = (int)pixel.R;
+                            int G = (int)pixel.G;
+                            int B = (int)pixel.B;
+                            int gray = (int)((0.299f * R) + (0.587f * G) + (.114f * B));
+                            newBitmapSize2.SetPixel(x, y, Color.FromArgb(gray, gray, gray));
+                            //grayscale();
+                        }
+                        else if (((x > width) && (x <= (2 * width))) && ((y > 2 * height) && (y <= (3 * height))))   //2,3
+                        {
+                            Color pixel = newBitmap.GetPixel((x - width), (y - (2 * height)));
+                            int R = (int)pixel.R;
+                            int G = (int)pixel.G;
+                            int B = (int)pixel.B;
+                            newBitmapSize2.SetPixel(x, y, Color.FromArgb(R, 0, B));
+                        }
+                        else if (((x > 2 * width) && (x <= (3 * width))) && ((y > 0) && (y <= height)))  //3,1
+                        {
+                            Color pixel = newBitmap.GetPixel((x - (2 * width)), y);
+                            int R = (int)pixel.R;
+                            int G = (int)pixel.G;
+                            int B = (int)pixel.B;
+                            newBitmapSize2.SetPixel(x, y, Color.FromArgb(0, G, B));
+
+                        }
+                        else if (((x > 2 * width) && (x <= (3 * width))) && ((y > height) && (y <= (2 * height))))   //3,2
+                        {
+                            Color pixel = newBitmap.GetPixel((x - (2 * width)), (y - height));
+                            int R = (int)pixel.R;
+                            int G = (int)pixel.G;
+                            int B = (int)pixel.B;
+                            newBitmapSize2.SetPixel(x, y, Color.FromArgb(0, 0, B));
+                        }
+                        else if (((x > 2 * width) && (x <= (3 * width))) && ((y > 2 * height) && (y <= (3 * height))))    //3,3
+                        {
+                            Color pixel = newBitmap.GetPixel((x - (2 * width)), (y - (2 * height)));
+                            int R = (int)pixel.R;
+                            int G = (int)pixel.G;
+                            int B = (int)pixel.B;
+                            newBitmapSize2.SetPixel(x, y, Color.FromArgb(255 - R, 255 - G, 255 - B));
+                        }
+                    }
+                    catch (Exception) { }
+                }
+            }
+            newBitmap = newBitmapSize2;
+            pictureBox.Image = newBitmap;
         }
 
         void mirror_l()  //funkcja odbijająca lewą połowę obrazu 
@@ -523,6 +669,106 @@ namespace Podstawowy_foto_edytor
             pictureBox.Image = newBitmapTemp;
         }
 
+        void mirror_stich_right()    // funkcja sklejająca
+        {
+            int width = pictureBox.Image.Width;
+            int height = pictureBox.Image.Height;
+
+            Bitmap newBitmapTemp = new Bitmap(2 * width, height);
+
+            for (int y = 1; y < newBitmap.Height; y++)
+            {
+                for (int xl = 1, xr = 2 * newBitmap.Width; xl < newBitmap.Width; xl++, xr--)
+                {
+                    try
+                    {
+                        Color pixel = newBitmap.GetPixel(xl, y);
+
+                        newBitmapTemp.SetPixel(xl, y, pixel);
+                        newBitmapTemp.SetPixel(xr, y, pixel);
+                    }
+                    catch (Exception) { }
+                }
+            }
+            newBitmap = newBitmapTemp;
+            pictureBox.Image = newBitmap;
+        }
+
+        void mirror_stich_left()    // funkcja sklejająca
+        {
+            int width = pictureBox.Image.Width;
+            int height = pictureBox.Image.Height;
+
+            Bitmap newBitmapTemp = new Bitmap(2 * width, height);
+
+            for (int y = 1; y < newBitmap.Height; y++)
+            {
+                for (int xl = 1, xr = 2 * newBitmap.Width; xl < newBitmap.Width; xl++, xr--)
+                {
+                    try
+                    {
+                        Color pixel = newBitmap.GetPixel(xl, y);
+
+                        newBitmapTemp.SetPixel(xl + width, y, pixel);
+                        newBitmapTemp.SetPixel(xr - width, y, pixel);
+                    }
+                    catch (Exception) { }
+                }
+            }
+            newBitmap = newBitmapTemp;
+            pictureBox.Image = newBitmap;
+        }
+
+        void mirror_stich_bottom()    // funkcja sklejająca
+        {
+            int width = pictureBox.Image.Width;
+            int height = pictureBox.Image.Height;
+
+            Bitmap newBitmapTemp = new Bitmap(width, 2 * height);
+
+            for (int x = 1; x < newBitmap.Height; x++)
+            {
+                for (int yl = 1, yr = 2 * newBitmap.Height; yl < newBitmap.Height; yl++, yr--)
+                {
+                    try
+                    {
+                        Color pixel = newBitmap.GetPixel(x, yl);
+
+                        newBitmapTemp.SetPixel(x, yl, pixel);
+                        newBitmapTemp.SetPixel(x, yr, pixel);
+                    }
+                    catch (Exception) { }
+                }
+            }
+            newBitmap = newBitmapTemp;
+            pictureBox.Image = newBitmap;
+        }
+
+        void mirror_stich_top()    // funkcja sklejająca
+        {
+            int width = pictureBox.Image.Width;
+            int height = pictureBox.Image.Height;
+
+            Bitmap newBitmapTemp = new Bitmap(width, 2 * height);
+
+            for (int x = 1; x < newBitmap.Height; x++)
+            {
+                for (int yl = 1, yr = 2 * newBitmap.Height; yl < newBitmap.Height; yl++, yr--)
+                {
+                    try
+                    {
+                        Color pixel = newBitmap.GetPixel(x, yl);
+
+                        newBitmapTemp.SetPixel(x, yl + height, pixel);
+                        newBitmapTemp.SetPixel(x, yr - height, pixel);
+                    }
+                    catch (Exception) { }
+                }
+            }
+            newBitmap = newBitmapTemp;
+            pictureBox.Image = newBitmap;
+        }
+
         void bilinear_x2()   // funkcja zmieniająca rozmiar obrazu w sposób biliniowy tj za pomocą wyliczania średniej/stosunku odleglości
         {
             if (!opened)
@@ -597,155 +843,6 @@ namespace Podstawowy_foto_edytor
                 newBitmap = newBitmapSize2;
                 pictureBox.Image = newBitmap;
             }
-        }
-
-        void add_RGB_ver()  //funkcja skejająca 4 takie same obrazy w formacie rgb
-        {
-            int width = pictureBox.Image.Width;
-            int height = pictureBox.Image.Height;
-
-            Bitmap newBitmapSize2 = new Bitmap(2 * width, 2 * height);
-
-            for (int x = 1; x < newBitmapSize2.Width; x++)
-            {
-                for (int y = 1; y < newBitmapSize2.Height; y++)
-                {
-                    try
-                    {
-                        if (((x > 0) && (x <= width)) && ((y > 0) && (y < height)))
-                        {
-                            Color pixel = newBitmap.GetPixel(x, y);
-                            int R = (int)pixel.R;
-                            int G = (int)pixel.G;
-                            int B = (int)pixel.B;
-                            newBitmapSize2.SetPixel(x, y, Color.FromArgb(R, G, B));
-                        }
-                        else if (((x > width) && (x <= (2 * width))) && ((y > 0) && (y <= height)))
-                        {
-                            Color pixel = newBitmap.GetPixel((x - width), y);
-                            int R = (int)pixel.R;
-                            int G = (int)pixel.G;
-                            int B = (int)pixel.B;
-                            newBitmapSize2.SetPixel(x, y, Color.FromArgb(R, 0, 0));
-                        }
-                        else if (((x > 0) && (x <= width)) && ((y > height) && (y <= (2 * height))))
-                        {
-                            Color pixel = newBitmap.GetPixel(x, (y - height));
-                            int R = (int)pixel.R;
-                            int G = (int)pixel.G;
-                            int B = (int)pixel.B;
-                            newBitmapSize2.SetPixel(x, y, Color.FromArgb(0, G, 0));
-                        }
-                        else if (((x > width) && (x <= (2 * width))) && ((y > height) && (y <= (2 * height))))
-                        {
-                            Color pixel = newBitmap.GetPixel((x - width), (y - height));
-                            int R = (int)pixel.R;
-                            int G = (int)pixel.G;
-                            int B = (int)pixel.B;
-                            newBitmapSize2.SetPixel(x, y, Color.FromArgb(0, 0, B));
-                        }
-                    }
-                    catch (Exception) { }
-                }
-            }
-            newBitmap = newBitmapSize2;
-            pictureBox.Image = newBitmap;
-        }
-
-        void add_RGB_ver_extended()  //funkcja skejająca 4 takie same obrazy w formacie rgb
-        {
-            int width = pictureBox.Image.Width;
-            int height = pictureBox.Image.Height;
-
-            Bitmap newBitmapSize2 = new Bitmap(3 * width, 3 * height);
-
-            for (int x = 1; x < newBitmapSize2.Width; x++)
-            {
-                for (int y = 1; y < newBitmapSize2.Height; y++)
-                {
-                    try
-                    {
-                        if (((x > 0) && (x <= width)) && ((y > 0) && (y < height))) //1,1
-                        {
-                            Color pixel = newBitmap.GetPixel(x, y);
-                            int R = (int)pixel.R;
-                            int G = (int)pixel.G;
-                            int B = (int)pixel.B;
-                            newBitmapSize2.SetPixel(x, y, Color.FromArgb(R, G, 0)); 
-                        }
-                        else if (((x > width) && (x <= (2 * width))) && ((y > 0) && (y <= height)))   //1,2
-                        {
-                            Color pixel = newBitmap.GetPixel((x - width), y);
-                            int R = (int)pixel.R;
-                            int G = (int)pixel.G;
-                            int B = (int)pixel.B;
-                            newBitmapSize2.SetPixel(x, y, Color.FromArgb(0, G, 0));  
-                        }
-                        else if (((x > 0) && (x <= width)) && ((y > height) && (y <= (2 * height))))   //2,1
-                        {
-                            Color pixel = newBitmap.GetPixel(x, (y - height));
-                            int R = (int)pixel.R;
-                            int G = (int)pixel.G;
-                            int B = (int)pixel.B;
-                            newBitmapSize2.SetPixel(x, y, Color.FromArgb(R, 0, 0));  
-                        }
-                        else if (((x > width) && (x <= (2 * width))) && ((y > height) && (y <= (2 * height))))   //2,2
-                        {
-                            Color pixel = newBitmap.GetPixel((x - width), (y - height));
-                            int R = (int)pixel.R;
-                            int G = (int)pixel.G;
-                            int B = (int)pixel.B;
-                            newBitmapSize2.SetPixel(x, y, Color.FromArgb(R, G, B));  
-                        }
-                        else if (((x > 0) && (x <= width)) && ((y > 2 * height) && (y <= 3 * height)))  //1,3
-                        {
-                            Color pixel = newBitmap.GetPixel(x, (y - (2 * height)));
-                            int R = (int)pixel.R;
-                            int G = (int)pixel.G;
-                            int B = (int)pixel.B;
-                            int gray = (int)((0.299f * R) + (0.587f * G) + (.114f * B));
-                            newBitmapSize2.SetPixel(x, y, Color.FromArgb(gray, gray, gray));
-                            //grayscale();
-                        }
-                        else if (((x > width) && (x <= (2 * width))) && ((y > 2 * height) && (y <= (3 * height))))   //2,3
-                        {
-                            Color pixel = newBitmap.GetPixel((x - width), (y - (2 * height)));
-                            int R = (int)pixel.R;
-                            int G = (int)pixel.G;
-                            int B = (int)pixel.B;
-                            newBitmapSize2.SetPixel(x, y, Color.FromArgb(R, 0, B));   
-                        }
-                        else if (((x > 2 * width) && (x <= (3 * width))) && ((y > 0) && (y <= height)))  //3,1
-                        {
-                            Color pixel = newBitmap.GetPixel((x - (2 * width)), y);
-                            int R = (int)pixel.R;
-                            int G = (int)pixel.G;
-                            int B = (int)pixel.B;
-                            newBitmapSize2.SetPixel(x, y, Color.FromArgb(0, G, B)); 
-                            
-                        }
-                        else if (((x > 2 * width) && (x <= (3 * width))) && ((y > height) && (y <= (2 * height))))   //3,2
-                        {
-                            Color pixel = newBitmap.GetPixel((x - (2 * width)), (y - height));
-                            int R = (int)pixel.R;
-                            int G = (int)pixel.G;
-                            int B = (int)pixel.B;
-                            newBitmapSize2.SetPixel(x, y, Color.FromArgb(0, 0, B));
-                        }
-                        else if (((x > 2 * width) && (x <= (3 * width))) && ((y > 2 * height) && (y <= (3 * height))))    //3,3
-                        {
-                            Color pixel = newBitmap.GetPixel((x - (2 * width)), (y - (2 * height)));
-                            int R = (int)pixel.R;
-                            int G = (int)pixel.G;
-                            int B = (int)pixel.B;
-                            newBitmapSize2.SetPixel(x, y, Color.FromArgb(255 - R, 255 - G, 255 - B));
-                        }
-                    }
-                    catch (Exception) { }
-                }
-            }
-            newBitmap = newBitmapSize2;
-            pictureBox.Image = newBitmap;
         }
 
         void bilinear_x3()   // funkcja zmieniająca rozmiar obrazu w sposób biliniowy tj za pomocą wyliczania średniej/stosunku odleglości
@@ -1159,6 +1256,26 @@ namespace Podstawowy_foto_edytor
         private void addRGBV2ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             add_RGB_ver_extended();
+        }
+
+        private void rightSideToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            mirror_stich_right();
+        }
+
+        private void leftSideToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            mirror_stich_left();
+        }
+
+        private void topSideToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            mirror_stich_top();
+        }
+
+        private void bottomSideToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            mirror_stich_bottom();
         }
     }
 }
