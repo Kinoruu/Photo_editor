@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Drawing.Printing;
 
 namespace Podstawowy_foto_edytor
 {
@@ -32,10 +33,12 @@ namespace Podstawowy_foto_edytor
             if (dr == DialogResult.OK)
             {
                 file = Image.FromFile(openFileDialog1.FileName);
+                //original = Image.FromFile(openFileDialog1.FileName);
                 newBitmap = new Bitmap(openFileDialog1.FileName);
                 newBitmapTemp = new Bitmap(openFileDialog1.FileName);
                 newBitmapSize2 = new Bitmap(openFileDialog1.FileName);
                 pictureBox.Image = file;
+                pictureBox1.Image = file;
                 opened = true;
             }
         }
@@ -80,6 +83,37 @@ namespace Podstawowy_foto_edytor
                 histogramWin.Hide();
             }
         }*/
+
+        private void pictureBox_MouseMove(object sender, MouseEventArgs e)
+        {
+            /*
+            if (!opened)
+            {
+               // MessageBox.Show("Open an Image then apply changes");
+            }
+            else
+            {
+                
+                int w = newBitmap.Width;
+                int h = newBitmap.Height;
+                if ((e.Location.X >= 0) && (e.X <= w) && (e.Y >= 0) && (e.Y <= h))
+                {
+                    Color pixel = newBitmap.GetPixel(e.X, e.Y);
+                    int R = (int)pixel.R;
+                    int G = (int)pixel.G;
+                    int B = (int)pixel.B;
+
+                    resolution.Text = " | " + w + " x " + h + " | ";
+                    position.Text = " | x " + e.X.ToString() + " , y " + e.Y.ToString() + " | ";
+                    rgbpoints.Text = " | R " + R + " , G " + G + " , B " + G + " | ";
+                }
+                else
+                {
+                    position.Text = " ";
+                    rgbpoints.Text = "  ";
+                }
+            }*/
+        }
 
         void hue()    //funkcja zmieniająca wartości RGB obrazu
         {
@@ -817,6 +851,96 @@ namespace Podstawowy_foto_edytor
             pictureBox.Image = newBitmap;
         }
 
+        void comp_rgb()    // funkcja pokazująca składowe rgb
+        {
+            int width = pictureBox.Image.Width;
+            int height = pictureBox.Image.Height;
+
+            Bitmap newBitmapTemp = new Bitmap(3 * width, height);
+
+            for (int y = 1; y < newBitmap.Height; y++)
+            {
+                for (int x = 1; x < 3 * newBitmap.Width; x++)
+                {
+                    try
+                    {
+                        if ((x > 0) && (x <= width))
+                        {
+                            Color pixel = newBitmap.GetPixel(x, y);
+                            int R = (int)pixel.R;
+                            newBitmapTemp.SetPixel(x, y, Color.FromArgb(R, 0, 0));
+                        }
+                        else if((x > width) && (x <= 2 * width))
+                        {
+                            Color pixel = newBitmap.GetPixel(x - width, y);
+                            int G = (int)pixel.G;
+                            newBitmapTemp.SetPixel(x, y, Color.FromArgb(0, G, 0));
+                        }
+                        else if((x > 2 * width) && (x <= 3 * width))
+                        {
+                            Color pixel = newBitmap.GetPixel(x - (2 * width), y);
+                            int B = (int)pixel.B;
+                            newBitmapTemp.SetPixel(x, y, Color.FromArgb(0, 0, B));
+                        }
+                    }
+                    catch (Exception) { }
+                }
+            }
+            newBitmap = newBitmapTemp;
+            pictureBox.Image = newBitmap;
+        }
+
+        void comp_ycbcr()    // funkcja pokazująca składowe YCbCr
+        {
+            int width = pictureBox.Image.Width;
+            int height = pictureBox.Image.Height;
+
+            Bitmap newBitmapTemp = new Bitmap(3 * width, height);
+
+            for (int y = 1; y < newBitmap.Height; y++)
+            {
+                for (int x = 1; x < 3 * newBitmap.Width; x++)
+                {
+                    try
+                    {
+                        
+                        
+                        //int Y = (int)((0.299 * R) + (0.587 * G) + (0.114 * B));
+
+                        if ((x > 0) && (x <= width))
+                        {
+                            Color pixel = newBitmap.GetPixel(x, y);
+                            int R = (int)pixel.R;
+                            int G = (int)pixel.G;
+                            int B = (int)pixel.B;
+                            newBitmapTemp.SetPixel(x, y, Color.FromArgb((int)(0.299 * R) , (int)(0.587 * G) , (int)(0.114 * B)));
+                        }
+                        else if ((x > width) && (x <= 2 * width))
+                        {
+                            Color pixel = newBitmap.GetPixel(x - width, y);
+                            int R = (int)pixel.R;
+                            int G = (int)pixel.G;
+                            int B = (int)pixel.B;
+                            int cb = (int)(128 - (0.168736 * R) - (0.331264 * G) + (0.5 * B));
+                            newBitmapTemp.SetPixel(x, y, Color.FromArgb((int)(128 - (0.168736 * R)), (int)(128 - (0.331264 * G)), (int)(128 + (0.5 * B))));
+                        }
+                        else if ((x > 2 * width) && (x <= 3 * width))
+                        {
+                            Color pixel = newBitmap.GetPixel(x - (2 * width), y);
+                            int R = (int)pixel.R;
+                            int G = (int)pixel.G;
+                            int B = (int)pixel.B;
+                            int cr = (int)(128 + (0.5 * R) - (0.418688 * G) - (0.81312 * B));
+                            newBitmapTemp.SetPixel(x, y, Color.FromArgb((int)( (0.5 * R)), (int)( (0.418688 * G)), (int)((0.81312 * B))));
+                        }
+                    }
+                    catch (Exception) { }
+                }
+            }
+            newBitmap = newBitmapTemp;
+            pictureBox.Image = newBitmap;
+        }
+
         void bilinear_x2()   // funkcja zmieniająca rozmiar obrazu w sposób biliniowy tj za pomocą wyliczania średniej/stosunku odleglości
         {
             if (!opened)
@@ -1157,6 +1281,8 @@ namespace Podstawowy_foto_edytor
         Bitmap newBitmapTemp;
         Bitmap newBitmapSize2;        // 2x większe niż newBitmap w obu kierunkach
         Image file;              // implemerntacja zmiennych wykorzystywanych w funkcjach
+        //Image original;          // iplementacja 
+        //Image file_2;
         int lastCol = 0;         //
         Boolean opened = false;  //
 
@@ -1334,6 +1460,16 @@ namespace Podstawowy_foto_edytor
         private void rightToolStripMenuItem_Click(object sender, EventArgs e)
         {
             rotate_right();
+        }
+
+        private void rGBToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            comp_rgb();
+        }
+
+        private void yCbCrToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            comp_ycbcr();
         }
     }
 }
