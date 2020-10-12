@@ -69,12 +69,10 @@
             this.drawingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.colorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statisticsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.histogramToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.resizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.nearestNeighbourToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.x2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.x3ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.biLinearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.x2ToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -98,35 +96,36 @@
             this.rGBToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.yCbCrToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
-            this.label1 = new System.Windows.Forms.Label();
-            this.trackBar1 = new System.Windows.Forms.TrackBar();
-            this.label2 = new System.Windows.Forms.Label();
+            this.Gamma_Name_label = new System.Windows.Forms.Label();
+            this.Gamma_Bar = new System.Windows.Forms.TrackBar();
+            this.Gamma_Value_label = new System.Windows.Forms.Label();
             this.pictureBox = new System.Windows.Forms.PictureBox();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.resolution = new System.Windows.Forms.ToolStripStatusLabel();
             this.position = new System.Windows.Forms.ToolStripStatusLabel();
             this.rgbpoints = new System.Windows.Forms.ToolStripStatusLabel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.RGB = new System.Windows.Forms.GroupBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.RGB_groupbox = new System.Windows.Forms.GroupBox();
+            this.Hue_groupbox = new System.Windows.Forms.GroupBox();
+            this.aboutToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.Red_Bar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Green_Bar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Blue_Bar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Contrast_Bar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Brightness_Bar)).BeginInit();
             this.menuStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Gamma_Bar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            this.RGB.SuspendLayout();
-            this.groupBox1.SuspendLayout();
+            this.RGB_groupbox.SuspendLayout();
+            this.Hue_groupbox.SuspendLayout();
             this.SuspendLayout();
             // 
             // None_button
             // 
             this.None_button.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.None_button.Location = new System.Drawing.Point(1007, 577);
+            this.None_button.Location = new System.Drawing.Point(1021, 579);
             this.None_button.Name = "None_button";
             this.None_button.Size = new System.Drawing.Size(69, 73);
             this.None_button.TabIndex = 1;
@@ -141,7 +140,7 @@
             this.Red_Bar.Location = new System.Drawing.Point(35, 12);
             this.Red_Bar.Maximum = 100;
             this.Red_Bar.Name = "Red_Bar";
-            this.Red_Bar.Size = new System.Drawing.Size(741, 45);
+            this.Red_Bar.Size = new System.Drawing.Size(757, 45);
             this.Red_Bar.TabIndex = 11;
             this.Red_Bar.ValueChanged += new System.EventHandler(this.trackBar1_ValueChanged);
             // 
@@ -152,7 +151,7 @@
             this.Green_Bar.Location = new System.Drawing.Point(35, 63);
             this.Green_Bar.Maximum = 100;
             this.Green_Bar.Name = "Green_Bar";
-            this.Green_Bar.Size = new System.Drawing.Size(741, 45);
+            this.Green_Bar.Size = new System.Drawing.Size(757, 45);
             this.Green_Bar.TabIndex = 12;
             this.Green_Bar.ValueChanged += new System.EventHandler(this.trackBar2_ValueChanged);
             // 
@@ -163,7 +162,7 @@
             this.Blue_Bar.Location = new System.Drawing.Point(35, 114);
             this.Blue_Bar.Maximum = 100;
             this.Blue_Bar.Name = "Blue_Bar";
-            this.Blue_Bar.Size = new System.Drawing.Size(741, 45);
+            this.Blue_Bar.Size = new System.Drawing.Size(757, 45);
             this.Blue_Bar.TabIndex = 13;
             this.Blue_Bar.ValueChanged += new System.EventHandler(this.trackBar3_ValueChanged);
             // 
@@ -216,10 +215,12 @@
             | System.Windows.Forms.AnchorStyles.Left)));
             this.Brightness_Bar.Location = new System.Drawing.Point(16, 33);
             this.Brightness_Bar.Maximum = 100;
+            this.Brightness_Bar.Minimum = 1;
             this.Brightness_Bar.Name = "Brightness_Bar";
             this.Brightness_Bar.Orientation = System.Windows.Forms.Orientation.Vertical;
             this.Brightness_Bar.Size = new System.Drawing.Size(45, 433);
             this.Brightness_Bar.TabIndex = 20;
+            this.Brightness_Bar.Value = 1;
             this.Brightness_Bar.ValueChanged += new System.EventHandler(this.trackBar6_ValueChanged);
             // 
             // Brightness_Name_label
@@ -248,7 +249,7 @@
             // 
             this.Red_Value_label.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.Red_Value_label.AutoSize = true;
-            this.Red_Value_label.Location = new System.Drawing.Point(782, 10);
+            this.Red_Value_label.Location = new System.Drawing.Point(798, 10);
             this.Red_Value_label.Name = "Red_Value_label";
             this.Red_Value_label.Size = new System.Drawing.Size(13, 13);
             this.Red_Value_label.TabIndex = 24;
@@ -258,7 +259,7 @@
             // 
             this.Green_Value_label.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.Green_Value_label.AutoSize = true;
-            this.Green_Value_label.Location = new System.Drawing.Point(782, 63);
+            this.Green_Value_label.Location = new System.Drawing.Point(798, 63);
             this.Green_Value_label.Name = "Green_Value_label";
             this.Green_Value_label.Size = new System.Drawing.Size(13, 13);
             this.Green_Value_label.TabIndex = 25;
@@ -268,7 +269,7 @@
             // 
             this.Blue_Value_label.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.Blue_Value_label.AutoSize = true;
-            this.Blue_Value_label.Location = new System.Drawing.Point(782, 114);
+            this.Blue_Value_label.Location = new System.Drawing.Point(798, 114);
             this.Blue_Value_label.Name = "Blue_Value_label";
             this.Blue_Value_label.Size = new System.Drawing.Size(13, 13);
             this.Blue_Value_label.TabIndex = 26;
@@ -282,7 +283,7 @@
             this.Brightness_Value_label.Name = "Brightness_Value_label";
             this.Brightness_Value_label.Size = new System.Drawing.Size(13, 13);
             this.Brightness_Value_label.TabIndex = 27;
-            this.Brightness_Value_label.Text = "0";
+            this.Brightness_Value_label.Text = "1";
             // 
             // Contrast_Value_label
             // 
@@ -290,9 +291,9 @@
             this.Contrast_Value_label.AutoSize = true;
             this.Contrast_Value_label.Location = new System.Drawing.Point(64, 469);
             this.Contrast_Value_label.Name = "Contrast_Value_label";
-            this.Contrast_Value_label.Size = new System.Drawing.Size(13, 13);
+            this.Contrast_Value_label.Size = new System.Drawing.Size(19, 13);
             this.Contrast_Value_label.TabIndex = 28;
-            this.Contrast_Value_label.Text = "0";
+            this.Contrast_Value_label.Text = "25";
             // 
             // Copyrights_label
             // 
@@ -311,12 +312,13 @@
             this.filtersToolStripMenuItem,
             this.mirrorsInvertsToolStripMenuItem,
             this.drawingToolStripMenuItem,
-            this.helpToolStripMenuItem,
             this.statisticsToolStripMenuItem,
             this.resizeToolStripMenuItem,
             this.stichOneImageToolStripMenuItem,
             this.rotateToolStripMenuItem,
-            this.componentsToolStripMenuItem});
+            this.componentsToolStripMenuItem,
+            this.aboutToolStripMenuItem1,
+            this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1102, 24);
@@ -480,17 +482,10 @@
             // 
             // helpToolStripMenuItem
             // 
-            this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.aboutToolStripMenuItem});
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.helpToolStripMenuItem.Text = "Help";
-            // 
-            // aboutToolStripMenuItem
-            // 
-            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
-            this.aboutToolStripMenuItem.Text = "About";
+            this.helpToolStripMenuItem.Click += new System.EventHandler(this.helpToolStripMenuItem_Click);
             // 
             // statisticsToolStripMenuItem
             // 
@@ -520,17 +515,10 @@
             // nearestNeighbourToolStripMenuItem
             // 
             this.nearestNeighbourToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.x2ToolStripMenuItem,
             this.x3ToolStripMenuItem});
             this.nearestNeighbourToolStripMenuItem.Name = "nearestNeighbourToolStripMenuItem";
-            this.nearestNeighbourToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
+            this.nearestNeighbourToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.nearestNeighbourToolStripMenuItem.Text = "Nearest neighbour";
-            // 
-            // x2ToolStripMenuItem
-            // 
-            this.x2ToolStripMenuItem.Name = "x2ToolStripMenuItem";
-            this.x2ToolStripMenuItem.Size = new System.Drawing.Size(86, 22);
-            this.x2ToolStripMenuItem.Text = "x2";
             // 
             // x3ToolStripMenuItem
             // 
@@ -545,7 +533,7 @@
             this.x2ToolStripMenuItem1,
             this.x3ToolStripMenuItem1});
             this.biLinearToolStripMenuItem.Name = "biLinearToolStripMenuItem";
-            this.biLinearToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
+            this.biLinearToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.biLinearToolStripMenuItem.Text = "BiLinear";
             // 
             // x2ToolStripMenuItem1
@@ -558,8 +546,9 @@
             // x3ToolStripMenuItem1
             // 
             this.x3ToolStripMenuItem1.Name = "x3ToolStripMenuItem1";
-            this.x3ToolStripMenuItem1.Size = new System.Drawing.Size(86, 22);
+            this.x3ToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.x3ToolStripMenuItem1.Text = "x3";
+            this.x3ToolStripMenuItem1.Click += new System.EventHandler(this.x3ToolStripMenuItem1_Click_1);
             // 
             // biCubicToolStripMenuItem
             // 
@@ -696,35 +685,38 @@
             this.yCbCrToolStripMenuItem.Text = "YCbCr";
             this.yCbCrToolStripMenuItem.Click += new System.EventHandler(this.yCbCrToolStripMenuItem_Click);
             // 
-            // label1
+            // Gamma_Name_label
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(117, 17);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(46, 13);
-            this.label1.TabIndex = 35;
-            this.label1.Text = "Contrast";
+            this.Gamma_Name_label.AutoSize = true;
+            this.Gamma_Name_label.Location = new System.Drawing.Point(117, 17);
+            this.Gamma_Name_label.Name = "Gamma_Name_label";
+            this.Gamma_Name_label.Size = new System.Drawing.Size(43, 13);
+            this.Gamma_Name_label.TabIndex = 35;
+            this.Gamma_Name_label.Text = "Gamma";
             // 
-            // trackBar1
+            // Gamma_Bar
             // 
-            this.trackBar1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.Gamma_Bar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.trackBar1.Location = new System.Drawing.Point(118, 33);
-            this.trackBar1.Maximum = 100;
-            this.trackBar1.Name = "trackBar1";
-            this.trackBar1.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trackBar1.Size = new System.Drawing.Size(45, 433);
-            this.trackBar1.TabIndex = 36;
+            this.Gamma_Bar.Location = new System.Drawing.Point(118, 33);
+            this.Gamma_Bar.Maximum = 100;
+            this.Gamma_Bar.Minimum = 1;
+            this.Gamma_Bar.Name = "Gamma_Bar";
+            this.Gamma_Bar.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.Gamma_Bar.Size = new System.Drawing.Size(45, 433);
+            this.Gamma_Bar.TabIndex = 36;
+            this.Gamma_Bar.Value = 25;
+            this.Gamma_Bar.Scroll += new System.EventHandler(this.Gamma_Bar_Scroll);
             // 
-            // label2
+            // Gamma_Value_label
             // 
-            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(117, 469);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(13, 13);
-            this.label2.TabIndex = 37;
-            this.label2.Text = "0";
+            this.Gamma_Value_label.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.Gamma_Value_label.AutoSize = true;
+            this.Gamma_Value_label.Location = new System.Drawing.Point(117, 469);
+            this.Gamma_Value_label.Name = "Gamma_Value_label";
+            this.Gamma_Value_label.Size = new System.Drawing.Size(19, 13);
+            this.Gamma_Value_label.TabIndex = 37;
+            this.Gamma_Value_label.Text = "25";
             // 
             // pictureBox
             // 
@@ -733,9 +725,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox.BackColor = System.Drawing.SystemColors.Window;
             this.pictureBox.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.pictureBox.Location = new System.Drawing.Point(184, 27);
+            this.pictureBox.Location = new System.Drawing.Point(187, 33);
             this.pictureBox.Name = "pictureBox";
-            this.pictureBox.Size = new System.Drawing.Size(892, 505);
+            this.pictureBox.Size = new System.Drawing.Size(903, 505);
             this.pictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox.TabIndex = 0;
             this.pictureBox.TabStop = false;
@@ -774,62 +766,70 @@
             this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.pictureBox1.BackColor = System.Drawing.SystemColors.Window;
             this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.pictureBox1.Location = new System.Drawing.Point(5, 577);
+            this.pictureBox1.Location = new System.Drawing.Point(12, 544);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(156, 142);
+            this.pictureBox1.Size = new System.Drawing.Size(169, 151);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 39;
             this.pictureBox1.TabStop = false;
             // 
-            // RGB
+            // RGB_groupbox
             // 
-            this.RGB.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.RGB_groupbox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.RGB.BackColor = System.Drawing.SystemColors.ScrollBar;
-            this.RGB.Controls.Add(this.Blue_Value_label);
-            this.RGB.Controls.Add(this.Green_Value_label);
-            this.RGB.Controls.Add(this.Red_Value_label);
-            this.RGB.Controls.Add(this.Blue_Name_label);
-            this.RGB.Controls.Add(this.Green_Name_label);
-            this.RGB.Controls.Add(this.Red_Name_label);
-            this.RGB.Controls.Add(this.Blue_Bar);
-            this.RGB.Controls.Add(this.Green_Bar);
-            this.RGB.Controls.Add(this.Red_Bar);
-            this.RGB.Location = new System.Drawing.Point(178, 544);
-            this.RGB.Name = "RGB";
-            this.RGB.Size = new System.Drawing.Size(812, 149);
-            this.RGB.TabIndex = 40;
-            this.RGB.TabStop = false;
-            this.RGB.Text = "RGB";
+            this.RGB_groupbox.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.RGB_groupbox.Controls.Add(this.Blue_Value_label);
+            this.RGB_groupbox.Controls.Add(this.Green_Value_label);
+            this.RGB_groupbox.Controls.Add(this.Red_Value_label);
+            this.RGB_groupbox.Controls.Add(this.Blue_Name_label);
+            this.RGB_groupbox.Controls.Add(this.Green_Name_label);
+            this.RGB_groupbox.Controls.Add(this.Red_Name_label);
+            this.RGB_groupbox.Controls.Add(this.Blue_Bar);
+            this.RGB_groupbox.Controls.Add(this.Green_Bar);
+            this.RGB_groupbox.Controls.Add(this.Red_Bar);
+            this.RGB_groupbox.Location = new System.Drawing.Point(187, 544);
+            this.RGB_groupbox.Name = "RGB_groupbox";
+            this.RGB_groupbox.Size = new System.Drawing.Size(828, 149);
+            this.RGB_groupbox.TabIndex = 40;
+            this.RGB_groupbox.TabStop = false;
+            this.RGB_groupbox.Text = "RGB";
             // 
-            // groupBox1
+            // Hue_groupbox
             // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.Hue_groupbox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.groupBox1.BackColor = System.Drawing.SystemColors.ScrollBar;
-            this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.trackBar1);
-            this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.Contrast_Value_label);
-            this.groupBox1.Controls.Add(this.Brightness_Value_label);
-            this.groupBox1.Controls.Add(this.Contrast_Name_label);
-            this.groupBox1.Controls.Add(this.Brightness_Name_label);
-            this.groupBox1.Controls.Add(this.Brightness_Bar);
-            this.groupBox1.Controls.Add(this.Contrast_Bar);
-            this.groupBox1.Location = new System.Drawing.Point(5, 33);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(169, 499);
-            this.groupBox1.TabIndex = 41;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "HUE";
+            this.Hue_groupbox.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.Hue_groupbox.Controls.Add(this.Gamma_Value_label);
+            this.Hue_groupbox.Controls.Add(this.Gamma_Bar);
+            this.Hue_groupbox.Controls.Add(this.Gamma_Name_label);
+            this.Hue_groupbox.Controls.Add(this.Contrast_Value_label);
+            this.Hue_groupbox.Controls.Add(this.Brightness_Value_label);
+            this.Hue_groupbox.Controls.Add(this.Contrast_Name_label);
+            this.Hue_groupbox.Controls.Add(this.Brightness_Name_label);
+            this.Hue_groupbox.Controls.Add(this.Brightness_Bar);
+            this.Hue_groupbox.Controls.Add(this.Contrast_Bar);
+            this.Hue_groupbox.Location = new System.Drawing.Point(12, 33);
+            this.Hue_groupbox.Name = "Hue_groupbox";
+            this.Hue_groupbox.Size = new System.Drawing.Size(169, 499);
+            this.Hue_groupbox.TabIndex = 41;
+            this.Hue_groupbox.TabStop = false;
+            this.Hue_groupbox.Text = "HUE";
+            // 
+            // aboutToolStripMenuItem1
+            // 
+            this.aboutToolStripMenuItem1.Name = "aboutToolStripMenuItem1";
+            this.aboutToolStripMenuItem1.Size = new System.Drawing.Size(52, 20);
+            this.aboutToolStripMenuItem1.Text = "About";
+            this.aboutToolStripMenuItem1.Click += new System.EventHandler(this.aboutToolStripMenuItem1_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.ClientSize = new System.Drawing.Size(1102, 746);
-            this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.RGB);
+            this.Controls.Add(this.Hue_groupbox);
+            this.Controls.Add(this.RGB_groupbox);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.Copyrights_label);
@@ -847,15 +847,15 @@
             ((System.ComponentModel.ISupportInitialize)(this.Brightness_Bar)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Gamma_Bar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            this.RGB.ResumeLayout(false);
-            this.RGB.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
+            this.RGB_groupbox.ResumeLayout(false);
+            this.RGB_groupbox.PerformLayout();
+            this.Hue_groupbox.ResumeLayout(false);
+            this.Hue_groupbox.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -888,7 +888,6 @@
         private System.Windows.Forms.ToolStripMenuItem filtersToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem drawingToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem grayscaleToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem sepiaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem blurToolStripMenuItem;
@@ -909,14 +908,13 @@
         private System.Windows.Forms.ToolStripMenuItem nearestNeighbourToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem biLinearToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem biCubicToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem x2ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem x3ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem x2ToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem x3ToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem addRGBVersionToolStripMenuItem;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TrackBar trackBar1;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label Gamma_Name_label;
+        private System.Windows.Forms.TrackBar Gamma_Bar;
+        private System.Windows.Forms.Label Gamma_Value_label;
         private System.Windows.Forms.ToolStripMenuItem addRGBV2ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem stichOneImageToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem stichOneImageToolStripMenuItem1;
@@ -941,7 +939,8 @@
         private System.Windows.Forms.ToolStripMenuItem rGBToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem yCbCrToolStripMenuItem;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.GroupBox RGB;
-        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox RGB_groupbox;
+        private System.Windows.Forms.GroupBox Hue_groupbox;
+        private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem1;
     }
 }

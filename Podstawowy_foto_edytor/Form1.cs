@@ -21,6 +21,7 @@ namespace Podstawowy_foto_edytor
         {
             InitializeComponent();
 
+            MessageBox.Show("Please read About and Help to now how this program works" + "\n" + "or what can stil not work well." + "\n" + "\n" + "Enjoy!!!");
             //histogramWin.DockStateChanged += new EventHandler(histogram_DockStateChanged);
 
             //histogramWin.VisibleChanged += new EventHandler(histogram_VisibleChanged);
@@ -40,6 +41,11 @@ namespace Podstawowy_foto_edytor
                 pictureBox.Image = file;
                 pictureBox1.Image = file;
                 opened = true;
+                Contrast_Bar.Value = 25;
+                Brightness_Bar.Value = 1;
+                Gamma_Bar.Value = 25;
+                Gamma_Value_label.Text = Gamma_Bar.Value.ToString();
+                Contrast_Value_label.Text = Contrast_Bar.Value.ToString();
             }
         }
 
@@ -137,9 +143,9 @@ namespace Podstawowy_foto_edytor
                 ImageAttributes ia = new ImageAttributes();
                 ColorMatrix cmPicture = new ColorMatrix(new float[][]
                 {
-                    new float[]{1+changered, 0, 0, 0, 0},
-                    new float[]{0, 1+changegreen, 0, 0, 0},
-                    new float[]{0, 0, 1+changeblue, 0, 0},
+                    new float[]{1 + changered, 0, 0, 0, 0},
+                    new float[]{0, 1 + changegreen, 0, 0, 0},
+                    new float[]{0, 0, 1 + changeblue, 0, 0},
                     new float[]{0, 0, 0, 1, 0},
                     new float[]{0, 0, 0, 0, 1}
                 }
@@ -161,7 +167,7 @@ namespace Podstawowy_foto_edytor
 
             Brightness_Value_label.Text = val.ToString();
 
-            //reload();
+            reload();
             if (!opened)
             {
             }
@@ -185,6 +191,7 @@ namespace Podstawowy_foto_edytor
 
                 g.DrawImage(img, new Rectangle(0, 0, img.Width, img.Height), 0, 0, img.Width, img.Height, GraphicsUnit.Pixel, ia);
                 g.Dispose();
+                ia.Dispose();
                 pictureBox.Image = bmpInverted;
 
 
@@ -199,7 +206,7 @@ namespace Podstawowy_foto_edytor
 
             Contrast_Value_label.Text = val.ToString();
 
-            //reload();
+            reload();
             if (!opened)
             {
             }
@@ -223,9 +230,39 @@ namespace Podstawowy_foto_edytor
 
                 g.DrawImage(img, new Rectangle(0, 0, img.Width, img.Height), 0, 0, img.Width, img.Height, GraphicsUnit.Pixel, ia);
                 g.Dispose();
+                ia.Dispose();
                 pictureBox.Image = bmpInverted;
 
 
+            }
+        }
+
+        void gamma()  //funkcja zmieniająca kontrast obrazu
+        {
+            //reload();
+            if (!opened)
+            {
+            }
+            else
+            {
+                Gamma_Value_label.Text = Gamma_Bar.Value.ToString();
+
+                float changegamma = Gamma_Bar.Value * 0.04f;
+
+                //Gamma_Value_label.Text = Contrast_Bar.Value.ToString();
+
+                Image img = pictureBox.Image;
+                Bitmap bmpInverted = new Bitmap(newBitmap.Width, newBitmap.Height);
+
+                Graphics g = Graphics.FromImage(bmpInverted);
+                ImageAttributes ia = new ImageAttributes();
+
+                ia.SetGamma(changegamma);
+
+                g.DrawImage(newBitmap, new Rectangle(0, 0, newBitmap.Width, newBitmap.Height), 0, 0, newBitmap.Width, newBitmap.Height, GraphicsUnit.Pixel, ia);
+                g.Dispose();
+                ia.Dispose();
+                pictureBox.Image = bmpInverted;
             }
         }
 
@@ -1285,7 +1322,8 @@ namespace Podstawowy_foto_edytor
         //Image file_2;
         int lastCol = 0;         //
         Boolean opened = false;  //
-
+        float changegamma = 1;
+        
         //
         // poniżej znajduje się funkcjonalność odpowiadająca za reakcje na poszczególne 
         // przesunięcia/kliknięcia w oknie aplikacji
@@ -1298,7 +1336,10 @@ namespace Podstawowy_foto_edytor
             Green_Bar.Value = 0;
             Blue_Bar.Value = 0;
             Contrast_Bar.Value = 25;
-            Brightness_Bar.Value = 0;
+            Brightness_Bar.Value = 1;
+            Gamma_Bar.Value = 25;
+            Gamma_Value_label.Text = Gamma_Bar.Value.ToString();
+            Contrast_Value_label.Text = Contrast_Bar.Value.ToString();
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -1330,6 +1371,11 @@ namespace Podstawowy_foto_edytor
         private void trackBar6_ValueChanged(object sender, EventArgs e)
         {
             brightness();
+        }
+
+        private void Gamma_Bar_Scroll(object sender, EventArgs e)
+        {
+            gamma();
         }
 
         private void saveImageToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1412,7 +1458,7 @@ namespace Podstawowy_foto_edytor
             bilinear_x2();
         }
 
-        private void x3ToolStripMenuItem1_Click(object sender, EventArgs e)
+        private void x3ToolStripMenuItem1_Click_1(object sender, EventArgs e)
         {
             bilinear_x3();
         }
@@ -1470,6 +1516,34 @@ namespace Podstawowy_foto_edytor
         private void yCbCrToolStripMenuItem_Click(object sender, EventArgs e)
         {
             comp_ycbcr();
+        }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void helpToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("What is not working yet:" + "\n" + "- Drawing" + "\n" + "- Statistic" + "\n" + "- Resize(BiCubic)" + "\n" + "- Stich(Stich different images)" + "\n" + "- Components(TCbCr)");
+        }
+
+        private void aboutToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Program contain:" + "\n" + "- Menu(top part of the screen)" + "\n" + 
+                "- 2 Trackbars boxes(left and bottom side of the screen" + "\n" +
+                "- Main window(top-right part of window)" + "\n" + 
+                "- Side window(left-bottom part of window)" + "\n" + 
+                "- Button to cancel all changes(right-bottom corner of window)" +
+                "" + "\n" +
+                "" + "\n" +
+                "To start click on File -> Open image. Now you can start applying changest to your picture." + "\n" +
+                "Some of effects cant work combined(yet) so for now it is suggested to save your work between applying those changes to your image." + "\n" +
+                "If you want to save your work click File -> Save image -> then choose your preferd extension." +
+                "" + "\n" + "\n" +
+                "Enjoy your time using this app"
+                
+                );
         }
     }
 }
