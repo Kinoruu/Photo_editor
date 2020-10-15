@@ -73,7 +73,8 @@ namespace Podstawowy_foto_edytor
             }
             else { MessageBox.Show("No image loaded, first upload image "); }
         }
-        /*private void ShowHistogram(bool show)
+
+        /*private void ShowHistogram(bool show)  //funkcja odpowiadająca za wyświetlanie histogamu w nowym oknie lub przypiętym oknie
         {
             config.histogramVisible = show;
 
@@ -90,28 +91,42 @@ namespace Podstawowy_foto_edytor
             }
         }*/
 
-        private void pictureBox_MouseMove(object sender, MouseEventArgs e)
+        private void pictureBox_MouseMove(object sender, MouseEventArgs e)  //funkcja obsługi myszki oraz wyświetlania rozmiaru obrazu oraz informacji na temat pixeli
         {
-            /*
+            /*   //nadal coś nie działa później ogarnę
             if (!opened)
             {
                // MessageBox.Show("Open an Image then apply changes");
             }
             else
             {
-                
                 int w = newBitmap.Width;
                 int h = newBitmap.Height;
-                if ((e.Location.X >= 0) && (e.X <= w) && (e.Y >= 0) && (e.Y <= h))
-                {
-                    Color pixel = newBitmap.GetPixel(e.X, e.Y);
-                    int R = (int)pixel.R;
-                    int G = (int)pixel.G;
-                    int B = (int)pixel.B;
 
-                    resolution.Text = " | " + w + " x " + h + " | ";
-                    position.Text = " | x " + e.X.ToString() + " , y " + e.Y.ToString() + " | ";
-                    rgbpoints.Text = " | R " + R + " , G " + G + " , B " + G + " | ";
+                int wi = pictureBox.Width;
+                int he = pictureBox.Height;
+
+                if (((e.Location.X >= 0) && (e.Location.X <= wi )) && ((e.Location.Y >= 0) && (e.Location.Y <= he)))
+                {
+                    if((e.Location.X >= ((wi - w) / 2)) && (e.Location.X <= (wi - ((wi - w) / 2))) && ((e.Location.Y >= ((he - h) / 2))) && (e.Location.Y <= (he - ((he - h) / 2))))
+                    {
+                        Color pixel = newBitmap.GetPixel(e.X, e.Y);
+                        int R = (int)pixel.R;
+                        int G = (int)pixel.G;
+                        int B = (int)pixel.B;
+
+                        int xx = e.X + ((wi - w) / 2);
+                        int yy = e.Y + ((he - h) / 2);
+
+                        resolution.Text = " | " + w + " x " + h + " | ";
+                        position.Text = " | x " + e.X.ToString() + " , y " + e.Y.ToString() + " | ";
+                        rgbpoints.Text = " | R " + R + " , G " + G + " , B " + G + " | ";
+                    }
+                    else
+                    {
+                        position.Text = " ";
+                        rgbpoints.Text = "  ";
+                    }
                 }
                 else
                 {
@@ -237,7 +252,7 @@ namespace Podstawowy_foto_edytor
             }
         }
 
-        void gamma()  //funkcja zmieniająca kontrast obrazu
+        void gamma()  //funkcja zmieniająca współczynnik gamma obrazu
         {
             //reload();
             if (!opened)
@@ -318,7 +333,7 @@ namespace Podstawowy_foto_edytor
             }
         }
 
-        void sepia()   //funkcja zmieniająca kolory w odcienie szarości
+        void sepia()   //funkcja zmieniająca oryginalny obraz w jego odpowiednik w kolorach sepii
         {
             if (!opened)
             {
@@ -351,7 +366,7 @@ namespace Podstawowy_foto_edytor
             }
         }
 
-        void blur()   // funkcja rozmywająca obraz poprzez uśrednianiewartości pikseli
+        void blur()   // funkcja rozmywająca obraz poprzez uśrednianie wartości pikseli
         {
             if (!opened)
             {
@@ -359,9 +374,9 @@ namespace Podstawowy_foto_edytor
             }
             else
             {
-                for (int x = 1; x < newBitmap.Width; x++)
+                for (int x = 0; x < newBitmap.Width; x++)
                 {
-                    for (int y = 1; y < newBitmap.Height; y++)
+                    for (int y = 0; y < newBitmap.Height; y++)
                     {
                         try
                         {
@@ -385,9 +400,9 @@ namespace Podstawowy_foto_edytor
 
         void invert()   // funkcja odwracająca kolory(negatyw)
         {
-            for (int x = 1; x < newBitmap.Width; x++)
+            for (int x = 0; x < newBitmap.Width; x++)
             {
-                for (int y = 1; y < newBitmap.Height; y++)
+                for (int y = 0; y < newBitmap.Height; y++)
                 {
                     try
                     {
@@ -409,9 +424,9 @@ namespace Podstawowy_foto_edytor
         {
             Bitmap nB = new Bitmap(newBitmap.Width, newBitmap.Height);
 
-            for (int x = 1; x <= newBitmap.Width - 1; x++)
+            for (int x = 0; x <= newBitmap.Width - 1; x++)
             {
-                for (int y = 1; y <= newBitmap.Height - 1; y++)
+                for (int y = 0; y <= newBitmap.Height - 1; y++)
                 {
                     nB.SetPixel(x, y, Color.White);
                 }
@@ -487,9 +502,9 @@ namespace Podstawowy_foto_edytor
 
             Bitmap newBitmapSize2 = new Bitmap(2 * width, 2 * height);
 
-            for (int x = 1; x < newBitmapSize2.Width; x++)
+            for (int x = 0; x < newBitmapSize2.Width; x++)
             {
-                for (int y = 1; y < newBitmapSize2.Height; y++)
+                for (int y = 0; y < newBitmapSize2.Height; y++)
                 {
                     try
                     {
@@ -533,16 +548,16 @@ namespace Podstawowy_foto_edytor
             pictureBox.Image = newBitmap;
         }
 
-        void add_RGB_ver_extended()  //funkcja skejająca 4 takie same obrazy w formacie rgb
+        void add_RGB_ver_extended()  //funkcja skejająca 9 takiech samych obrazów w formacie rgb
         {
             int width = pictureBox.Image.Width;
             int height = pictureBox.Image.Height;
 
             Bitmap newBitmapSize2 = new Bitmap(3 * width, 3 * height);
 
-            for (int x = 1; x < newBitmapSize2.Width; x++)
+            for (int x = 0; x < newBitmapSize2.Width; x++)
             {
-                for (int y = 1; y < newBitmapSize2.Height; y++)
+                for (int y = 0; y < newBitmapSize2.Height; y++)
                 {
                     try
                     {
@@ -631,9 +646,9 @@ namespace Podstawowy_foto_edytor
 
         void mirror_l()  //funkcja odbijająca lewą połowę obrazu 
         {
-            for (int xl = 1, xr = newBitmap.Width; xl < newBitmap.Width; xl++, xr--)
+            for (int xl = 0, xr = newBitmap.Width; xl < newBitmap.Width; xl++, xr--)
             {
-                for (int y = 1; y < newBitmap.Height; y++)
+                for (int y = 0; y <= newBitmap.Height; y++)
                 {
                     try
                     {
@@ -650,9 +665,9 @@ namespace Podstawowy_foto_edytor
 
         void mirror_r()     //funkcja odbijająca prawą połowę obrazu 
         {
-            for (int xl = 1, xr = newBitmap.Width; xl < newBitmap.Width; xl++, xr--)
+            for (int xl = 0, xr = newBitmap.Width; xl < newBitmap.Width; xl++, xr--)
             {
-                for (int y = 1; y < newBitmap.Height; y++)
+                for (int y = 0; y < newBitmap.Height; y++)
                 {
                     try
                     {
@@ -668,9 +683,9 @@ namespace Podstawowy_foto_edytor
         }
         void mirror_t()    //funkcja odbijająca górną połowę obrazu 
         {
-            for (int x = 1; x < newBitmap.Width; x++)
+            for (int x = 0; x < newBitmap.Width; x++)
             {
-                for (int yt = 1, yb = newBitmap.Height; yt < newBitmap.Height; yt++, yb--)
+                for (int yt = 0, yb = newBitmap.Height; yt < newBitmap.Height; yt++, yb--)
                 {
                     try
                     {
@@ -686,9 +701,9 @@ namespace Podstawowy_foto_edytor
 
         void mirror_b()    //funkcja odbijająca dolną połowę obrazu 
         {
-            for (int x = 1; x < newBitmap.Width; x++)
+            for (int x = 0; x < newBitmap.Width; x++)
             {
-                for (int yt = 1, yb = newBitmap.Height; yt < newBitmap.Height; yt++, yb--)
+                for (int yt = 0, yb = newBitmap.Height; yt < newBitmap.Height; yt++, yb--)
                 {
                     try
                     {
@@ -703,11 +718,11 @@ namespace Podstawowy_foto_edytor
             pictureBox.Image = newBitmap;
         }
 
-        void mirror_horizontal()  //funkcja odwracająca horyzontalnielewo-prawo
+        void mirror_vertical()  //funkcja odwracająca wertykalnie lewo-prawo
         {
-            for (int xl = 1, xr = newBitmap.Width; xl < newBitmap.Width; xl++, xr--)
+            for (int xl = 0, xr = newBitmap.Width; xl < newBitmap.Width; xl++, xr--)
             {
-                for (int y = 1; y < newBitmap.Height; y++)
+                for (int y = 0; y < newBitmap.Height; y++)
                 {
                     try
                     {
@@ -722,11 +737,11 @@ namespace Podstawowy_foto_edytor
             pictureBox.Image = newBitmapTemp;
         }
 
-        void mirror_vertical()    //funkcja odwracająca wertykalnie góra-dół
+        void mirror_horizontal()    //funkcja odwracająca horyzontalnie góra-dół
         {
-            for (int x = 1; x < newBitmap.Width; x++)
+            for (int x = 0; x < newBitmap.Width; x++)
             {
-                for (int yt = 1, yb = newBitmap.Height; yt < newBitmap.Height; yt++, yb--)
+                for (int yt = 0, yb = newBitmap.Height; yt < newBitmap.Height; yt++, yb--)
                 {
                     try
                     {
@@ -740,16 +755,16 @@ namespace Podstawowy_foto_edytor
             pictureBox.Image = newBitmapTemp;
         }
 
-        void mirror_stich_right()    // funkcja sklejająca
+        void mirror_stich_right()    // funkcja doklejająca to samo zdjęcie z prawej strony
         {
             int width = pictureBox.Image.Width;
             int height = pictureBox.Image.Height;
 
             Bitmap newBitmapTemp = new Bitmap(2 * width, height);
 
-            for (int y = 1; y < newBitmap.Height; y++)
+            for (int y = 0; y < newBitmap.Height; y++)
             {
-                for (int xl = 1, xr = 2 * newBitmap.Width; xl < newBitmap.Width; xl++, xr--)
+                for (int xl = 0, xr = 2 * newBitmap.Width; xl < newBitmap.Width; xl++, xr--)
                 {
                     try
                     {
@@ -765,16 +780,16 @@ namespace Podstawowy_foto_edytor
             pictureBox.Image = newBitmap;
         }
 
-        void mirror_stich_left()    // funkcja sklejająca
+        void mirror_stich_left()    // funkcja doklejająca to samo zdjęcie z lewej strony
         {
             int width = pictureBox.Image.Width;
             int height = pictureBox.Image.Height;
 
             Bitmap newBitmapTemp = new Bitmap(2 * width, height);
 
-            for (int y = 1; y < newBitmap.Height; y++)
+            for (int y = 0; y < newBitmap.Height; y++)
             {
-                for (int xl = 1, xr = 2 * newBitmap.Width; xl < newBitmap.Width; xl++, xr--)
+                for (int xl = 0, xr = 2 * newBitmap.Width; xl < newBitmap.Width; xl++, xr--)
                 {
                     try
                     {
@@ -790,16 +805,16 @@ namespace Podstawowy_foto_edytor
             pictureBox.Image = newBitmap;
         }
 
-        void mirror_stich_bottom()    // funkcja sklejająca
+        void mirror_stich_bottom()    // funkcja doklejająca to samo zdjęcie od dołu
         {
             int width = pictureBox.Image.Width;
             int height = pictureBox.Image.Height;
 
             Bitmap newBitmapTemp = new Bitmap(width, 2 * height);
 
-            for (int x = 1; x < newBitmap.Height; x++)
+            for (int x = 0; x < newBitmap.Height; x++)
             {
-                for (int yl = 1, yr = 2 * newBitmap.Height; yl < newBitmap.Height; yl++, yr--)
+                for (int yl = 0, yr = 2 * newBitmap.Height; yl < newBitmap.Height; yl++, yr--)
                 {
                     try
                     {
@@ -815,16 +830,16 @@ namespace Podstawowy_foto_edytor
             pictureBox.Image = newBitmap;
         }
 
-        void mirror_stich_top()    // funkcja sklejająca
+        void mirror_stich_top()    // funkcja doklejająca to samo zdjęcie ponad oryginalnym
         {
             int width = pictureBox.Image.Width;
             int height = pictureBox.Image.Height;
 
             Bitmap newBitmapTemp = new Bitmap(width, 2 * height);
 
-            for (int x = 1; x < newBitmap.Height; x++)
+            for (int x = 0; x < newBitmap.Height; x++)
             {
-                for (int yl = 1, yr = 2 * newBitmap.Height; yl < newBitmap.Height; yl++, yr--)
+                for (int yl = 0, yr = 2 * newBitmap.Height; yl < newBitmap.Height; yl++, yr--)
                 {
                     try
                     {
@@ -840,16 +855,16 @@ namespace Podstawowy_foto_edytor
             pictureBox.Image = newBitmap;
         }
 
-        void rotate_right()    // funkcja sklejająca
+        void rotate_right()    // funkcja obracająca zdjęcie o 90 stopni w prawo
         {
             int width = pictureBox.Image.Width;
             int height = pictureBox.Image.Height;
 
             Bitmap newBitmapTemp = new Bitmap(height , width);
 
-            for (int y = 1; y < newBitmap.Height; y++)
+            for (int y = 0; y < newBitmap.Height; y++)
             {
-                for (int x = 1; x < newBitmap.Width; x++)
+                for (int x = 0; x < newBitmap.Width; x++)
                 {
                     try
                     {
@@ -864,16 +879,16 @@ namespace Podstawowy_foto_edytor
             pictureBox.Image = newBitmap;
         }
 
-        void rotate_left()    // funkcja sklejająca
+        void rotate_left()    // funkcja obracająca zdjęcie o 90 stopni w lewo
         {
             int width = pictureBox.Image.Width;
             int height = pictureBox.Image.Height;
 
             Bitmap newBitmapTemp = new Bitmap(height, width);
 
-            for (int y = 1; y < newBitmap.Height; y++)
+            for (int y = 0; y < newBitmap.Height; y++)
             {
-                for (int x = 1; x < newBitmap.Width; x++)
+                for (int x = 0; x < newBitmap.Width; x++)
                 {
                     try
                     {
@@ -888,16 +903,16 @@ namespace Podstawowy_foto_edytor
             pictureBox.Image = newBitmap;
         }
 
-        void comp_rgb()    // funkcja pokazująca składowe rgb
+        void comp_rgb()    // funkcja pokazująca składowe rgb w postaci kolejnych zdjęć
         {
             int width = pictureBox.Image.Width;
             int height = pictureBox.Image.Height;
 
             Bitmap newBitmapTemp = new Bitmap(3 * width, height);
 
-            for (int y = 1; y < newBitmap.Height; y++)
+            for (int y = 0; y < newBitmap.Height; y++)
             {
-                for (int x = 1; x < 3 * newBitmap.Width; x++)
+                for (int x = 0; x < 3 * newBitmap.Width; x++)
                 {
                     try
                     {
@@ -927,16 +942,16 @@ namespace Podstawowy_foto_edytor
             pictureBox.Image = newBitmap;
         }
 
-        void comp_ycbcr()    // funkcja pokazująca składowe YCbCr
+        void comp_ycbcr()    // funkcja pokazująca składowe YCbCr w postaci kolejnych zdjęć
         {
             int width = pictureBox.Image.Width;
             int height = pictureBox.Image.Height;
 
             Bitmap newBitmapTemp = new Bitmap(3 * width, height);
 
-            for (int y = 1; y < newBitmap.Height; y++)
+            for (int y = 0; y < newBitmap.Height; y++)
             {
-                for (int x = 1; x < 3 * newBitmap.Width; x++)
+                for (int x = 0; x < 3 * newBitmap.Width; x++)
                 {
                     try
                     {
@@ -991,9 +1006,9 @@ namespace Podstawowy_foto_edytor
 
                 Bitmap newBitmapTemp = new Bitmap(2 * width, height);
                 Bitmap newBitmapSize2 = new Bitmap(2 * width, 2 * height);
-                for (int y = 1; y < newBitmap.Height; y++)
+                for (int y = 0; y < newBitmap.Height; y++)
                 {
-                    for (int x = 1; x < 2 * newBitmap.Width; x++)
+                    for (int x = 0; x < 2 * newBitmap.Width; x++)
                     {
                         try
                         {
@@ -1020,9 +1035,9 @@ namespace Podstawowy_foto_edytor
                         catch (Exception) { }
                     }
                 }
-                for (int x = 1; x < newBitmapTemp.Width; x++)
+                for (int x = 0; x < newBitmapTemp.Width; x++)
                 {
-                    for (int y = 1; y < 2 * newBitmapTemp.Height; y++)
+                    for (int y = 0; y < 2 * newBitmapTemp.Height; y++)
                     {
                         try
                         {
@@ -1067,9 +1082,9 @@ namespace Podstawowy_foto_edytor
 
                 Bitmap newBitmapTemp = new Bitmap(((3 * width) - 2), height);
                 Bitmap newBitmapSize2 = new Bitmap(((3 * width) - 2), ((3 * height) - 2));
-                for (int y = 1; y < newBitmap.Height; y++)
+                for (int y = 0; y <= newBitmap.Height; y++)
                 {
-                    for (int x = 1; x < 3 * newBitmap.Width; x++)
+                    for (int x = 0; x <= 3 * newBitmap.Width; x++)
                     {
                         try
                         {
@@ -1110,9 +1125,9 @@ namespace Podstawowy_foto_edytor
                         catch (Exception) { }
                     }
                 }
-                for (int x = 1; x < newBitmapTemp.Width; x++)
+                for (int x = 0; x <= newBitmapTemp.Width; x++)
                 {
-                    for (int y = 1; y < 3 * newBitmapTemp.Height; y++)
+                    for (int y = 0; y <= 3 * newBitmapTemp.Height; y++)
                     {
                         try
                         {
@@ -1157,7 +1172,7 @@ namespace Podstawowy_foto_edytor
             }
         }
 
-        void nearest_neighbour_x3()   // funkcja rozmywająca obraz poprzez uśrednianiewartości pikseli
+        void nearest_neighbour_x3()   // funkcja zmieniająca rozmiar za pomoccą metody najbliższego sąsiada
         {
             if (!opened)
             {
@@ -1170,9 +1185,9 @@ namespace Podstawowy_foto_edytor
 
                 Bitmap newBitmapSize2 = new Bitmap(((3 * width) - 2), ((3 * height) - 2));
 
-                for (int x = 1; x < 3 * newBitmap.Width; x++)
+                for (int x = 0; x < 3 * newBitmap.Width; x++)
                 {
-                    for (int y = 1; y < 3 * newBitmap.Height; y++)
+                    for (int y = 0; y < 3 * newBitmap.Height; y++)
                     {
                         try
                         {
@@ -1198,7 +1213,7 @@ namespace Podstawowy_foto_edytor
             }
         }
 
-        /*void bicubic()   // funkcja 
+        /*void bicubic()   // funkcja zmieniająca rozmiar obrazu za pomocą metody bicubic  /  nie moja funkcja także nie zadziała
         {
             if (!opened)
             {
@@ -1329,7 +1344,7 @@ namespace Podstawowy_foto_edytor
         // przesunięcia/kliknięcia w oknie aplikacji
         //
 
-        private void button1_Click(object sender, EventArgs e)
+        private void None_button_Click(object sender, EventArgs e)   // obsługa przycisku None resetującego zdjęcie
         {
             reload();
             Red_Bar.Value = 0;
@@ -1340,12 +1355,6 @@ namespace Podstawowy_foto_edytor
             Gamma_Bar.Value = 25;
             Gamma_Value_label.Text = Gamma_Bar.Value.ToString();
             Contrast_Value_label.Text = Contrast_Bar.Value.ToString();
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            reload();  
-            grayscale();
         }
 
         private void trackBar1_ValueChanged(object sender, EventArgs e)
@@ -1522,6 +1531,8 @@ namespace Podstawowy_foto_edytor
         {
 
         }
+
+        //wyśietlanie wiadomości
 
         private void helpToolStripMenuItem_Click(object sender, EventArgs e)
         {

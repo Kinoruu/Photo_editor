@@ -131,7 +131,7 @@
             this.None_button.TabIndex = 1;
             this.None_button.Text = "None";
             this.None_button.UseVisualStyleBackColor = true;
-            this.None_button.Click += new System.EventHandler(this.button1_Click);
+            this.None_button.Click += new System.EventHandler(this.None_button_Click);
             // 
             // Red_Bar
             // 
