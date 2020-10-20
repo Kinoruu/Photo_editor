@@ -68,7 +68,6 @@
             this.invertVerticalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.drawingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.colorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statisticsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.histogramToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.resizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -95,6 +94,8 @@
             this.componentsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rGBToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.yCbCrToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.Gamma_Name_label = new System.Windows.Forms.Label();
             this.Gamma_Bar = new System.Windows.Forms.TrackBar();
@@ -107,7 +108,7 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.RGB_groupbox = new System.Windows.Forms.GroupBox();
             this.Hue_groupbox = new System.Windows.Forms.GroupBox();
-            this.aboutToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.progressBar1 = new System.Windows.Forms.ProgressBar();
             ((System.ComponentModel.ISupportInitialize)(this.Red_Bar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Green_Bar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Blue_Bar)).BeginInit();
@@ -137,6 +138,7 @@
             // 
             this.Red_Bar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.Red_Bar.LargeChange = 1;
             this.Red_Bar.Location = new System.Drawing.Point(35, 12);
             this.Red_Bar.Maximum = 100;
             this.Red_Bar.Name = "Red_Bar";
@@ -148,6 +150,7 @@
             // 
             this.Green_Bar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.Green_Bar.LargeChange = 1;
             this.Green_Bar.Location = new System.Drawing.Point(35, 63);
             this.Green_Bar.Maximum = 100;
             this.Green_Bar.Name = "Green_Bar";
@@ -159,6 +162,7 @@
             // 
             this.Blue_Bar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.Blue_Bar.LargeChange = 1;
             this.Blue_Bar.Location = new System.Drawing.Point(35, 114);
             this.Blue_Bar.Maximum = 100;
             this.Blue_Bar.Name = "Blue_Bar";
@@ -200,8 +204,10 @@
             // 
             this.Contrast_Bar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
+            this.Contrast_Bar.LargeChange = 1;
             this.Contrast_Bar.Location = new System.Drawing.Point(67, 33);
             this.Contrast_Bar.Maximum = 100;
+            this.Contrast_Bar.Minimum = 1;
             this.Contrast_Bar.Name = "Contrast_Bar";
             this.Contrast_Bar.Orientation = System.Windows.Forms.Orientation.Vertical;
             this.Contrast_Bar.Size = new System.Drawing.Size(45, 433);
@@ -213,6 +219,7 @@
             // 
             this.Brightness_Bar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
+            this.Brightness_Bar.LargeChange = 1;
             this.Brightness_Bar.Location = new System.Drawing.Point(16, 33);
             this.Brightness_Bar.Maximum = 100;
             this.Brightness_Bar.Minimum = 1;
@@ -480,13 +487,6 @@
             this.colorToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.colorToolStripMenuItem.Text = "Color";
             // 
-            // helpToolStripMenuItem
-            // 
-            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
-            this.helpToolStripMenuItem.Text = "Help";
-            this.helpToolStripMenuItem.Click += new System.EventHandler(this.helpToolStripMenuItem_Click);
-            // 
             // statisticsToolStripMenuItem
             // 
             this.statisticsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -517,7 +517,7 @@
             this.nearestNeighbourToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.x3ToolStripMenuItem});
             this.nearestNeighbourToolStripMenuItem.Name = "nearestNeighbourToolStripMenuItem";
-            this.nearestNeighbourToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.nearestNeighbourToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
             this.nearestNeighbourToolStripMenuItem.Text = "Nearest neighbour";
             // 
             // x3ToolStripMenuItem
@@ -533,7 +533,7 @@
             this.x2ToolStripMenuItem1,
             this.x3ToolStripMenuItem1});
             this.biLinearToolStripMenuItem.Name = "biLinearToolStripMenuItem";
-            this.biLinearToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.biLinearToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
             this.biLinearToolStripMenuItem.Text = "BiLinear";
             // 
             // x2ToolStripMenuItem1
@@ -546,7 +546,7 @@
             // x3ToolStripMenuItem1
             // 
             this.x3ToolStripMenuItem1.Name = "x3ToolStripMenuItem1";
-            this.x3ToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.x3ToolStripMenuItem1.Size = new System.Drawing.Size(86, 22);
             this.x3ToolStripMenuItem1.Text = "x3";
             this.x3ToolStripMenuItem1.Click += new System.EventHandler(this.x3ToolStripMenuItem1_Click_1);
             // 
@@ -685,6 +685,20 @@
             this.yCbCrToolStripMenuItem.Text = "YCbCr";
             this.yCbCrToolStripMenuItem.Click += new System.EventHandler(this.yCbCrToolStripMenuItem_Click);
             // 
+            // aboutToolStripMenuItem1
+            // 
+            this.aboutToolStripMenuItem1.Name = "aboutToolStripMenuItem1";
+            this.aboutToolStripMenuItem1.Size = new System.Drawing.Size(52, 20);
+            this.aboutToolStripMenuItem1.Text = "About";
+            this.aboutToolStripMenuItem1.Click += new System.EventHandler(this.aboutToolStripMenuItem1_Click);
+            // 
+            // helpToolStripMenuItem
+            // 
+            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.helpToolStripMenuItem.Text = "Help";
+            this.helpToolStripMenuItem.Click += new System.EventHandler(this.helpToolStripMenuItem_Click);
+            // 
             // Gamma_Name_label
             // 
             this.Gamma_Name_label.AutoSize = true;
@@ -698,6 +712,7 @@
             // 
             this.Gamma_Bar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
+            this.Gamma_Bar.LargeChange = 1;
             this.Gamma_Bar.Location = new System.Drawing.Point(118, 33);
             this.Gamma_Bar.Maximum = 100;
             this.Gamma_Bar.Minimum = 1;
@@ -815,12 +830,12 @@
             this.Hue_groupbox.TabStop = false;
             this.Hue_groupbox.Text = "HUE";
             // 
-            // aboutToolStripMenuItem1
+            // progressBar1
             // 
-            this.aboutToolStripMenuItem1.Name = "aboutToolStripMenuItem1";
-            this.aboutToolStripMenuItem1.Size = new System.Drawing.Size(52, 20);
-            this.aboutToolStripMenuItem1.Text = "About";
-            this.aboutToolStripMenuItem1.Click += new System.EventHandler(this.aboutToolStripMenuItem1_Click);
+            this.progressBar1.Location = new System.Drawing.Point(637, 725);
+            this.progressBar1.Name = "progressBar1";
+            this.progressBar1.Size = new System.Drawing.Size(100, 20);
+            this.progressBar1.TabIndex = 42;
             // 
             // Form1
             // 
@@ -828,6 +843,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.ClientSize = new System.Drawing.Size(1102, 746);
+            this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.Hue_groupbox);
             this.Controls.Add(this.RGB_groupbox);
             this.Controls.Add(this.pictureBox1);
@@ -839,7 +855,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.MinimumSize = new System.Drawing.Size(1118, 785);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "Photo Editor";
             ((System.ComponentModel.ISupportInitialize)(this.Red_Bar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Green_Bar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Blue_Bar)).EndInit();
@@ -942,5 +958,6 @@
         private System.Windows.Forms.GroupBox RGB_groupbox;
         private System.Windows.Forms.GroupBox Hue_groupbox;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem1;
+        private System.Windows.Forms.ProgressBar progressBar1;
     }
 }
