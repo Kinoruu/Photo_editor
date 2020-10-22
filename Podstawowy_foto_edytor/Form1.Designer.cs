@@ -109,6 +109,12 @@
             this.RGB_groupbox = new System.Windows.Forms.GroupBox();
             this.Hue_groupbox = new System.Windows.Forms.GroupBox();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.Threshold_Bar = new System.Windows.Forms.TrackBar();
+            this.Threshold_Value_label = new System.Windows.Forms.Label();
+            this.Threshold_Name_label = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.Red_Bar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Green_Bar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Blue_Bar)).BeginInit();
@@ -121,12 +127,14 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.RGB_groupbox.SuspendLayout();
             this.Hue_groupbox.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.Threshold_Bar)).BeginInit();
             this.SuspendLayout();
             // 
             // None_button
             // 
             this.None_button.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.None_button.Location = new System.Drawing.Point(1021, 579);
+            this.None_button.Location = new System.Drawing.Point(994, 569);
             this.None_button.Name = "None_button";
             this.None_button.Size = new System.Drawing.Size(69, 73);
             this.None_button.TabIndex = 1;
@@ -138,11 +146,12 @@
             // 
             this.Red_Bar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.Red_Bar.BackColor = System.Drawing.SystemColors.MenuBar;
             this.Red_Bar.LargeChange = 1;
-            this.Red_Bar.Location = new System.Drawing.Point(35, 12);
+            this.Red_Bar.Location = new System.Drawing.Point(42, 8);
             this.Red_Bar.Maximum = 100;
             this.Red_Bar.Name = "Red_Bar";
-            this.Red_Bar.Size = new System.Drawing.Size(757, 45);
+            this.Red_Bar.Size = new System.Drawing.Size(721, 45);
             this.Red_Bar.TabIndex = 11;
             this.Red_Bar.ValueChanged += new System.EventHandler(this.trackBar1_ValueChanged);
             // 
@@ -150,11 +159,12 @@
             // 
             this.Green_Bar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.Green_Bar.BackColor = System.Drawing.SystemColors.MenuBar;
             this.Green_Bar.LargeChange = 1;
-            this.Green_Bar.Location = new System.Drawing.Point(35, 63);
+            this.Green_Bar.Location = new System.Drawing.Point(42, 59);
             this.Green_Bar.Maximum = 100;
             this.Green_Bar.Name = "Green_Bar";
-            this.Green_Bar.Size = new System.Drawing.Size(757, 45);
+            this.Green_Bar.Size = new System.Drawing.Size(721, 45);
             this.Green_Bar.TabIndex = 12;
             this.Green_Bar.ValueChanged += new System.EventHandler(this.trackBar2_ValueChanged);
             // 
@@ -162,11 +172,12 @@
             // 
             this.Blue_Bar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.Blue_Bar.BackColor = System.Drawing.SystemColors.MenuBar;
             this.Blue_Bar.LargeChange = 1;
-            this.Blue_Bar.Location = new System.Drawing.Point(35, 114);
+            this.Blue_Bar.Location = new System.Drawing.Point(42, 110);
             this.Blue_Bar.Maximum = 100;
             this.Blue_Bar.Name = "Blue_Bar";
-            this.Blue_Bar.Size = new System.Drawing.Size(757, 45);
+            this.Blue_Bar.Size = new System.Drawing.Size(721, 45);
             this.Blue_Bar.TabIndex = 13;
             this.Blue_Bar.ValueChanged += new System.EventHandler(this.trackBar3_ValueChanged);
             // 
@@ -174,7 +185,7 @@
             // 
             this.Red_Name_label.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.Red_Name_label.AutoSize = true;
-            this.Red_Name_label.Location = new System.Drawing.Point(3, 12);
+            this.Red_Name_label.Location = new System.Drawing.Point(9, 24);
             this.Red_Name_label.Name = "Red_Name_label";
             this.Red_Name_label.Size = new System.Drawing.Size(27, 13);
             this.Red_Name_label.TabIndex = 14;
@@ -184,7 +195,7 @@
             // 
             this.Green_Name_label.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.Green_Name_label.AutoSize = true;
-            this.Green_Name_label.Location = new System.Drawing.Point(3, 65);
+            this.Green_Name_label.Location = new System.Drawing.Point(9, 77);
             this.Green_Name_label.Name = "Green_Name_label";
             this.Green_Name_label.Size = new System.Drawing.Size(36, 13);
             this.Green_Name_label.TabIndex = 15;
@@ -194,7 +205,7 @@
             // 
             this.Blue_Name_label.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.Blue_Name_label.AutoSize = true;
-            this.Blue_Name_label.Location = new System.Drawing.Point(1, 116);
+            this.Blue_Name_label.Location = new System.Drawing.Point(7, 128);
             this.Blue_Name_label.Name = "Blue_Name_label";
             this.Blue_Name_label.Size = new System.Drawing.Size(28, 13);
             this.Blue_Name_label.TabIndex = 16;
@@ -204,8 +215,9 @@
             // 
             this.Contrast_Bar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
+            this.Contrast_Bar.BackColor = System.Drawing.SystemColors.MenuBar;
             this.Contrast_Bar.LargeChange = 1;
-            this.Contrast_Bar.Location = new System.Drawing.Point(67, 33);
+            this.Contrast_Bar.Location = new System.Drawing.Point(64, 33);
             this.Contrast_Bar.Maximum = 100;
             this.Contrast_Bar.Minimum = 1;
             this.Contrast_Bar.Name = "Contrast_Bar";
@@ -219,8 +231,9 @@
             // 
             this.Brightness_Bar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
+            this.Brightness_Bar.BackColor = System.Drawing.SystemColors.MenuBar;
             this.Brightness_Bar.LargeChange = 1;
-            this.Brightness_Bar.Location = new System.Drawing.Point(16, 33);
+            this.Brightness_Bar.Location = new System.Drawing.Point(13, 33);
             this.Brightness_Bar.Maximum = 100;
             this.Brightness_Bar.Minimum = 1;
             this.Brightness_Bar.Name = "Brightness_Bar";
@@ -256,7 +269,7 @@
             // 
             this.Red_Value_label.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.Red_Value_label.AutoSize = true;
-            this.Red_Value_label.Location = new System.Drawing.Point(798, 10);
+            this.Red_Value_label.Location = new System.Drawing.Point(769, 24);
             this.Red_Value_label.Name = "Red_Value_label";
             this.Red_Value_label.Size = new System.Drawing.Size(13, 13);
             this.Red_Value_label.TabIndex = 24;
@@ -266,7 +279,7 @@
             // 
             this.Green_Value_label.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.Green_Value_label.AutoSize = true;
-            this.Green_Value_label.Location = new System.Drawing.Point(798, 63);
+            this.Green_Value_label.Location = new System.Drawing.Point(769, 77);
             this.Green_Value_label.Name = "Green_Value_label";
             this.Green_Value_label.Size = new System.Drawing.Size(13, 13);
             this.Green_Value_label.TabIndex = 25;
@@ -276,7 +289,7 @@
             // 
             this.Blue_Value_label.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.Blue_Value_label.AutoSize = true;
-            this.Blue_Value_label.Location = new System.Drawing.Point(798, 114);
+            this.Blue_Value_label.Location = new System.Drawing.Point(769, 128);
             this.Blue_Value_label.Name = "Blue_Value_label";
             this.Blue_Value_label.Size = new System.Drawing.Size(13, 13);
             this.Blue_Value_label.TabIndex = 26;
@@ -286,7 +299,7 @@
             // 
             this.Brightness_Value_label.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.Brightness_Value_label.AutoSize = true;
-            this.Brightness_Value_label.Location = new System.Drawing.Point(14, 469);
+            this.Brightness_Value_label.Location = new System.Drawing.Point(25, 469);
             this.Brightness_Value_label.Name = "Brightness_Value_label";
             this.Brightness_Value_label.Size = new System.Drawing.Size(13, 13);
             this.Brightness_Value_label.TabIndex = 27;
@@ -296,7 +309,7 @@
             // 
             this.Contrast_Value_label.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.Contrast_Value_label.AutoSize = true;
-            this.Contrast_Value_label.Location = new System.Drawing.Point(64, 469);
+            this.Contrast_Value_label.Location = new System.Drawing.Point(75, 469);
             this.Contrast_Value_label.Name = "Contrast_Value_label";
             this.Contrast_Value_label.Size = new System.Drawing.Size(19, 13);
             this.Contrast_Value_label.TabIndex = 28;
@@ -712,8 +725,9 @@
             // 
             this.Gamma_Bar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
+            this.Gamma_Bar.BackColor = System.Drawing.SystemColors.MenuBar;
             this.Gamma_Bar.LargeChange = 1;
-            this.Gamma_Bar.Location = new System.Drawing.Point(118, 33);
+            this.Gamma_Bar.Location = new System.Drawing.Point(115, 33);
             this.Gamma_Bar.Maximum = 100;
             this.Gamma_Bar.Minimum = 1;
             this.Gamma_Bar.Name = "Gamma_Bar";
@@ -727,7 +741,7 @@
             // 
             this.Gamma_Value_label.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.Gamma_Value_label.AutoSize = true;
-            this.Gamma_Value_label.Location = new System.Drawing.Point(117, 469);
+            this.Gamma_Value_label.Location = new System.Drawing.Point(128, 469);
             this.Gamma_Value_label.Name = "Gamma_Value_label";
             this.Gamma_Value_label.Size = new System.Drawing.Size(19, 13);
             this.Gamma_Value_label.TabIndex = 37;
@@ -742,11 +756,10 @@
             this.pictureBox.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.pictureBox.Location = new System.Drawing.Point(187, 33);
             this.pictureBox.Name = "pictureBox";
-            this.pictureBox.Size = new System.Drawing.Size(903, 505);
+            this.pictureBox.Size = new System.Drawing.Size(792, 499);
             this.pictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox.TabIndex = 0;
             this.pictureBox.TabStop = false;
-            this.pictureBox.Click += new System.EventHandler(this.pictureBox1_Click);
             this.pictureBox.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBox_MouseMove);
             // 
             // statusStrip1
@@ -781,9 +794,9 @@
             this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.pictureBox1.BackColor = System.Drawing.SystemColors.Window;
             this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.pictureBox1.Location = new System.Drawing.Point(12, 544);
+            this.pictureBox1.Location = new System.Drawing.Point(12, 538);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(169, 151);
+            this.pictureBox1.Size = new System.Drawing.Size(169, 165);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 39;
             this.pictureBox1.TabStop = false;
@@ -802,9 +815,9 @@
             this.RGB_groupbox.Controls.Add(this.Blue_Bar);
             this.RGB_groupbox.Controls.Add(this.Green_Bar);
             this.RGB_groupbox.Controls.Add(this.Red_Bar);
-            this.RGB_groupbox.Location = new System.Drawing.Point(187, 544);
+            this.RGB_groupbox.Location = new System.Drawing.Point(187, 538);
             this.RGB_groupbox.Name = "RGB_groupbox";
-            this.RGB_groupbox.Size = new System.Drawing.Size(828, 149);
+            this.RGB_groupbox.Size = new System.Drawing.Size(792, 165);
             this.RGB_groupbox.TabIndex = 40;
             this.RGB_groupbox.TabStop = false;
             this.RGB_groupbox.Text = "RGB";
@@ -837,12 +850,74 @@
             this.progressBar1.Size = new System.Drawing.Size(100, 20);
             this.progressBar1.TabIndex = 42;
             // 
+            // groupBox1
+            // 
+            this.groupBox1.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Controls.Add(this.label1);
+            this.groupBox1.Controls.Add(this.Threshold_Bar);
+            this.groupBox1.Controls.Add(this.Threshold_Value_label);
+            this.groupBox1.Controls.Add(this.Threshold_Name_label);
+            this.groupBox1.Location = new System.Drawing.Point(985, 33);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(105, 499);
+            this.groupBox1.TabIndex = 43;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "groupBox1";
+            // 
+            // Threshold_Bar
+            // 
+            this.Threshold_Bar.BackColor = System.Drawing.SystemColors.MenuBar;
+            this.Threshold_Bar.Location = new System.Drawing.Point(6, 33);
+            this.Threshold_Bar.Name = "Threshold_Bar";
+            this.Threshold_Bar.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.Threshold_Bar.Size = new System.Drawing.Size(45, 203);
+            this.Threshold_Bar.TabIndex = 44;
+            this.Threshold_Bar.Scroll += new System.EventHandler(this.Threshold_Bar_Scroll);
+            // 
+            // Threshold_Value_label
+            // 
+            this.Threshold_Value_label.AutoSize = true;
+            this.Threshold_Value_label.Location = new System.Drawing.Point(18, 249);
+            this.Threshold_Value_label.Name = "Threshold_Value_label";
+            this.Threshold_Value_label.Size = new System.Drawing.Size(13, 13);
+            this.Threshold_Value_label.TabIndex = 1;
+            this.Threshold_Value_label.Text = "0";
+            // 
+            // Threshold_Name_label
+            // 
+            this.Threshold_Name_label.AutoSize = true;
+            this.Threshold_Name_label.Location = new System.Drawing.Point(6, 16);
+            this.Threshold_Name_label.Name = "Threshold_Name_label";
+            this.Threshold_Name_label.Size = new System.Drawing.Size(54, 13);
+            this.Threshold_Name_label.TabIndex = 0;
+            this.Threshold_Name_label.Text = "Threshold";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(43, 324);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(35, 13);
+            this.label1.TabIndex = 45;
+            this.label1.Text = "label1";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(42, 372);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(35, 13);
+            this.label2.TabIndex = 46;
+            this.label2.Text = "label2";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.ClientSize = new System.Drawing.Size(1102, 746);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.Hue_groupbox);
             this.Controls.Add(this.RGB_groupbox);
@@ -872,6 +947,9 @@
             this.RGB_groupbox.PerformLayout();
             this.Hue_groupbox.ResumeLayout(false);
             this.Hue_groupbox.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.Threshold_Bar)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -959,5 +1037,11 @@
         private System.Windows.Forms.GroupBox Hue_groupbox;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem1;
         private System.Windows.Forms.ProgressBar progressBar1;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.TrackBar Threshold_Bar;
+        private System.Windows.Forms.Label Threshold_Value_label;
+        private System.Windows.Forms.Label Threshold_Name_label;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
     }
 }
