@@ -292,41 +292,26 @@ namespace Podstawowy_foto_edytor
 
                 float threshold = Threshold_Bar.Value * 25.5f;
 
-                float avgBright = 0;
-
-                for (int y = 0; y <= newBitmap.Height; y++)
-                {
-                    for (int x = 0; x < newBitmap.Width; x++)
-                    {
-                        try
-                        {
-                            // Get the brightness of this pixel
-                            avgBright += (newBitmap.GetPixel(x, y).GetBrightness() * 255);
-                        }
-                        
-                        catch (Exception) { }
-                    }
-                }
-                avgBright /= (newBitmap.Height * newBitmap.Width);
-                label1.Text = avgBright.ToString();
-                label2.Text = threshold.ToString();
-                // Convert image to black and white based on average brightness
                 for (int y = 0; y < newBitmap.Height; y++)
                 {
                     for (int x = 0; x < newBitmap.Width; x++)
                     {
                         try
                         {
-                            // Set this pixel to black or white based on threshold
-                            if ((newBitmap.GetPixel(x, y).GetBrightness() * 255) > threshold) newBitmapTemp.SetPixel(x, y, Color.White);
-                            else newBitmapTemp.SetPixel(x, y, Color.Black);
+                            if ((newBitmap.GetPixel(x, y).GetBrightness() * 255) > threshold)
+                            {
+                                newBitmapTemp.SetPixel(x, y, Color.White);
+                            }
+                            else
+                            {
+                                newBitmapTemp.SetPixel(x, y, Color.Black);
+                            }
                         }
                         catch (Exception) { }
                     }
                 }
                 pictureBox.Image = newBitmapTemp;
             }
-
         }
 
         void reload()   //funkcja ładująca ponownie oryginalny obraz
