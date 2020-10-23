@@ -113,8 +113,11 @@
             this.Threshold_Bar = new System.Windows.Forms.TrackBar();
             this.Threshold_Value_label = new System.Windows.Forms.Label();
             this.Threshold_Name_label = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.Color_Shallowing_Bar = new System.Windows.Forms.TrackBar();
+            this.Color_Shallowing_Value_label = new System.Windows.Forms.Label();
+            this.Color_Shallowing_Name_label = new System.Windows.Forms.Label();
+            this.horizontalStichToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.verticalStichToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.Red_Bar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Green_Bar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Blue_Bar)).BeginInit();
@@ -129,12 +132,13 @@
             this.Hue_groupbox.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Threshold_Bar)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Color_Shallowing_Bar)).BeginInit();
             this.SuspendLayout();
             // 
             // None_button
             // 
             this.None_button.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.None_button.Location = new System.Drawing.Point(994, 569);
+            this.None_button.Location = new System.Drawing.Point(933, 538);
             this.None_button.Name = "None_button";
             this.None_button.Size = new System.Drawing.Size(69, 73);
             this.None_button.TabIndex = 1;
@@ -151,7 +155,7 @@
             this.Red_Bar.Location = new System.Drawing.Point(42, 8);
             this.Red_Bar.Maximum = 100;
             this.Red_Bar.Name = "Red_Bar";
-            this.Red_Bar.Size = new System.Drawing.Size(721, 45);
+            this.Red_Bar.Size = new System.Drawing.Size(669, 45);
             this.Red_Bar.TabIndex = 11;
             this.Red_Bar.ValueChanged += new System.EventHandler(this.trackBar1_ValueChanged);
             // 
@@ -164,7 +168,7 @@
             this.Green_Bar.Location = new System.Drawing.Point(42, 59);
             this.Green_Bar.Maximum = 100;
             this.Green_Bar.Name = "Green_Bar";
-            this.Green_Bar.Size = new System.Drawing.Size(721, 45);
+            this.Green_Bar.Size = new System.Drawing.Size(669, 45);
             this.Green_Bar.TabIndex = 12;
             this.Green_Bar.ValueChanged += new System.EventHandler(this.trackBar2_ValueChanged);
             // 
@@ -177,7 +181,7 @@
             this.Blue_Bar.Location = new System.Drawing.Point(42, 110);
             this.Blue_Bar.Maximum = 100;
             this.Blue_Bar.Name = "Blue_Bar";
-            this.Blue_Bar.Size = new System.Drawing.Size(721, 45);
+            this.Blue_Bar.Size = new System.Drawing.Size(669, 45);
             this.Blue_Bar.TabIndex = 13;
             this.Blue_Bar.ValueChanged += new System.EventHandler(this.trackBar3_ValueChanged);
             // 
@@ -269,7 +273,7 @@
             // 
             this.Red_Value_label.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.Red_Value_label.AutoSize = true;
-            this.Red_Value_label.Location = new System.Drawing.Point(769, 24);
+            this.Red_Value_label.Location = new System.Drawing.Point(717, 24);
             this.Red_Value_label.Name = "Red_Value_label";
             this.Red_Value_label.Size = new System.Drawing.Size(13, 13);
             this.Red_Value_label.TabIndex = 24;
@@ -279,7 +283,7 @@
             // 
             this.Green_Value_label.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.Green_Value_label.AutoSize = true;
-            this.Green_Value_label.Location = new System.Drawing.Point(769, 77);
+            this.Green_Value_label.Location = new System.Drawing.Point(717, 77);
             this.Green_Value_label.Name = "Green_Value_label";
             this.Green_Value_label.Size = new System.Drawing.Size(13, 13);
             this.Green_Value_label.TabIndex = 25;
@@ -289,7 +293,7 @@
             // 
             this.Blue_Value_label.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.Blue_Value_label.AutoSize = true;
-            this.Blue_Value_label.Location = new System.Drawing.Point(769, 128);
+            this.Blue_Value_label.Location = new System.Drawing.Point(717, 128);
             this.Blue_Value_label.Name = "Blue_Value_label";
             this.Blue_Value_label.Size = new System.Drawing.Size(13, 13);
             this.Blue_Value_label.TabIndex = 26;
@@ -573,6 +577,8 @@
             // 
             this.stichOneImageToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.stichOneImageToolStripMenuItem1,
+            this.horizontalStichToolStripMenuItem,
+            this.verticalStichToolStripMenuItem,
             this.stichDifferentImagesToolStripMenuItem});
             this.stichOneImageToolStripMenuItem.Name = "stichOneImageToolStripMenuItem";
             this.stichOneImageToolStripMenuItem.Size = new System.Drawing.Size(45, 20);
@@ -756,7 +762,7 @@
             this.pictureBox.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.pictureBox.Location = new System.Drawing.Point(187, 33);
             this.pictureBox.Name = "pictureBox";
-            this.pictureBox.Size = new System.Drawing.Size(792, 499);
+            this.pictureBox.Size = new System.Drawing.Size(740, 499);
             this.pictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox.TabIndex = 0;
             this.pictureBox.TabStop = false;
@@ -817,7 +823,7 @@
             this.RGB_groupbox.Controls.Add(this.Red_Bar);
             this.RGB_groupbox.Location = new System.Drawing.Point(187, 538);
             this.RGB_groupbox.Name = "RGB_groupbox";
-            this.RGB_groupbox.Size = new System.Drawing.Size(792, 165);
+            this.RGB_groupbox.Size = new System.Drawing.Size(740, 165);
             this.RGB_groupbox.TabIndex = 40;
             this.RGB_groupbox.TabStop = false;
             this.RGB_groupbox.Text = "RGB";
@@ -852,33 +858,39 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.BackColor = System.Drawing.SystemColors.ScrollBar;
-            this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.label1);
+            this.groupBox1.Controls.Add(this.Color_Shallowing_Bar);
+            this.groupBox1.Controls.Add(this.Color_Shallowing_Value_label);
+            this.groupBox1.Controls.Add(this.Color_Shallowing_Name_label);
             this.groupBox1.Controls.Add(this.Threshold_Bar);
             this.groupBox1.Controls.Add(this.Threshold_Value_label);
             this.groupBox1.Controls.Add(this.Threshold_Name_label);
-            this.groupBox1.Location = new System.Drawing.Point(985, 33);
+            this.groupBox1.Location = new System.Drawing.Point(934, 33);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(105, 499);
+            this.groupBox1.Size = new System.Drawing.Size(156, 499);
             this.groupBox1.TabIndex = 43;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "groupBox1";
             // 
             // Threshold_Bar
             // 
+            this.Threshold_Bar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.Threshold_Bar.BackColor = System.Drawing.SystemColors.MenuBar;
-            this.Threshold_Bar.Location = new System.Drawing.Point(6, 33);
+            this.Threshold_Bar.Location = new System.Drawing.Point(23, 33);
             this.Threshold_Bar.Name = "Threshold_Bar";
             this.Threshold_Bar.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.Threshold_Bar.Size = new System.Drawing.Size(45, 203);
+            this.Threshold_Bar.Size = new System.Drawing.Size(45, 184);
             this.Threshold_Bar.TabIndex = 44;
             this.Threshold_Bar.Scroll += new System.EventHandler(this.Threshold_Bar_Scroll);
             // 
             // Threshold_Value_label
             // 
+            this.Threshold_Value_label.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.Threshold_Value_label.AutoSize = true;
-            this.Threshold_Value_label.Location = new System.Drawing.Point(18, 249);
+            this.Threshold_Value_label.Location = new System.Drawing.Point(35, 230);
             this.Threshold_Value_label.Name = "Threshold_Value_label";
             this.Threshold_Value_label.Size = new System.Drawing.Size(13, 13);
             this.Threshold_Value_label.TabIndex = 1;
@@ -886,30 +898,60 @@
             // 
             // Threshold_Name_label
             // 
+            this.Threshold_Name_label.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.Threshold_Name_label.AutoSize = true;
-            this.Threshold_Name_label.Location = new System.Drawing.Point(6, 16);
+            this.Threshold_Name_label.Location = new System.Drawing.Point(23, 16);
             this.Threshold_Name_label.Name = "Threshold_Name_label";
             this.Threshold_Name_label.Size = new System.Drawing.Size(54, 13);
             this.Threshold_Name_label.TabIndex = 0;
             this.Threshold_Name_label.Text = "Threshold";
             // 
-            // label1
+            // Color_Shallowing_Bar
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(43, 324);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 13);
-            this.label1.TabIndex = 45;
-            this.label1.Text = "label1";
+            this.Color_Shallowing_Bar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.Color_Shallowing_Bar.BackColor = System.Drawing.SystemColors.MenuBar;
+            this.Color_Shallowing_Bar.Location = new System.Drawing.Point(90, 33);
+            this.Color_Shallowing_Bar.Maximum = 7;
+            this.Color_Shallowing_Bar.Name = "Color_Shallowing_Bar";
+            this.Color_Shallowing_Bar.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.Color_Shallowing_Bar.Size = new System.Drawing.Size(45, 184);
+            this.Color_Shallowing_Bar.TabIndex = 47;
+            this.Color_Shallowing_Bar.Scroll += new System.EventHandler(this.Color_Shallowing_Bar_Scroll);
             // 
-            // label2
+            // Color_Shallowing_Value_label
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(42, 372);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(35, 13);
-            this.label2.TabIndex = 46;
-            this.label2.Text = "label2";
+            this.Color_Shallowing_Value_label.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.Color_Shallowing_Value_label.AutoSize = true;
+            this.Color_Shallowing_Value_label.Location = new System.Drawing.Point(102, 230);
+            this.Color_Shallowing_Value_label.Name = "Color_Shallowing_Value_label";
+            this.Color_Shallowing_Value_label.Size = new System.Drawing.Size(13, 13);
+            this.Color_Shallowing_Value_label.TabIndex = 46;
+            this.Color_Shallowing_Value_label.Text = "0";
+            // 
+            // Color_Shallowing_Name_label
+            // 
+            this.Color_Shallowing_Name_label.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.Color_Shallowing_Name_label.AutoSize = true;
+            this.Color_Shallowing_Name_label.Location = new System.Drawing.Point(79, 17);
+            this.Color_Shallowing_Name_label.Name = "Color_Shallowing_Name_label";
+            this.Color_Shallowing_Name_label.Size = new System.Drawing.Size(71, 13);
+            this.Color_Shallowing_Name_label.TabIndex = 45;
+            this.Color_Shallowing_Name_label.Text = "Color Shallow";
+            // 
+            // horizontalStichToolStripMenuItem
+            // 
+            this.horizontalStichToolStripMenuItem.Name = "horizontalStichToolStripMenuItem";
+            this.horizontalStichToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
+            this.horizontalStichToolStripMenuItem.Text = "Horizontal stich";
+            this.horizontalStichToolStripMenuItem.Click += new System.EventHandler(this.horizontalStichToolStripMenuItem_Click);
+            // 
+            // verticalStichToolStripMenuItem
+            // 
+            this.verticalStichToolStripMenuItem.Name = "verticalStichToolStripMenuItem";
+            this.verticalStichToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
+            this.verticalStichToolStripMenuItem.Text = "Vertical stich";
+            this.verticalStichToolStripMenuItem.Click += new System.EventHandler(this.verticalStichToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -950,6 +992,7 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Threshold_Bar)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Color_Shallowing_Bar)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1041,7 +1084,10 @@
         private System.Windows.Forms.TrackBar Threshold_Bar;
         private System.Windows.Forms.Label Threshold_Value_label;
         private System.Windows.Forms.Label Threshold_Name_label;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TrackBar Color_Shallowing_Bar;
+        private System.Windows.Forms.Label Color_Shallowing_Value_label;
+        private System.Windows.Forms.Label Color_Shallowing_Name_label;
+        private System.Windows.Forms.ToolStripMenuItem horizontalStichToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem verticalStichToolStripMenuItem;
     }
 }

@@ -21,10 +21,12 @@ namespace Podstawowy_foto_edytor
         {
             InitializeComponent();
 
-            MessageBox.Show("Please read About and Help to now how this program works" + "\n" + "or what can stil not work well." + "\n" + "\n" + "Enjoy!!!");
+            MessageBox.Show("Please read 'About' and 'Help' to now how this program works" + "\n" + "or what can still not work well." + "\n" + "\n" + "Enjoy!!!");
             //histogramWin.DockStateChanged += new EventHandler(histogram_DockStateChanged);
 
             //histogramWin.VisibleChanged += new EventHandler(histogram_VisibleChanged);
+
+            
         }
 
 
@@ -306,6 +308,37 @@ namespace Podstawowy_foto_edytor
                             {
                                 newBitmapTemp.SetPixel(x, y, Color.Black);
                             }
+                        }
+                        catch (Exception) { }
+                    }
+                }
+                pictureBox.Image = newBitmapTemp;
+            }
+        }
+
+        void color_shallowing()
+        {
+            if (!opened)
+            {
+            }
+            else
+            {
+                Color_Shallowing_Value_label.Text = Color_Shallowing_Bar.Value.ToString();
+
+                double xx = Math.Pow(2, Color_Shallowing_Bar.Value);
+                int shallow = Convert.ToInt32(xx);
+
+                for (int y = 0; y < newBitmap.Height; y++)
+                {
+                    for (int x = 0; x < newBitmap.Width; x++)
+                    {
+                        try
+                        {
+                            Color pixel = newBitmap.GetPixel(x, y);
+                            int R = (((int)pixel.R) / shallow) * shallow;
+                            int G = (((int)pixel.G) / shallow) * shallow;
+                            int B = (((int)pixel.B) / shallow) * shallow;
+                            newBitmapTemp.SetPixel(x, y, Color.FromArgb(R, G, B));
                         }
                         catch (Exception) { }
                     }
@@ -788,6 +821,56 @@ namespace Podstawowy_foto_edytor
             pictureBox.Image = newBitmapTemp;
         }
 
+        void stich_horizontal()    // funkcja doklejająca to samo zdjęcie z prawej strony
+        {
+            int width = pictureBox.Image.Width;
+            int height = pictureBox.Image.Height;
+
+            Bitmap newBitmapTemp = new Bitmap(2 * width, height);
+
+            for (int y = 0; y < newBitmap.Height; y++)
+            {
+                for (int xl = 0, xr = newBitmap.Width; xl < newBitmap.Width; xl++, xr++)
+                {
+                    try
+                    {
+                        Color pixel = newBitmap.GetPixel(xl, y);
+
+                        newBitmapTemp.SetPixel(xl, y, pixel);
+                        newBitmapTemp.SetPixel(xr, y, pixel);
+                    }
+                    catch (Exception) { }
+                }
+            }
+            newBitmap = newBitmapTemp;
+            pictureBox.Image = newBitmap;
+        }
+
+        void stich_vertical()    // funkcja doklejająca to samo zdjęcie od dołu
+        {
+            int width = pictureBox.Image.Width;
+            int height = pictureBox.Image.Height;
+
+            Bitmap newBitmapTemp = new Bitmap(width, 2 * height);
+
+            for (int x = 0; x < newBitmap.Height; x++)
+            {
+                for (int yl = 0, yr = newBitmap.Height; yl < newBitmap.Height; yl++, yr++)
+                {
+                    try
+                    {
+                        Color pixel = newBitmap.GetPixel(x, yl);
+
+                        newBitmapTemp.SetPixel(x, yl, pixel);
+                        newBitmapTemp.SetPixel(x, yr, pixel);
+                    }
+                    catch (Exception) { }
+                }
+            }
+            newBitmap = newBitmapTemp;
+            pictureBox.Image = newBitmap;
+        }
+
         void mirror_stich_right()    // funkcja doklejająca to samo zdjęcie z prawej strony
         {
             int width = pictureBox.Image.Width;
@@ -880,6 +963,106 @@ namespace Podstawowy_foto_edytor
 
                         newBitmapTemp.SetPixel(x, yl + height, pixel);
                         newBitmapTemp.SetPixel(x, yr - height, pixel);
+                    }
+                    catch (Exception) { }
+                }
+            }
+            newBitmap = newBitmapTemp;
+            pictureBox.Image = newBitmap;
+        }
+
+        void stich_left()    // funkcja doklejająca to samo zdjęcie z prawej strony
+        {
+            int width = pictureBox.Image.Width;
+            int height = pictureBox.Image.Height;
+
+            Bitmap newBitmapTemp = new Bitmap(2 * width, height);
+
+            for (int y = 0; y < newBitmap.Height; y++)
+            {
+                for (int xl = 0, xr = newBitmap.Width; xl < newBitmap.Width; xl++, xr++)
+                {
+                    try
+                    {
+                        Color pixel = newBitmap.GetPixel(xl, y);
+
+                        newBitmapTemp.SetPixel(xl, y, pixel);
+                        newBitmapTemp.SetPixel(xr, y, pixel);
+                    }
+                    catch (Exception) { }
+                }
+            }
+            newBitmap = newBitmapTemp;
+            pictureBox.Image = newBitmap;
+        }
+
+        void stich_right()    // funkcja doklejająca to samo zdjęcie z prawej strony
+        {
+            int width = pictureBox.Image.Width;
+            int height = pictureBox.Image.Height;
+
+            Bitmap newBitmapTemp = new Bitmap(2 * width, height);
+
+            for (int y = 0; y < newBitmap.Height; y++)
+            {
+                for (int xl = 0, xr = newBitmap.Width; xl < newBitmap.Width; xl++, xr++)
+                {
+                    try
+                    {
+                        Color pixel = newBitmap.GetPixel(xl, y);
+
+                        newBitmapTemp.SetPixel(xl, y, pixel);
+                        newBitmapTemp.SetPixel(xr, y, pixel);
+                    }
+                    catch (Exception) { }
+                }
+            }
+            newBitmap = newBitmapTemp;
+            pictureBox.Image = newBitmap;
+        }
+
+        void stich_top()    // funkcja doklejająca to samo zdjęcie od dołu
+        {
+            int width = pictureBox.Image.Width;
+            int height = pictureBox.Image.Height;
+
+            Bitmap newBitmapTemp = new Bitmap(width, 2 * height);
+
+            for (int x = 0; x < newBitmap.Height; x++)
+            {
+                for (int yl = 0, yr = newBitmap.Height; yl < newBitmap.Height; yl++, yr++)
+                {
+                    try
+                    {
+                        Color pixel = newBitmap.GetPixel(x, yl);
+
+                        newBitmapTemp.SetPixel(x, yl, pixel);
+                        newBitmapTemp.SetPixel(x, yr, pixel);
+                    }
+                    catch (Exception) { }
+                }
+            }
+            newBitmap = newBitmapTemp;
+            pictureBox.Image = newBitmap;
+        }
+
+        void stich_bottom()    // funkcja doklejająca to samo zdjęcie od dołu
+        {
+            int width = pictureBox.Image.Width;
+            int height = pictureBox.Image.Height;
+
+            Bitmap newBitmapTemp = new Bitmap(width, 2 * height);
+
+            for (int x = 0; x < newBitmap.Height; x++)
+            {
+                for (int yl = 0, yr = newBitmap.Height; yl < newBitmap.Height; yl++, yr++)
+                {
+                    try
+                    {
+                        Color pixel = newBitmap.GetPixel(x, yl);
+
+                        newBitmapTemp.SetPixel(x, yl, pixel);
+                        newBitmapTemp.SetPixel(x, yr, pixel);
                     }
                     catch (Exception) { }
                 }
@@ -1388,6 +1571,10 @@ namespace Podstawowy_foto_edytor
             Gamma_Bar.Value = 25;
             Gamma_Value_label.Text = Gamma_Bar.Value.ToString();
             Contrast_Value_label.Text = Contrast_Bar.Value.ToString();
+            Threshold_Bar.Value = 0;
+            Color_Shallowing_Bar.Value = 0;
+            Threshold_Value_label.Text = Threshold_Bar.Value.ToString();
+            Color_Shallowing_Value_label.Text = Color_Shallowing_Bar.Value.ToString();
         }
 
         private void trackBar1_ValueChanged(object sender, EventArgs e)
@@ -1570,15 +1757,15 @@ namespace Podstawowy_foto_edytor
         private void aboutToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Program contain:" + "\n" + "- Menu(top part of the screen)" + "\n" + 
-                "- 2 Trackbars boxes(left and bottom side of the screen" + "\n" +
-                "- Main window(top-right part of window)" + "\n" + 
+                "- 3 Trackbars boxes(left, right and bottom side of the screen" + "\n" +
+                "- Main window(middle-top part of window)" + "\n" + 
                 "- Side window(left-bottom part of window)" + "\n" + 
                 "- Button to cancel all changes(right-bottom corner of window)" +
                 "" + "\n" +
                 "" + "\n" +
                 "To start click on File -> Open image. Now you can start applying changest to your picture." + "\n" +
                 "Some of effects cant work combined(yet) so for now it is suggested to save your work between applying those changes to your image." + "\n" +
-                "If you want to save your work click File -> Save image -> then choose your preferd extension." +
+                "If you want to save your work click File -> Save image -> then choose your prefered extension." +
                 "" + "\n" + "\n" +
                 "Enjoy your time using this app"
                 
@@ -1588,6 +1775,21 @@ namespace Podstawowy_foto_edytor
         private void Threshold_Bar_Scroll(object sender, EventArgs e)
         {
             threshold();
+        }
+
+        private void Color_Shallowing_Bar_Scroll(object sender, EventArgs e)
+        {
+            color_shallowing();
+        }
+
+        private void horizontalStichToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            stich_horizontal();
+        }
+
+        private void verticalStichToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            stich_vertical();
         }
     }
 }
