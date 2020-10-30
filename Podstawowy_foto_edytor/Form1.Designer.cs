@@ -162,10 +162,10 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.Red_Bar.BackColor = System.Drawing.SystemColors.MenuBar;
             this.Red_Bar.LargeChange = 1;
-            this.Red_Bar.Location = new System.Drawing.Point(42, 8);
+            this.Red_Bar.Location = new System.Drawing.Point(54, 8);
             this.Red_Bar.Maximum = 100;
             this.Red_Bar.Name = "Red_Bar";
-            this.Red_Bar.Size = new System.Drawing.Size(669, 45);
+            this.Red_Bar.Size = new System.Drawing.Size(657, 45);
             this.Red_Bar.TabIndex = 11;
             this.Red_Bar.ValueChanged += new System.EventHandler(this.trackBar1_ValueChanged);
             // 
@@ -175,10 +175,10 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.Green_Bar.BackColor = System.Drawing.SystemColors.MenuBar;
             this.Green_Bar.LargeChange = 1;
-            this.Green_Bar.Location = new System.Drawing.Point(42, 59);
+            this.Green_Bar.Location = new System.Drawing.Point(54, 59);
             this.Green_Bar.Maximum = 100;
             this.Green_Bar.Name = "Green_Bar";
-            this.Green_Bar.Size = new System.Drawing.Size(669, 45);
+            this.Green_Bar.Size = new System.Drawing.Size(657, 45);
             this.Green_Bar.TabIndex = 12;
             this.Green_Bar.ValueChanged += new System.EventHandler(this.trackBar2_ValueChanged);
             // 
@@ -188,10 +188,10 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.Blue_Bar.BackColor = System.Drawing.SystemColors.MenuBar;
             this.Blue_Bar.LargeChange = 1;
-            this.Blue_Bar.Location = new System.Drawing.Point(42, 110);
+            this.Blue_Bar.Location = new System.Drawing.Point(54, 110);
             this.Blue_Bar.Maximum = 100;
             this.Blue_Bar.Name = "Blue_Bar";
-            this.Blue_Bar.Size = new System.Drawing.Size(669, 45);
+            this.Blue_Bar.Size = new System.Drawing.Size(657, 45);
             this.Blue_Bar.TabIndex = 13;
             this.Blue_Bar.ValueChanged += new System.EventHandler(this.trackBar3_ValueChanged);
             // 
@@ -372,14 +372,14 @@
             // saveImageToolStripMenuItem
             // 
             this.saveImageToolStripMenuItem.Name = "saveImageToolStripMenuItem";
-            this.saveImageToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.saveImageToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
             this.saveImageToolStripMenuItem.Text = "Save image";
             this.saveImageToolStripMenuItem.Click += new System.EventHandler(this.saveImageToolStripMenuItem_Click);
             // 
             // openImageToolStripMenuItem1
             // 
             this.openImageToolStripMenuItem1.Name = "openImageToolStripMenuItem1";
-            this.openImageToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.openImageToolStripMenuItem1.Size = new System.Drawing.Size(141, 22);
             this.openImageToolStripMenuItem1.Text = "Open image";
             this.openImageToolStripMenuItem1.Click += new System.EventHandler(this.openImageToolStripMenuItem1_Click);
             // 
@@ -514,7 +514,7 @@
             // colorToolStripMenuItem
             // 
             this.colorToolStripMenuItem.Name = "colorToolStripMenuItem";
-            this.colorToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.colorToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.colorToolStripMenuItem.Text = "Color";
             // 
             // statisticsToolStripMenuItem
@@ -528,7 +528,7 @@
             // histogramToolStripMenuItem
             // 
             this.histogramToolStripMenuItem.Name = "histogramToolStripMenuItem";
-            this.histogramToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.histogramToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
             this.histogramToolStripMenuItem.Text = "Histogram";
             this.histogramToolStripMenuItem.Click += new System.EventHandler(this.histogramToolStripMenuItem_Click);
             // 
@@ -548,7 +548,7 @@
             this.nearestNeighbourToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.x3ToolStripMenuItem});
             this.nearestNeighbourToolStripMenuItem.Name = "nearestNeighbourToolStripMenuItem";
-            this.nearestNeighbourToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.nearestNeighbourToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
             this.nearestNeighbourToolStripMenuItem.Text = "Nearest neighbour";
             // 
             // x3ToolStripMenuItem
@@ -564,7 +564,7 @@
             this.x2ToolStripMenuItem1,
             this.x3ToolStripMenuItem1});
             this.biLinearToolStripMenuItem.Name = "biLinearToolStripMenuItem";
-            this.biLinearToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.biLinearToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
             this.biLinearToolStripMenuItem.Text = "BiLinear";
             // 
             // x2ToolStripMenuItem1
@@ -584,7 +584,7 @@
             // biCubicToolStripMenuItem
             // 
             this.biCubicToolStripMenuItem.Name = "biCubicToolStripMenuItem";
-            this.biCubicToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.biCubicToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
             this.biCubicToolStripMenuItem.Text = "BiCubic";
             // 
             // stichOneImageToolStripMenuItem
@@ -700,14 +700,14 @@
             // leftToolStripMenuItem
             // 
             this.leftToolStripMenuItem.Name = "leftToolStripMenuItem";
-            this.leftToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.leftToolStripMenuItem.Size = new System.Drawing.Size(104, 22);
             this.leftToolStripMenuItem.Text = "Left";
             this.leftToolStripMenuItem.Click += new System.EventHandler(this.leftToolStripMenuItem_Click);
             // 
             // rightToolStripMenuItem
             // 
             this.rightToolStripMenuItem.Name = "rightToolStripMenuItem";
-            this.rightToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.rightToolStripMenuItem.Size = new System.Drawing.Size(104, 22);
             this.rightToolStripMenuItem.Text = "Right";
             this.rightToolStripMenuItem.Click += new System.EventHandler(this.rightToolStripMenuItem_Click);
             // 
@@ -725,21 +725,21 @@
             // rGBToolStripMenuItem
             // 
             this.rGBToolStripMenuItem.Name = "rGBToolStripMenuItem";
-            this.rGBToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.rGBToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
             this.rGBToolStripMenuItem.Text = "RGB";
             this.rGBToolStripMenuItem.Click += new System.EventHandler(this.rGBToolStripMenuItem_Click);
             // 
             // yCbCrToolStripMenuItem
             // 
             this.yCbCrToolStripMenuItem.Name = "yCbCrToolStripMenuItem";
-            this.yCbCrToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.yCbCrToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
             this.yCbCrToolStripMenuItem.Text = "YCbCr";
             this.yCbCrToolStripMenuItem.Click += new System.EventHandler(this.yCbCrToolStripMenuItem_Click);
             // 
             // extractionToolStripMenuItem
             // 
             this.extractionToolStripMenuItem.Name = "extractionToolStripMenuItem";
-            this.extractionToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.extractionToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
             this.extractionToolStripMenuItem.Text = "Extraction";
             this.extractionToolStripMenuItem.Click += new System.EventHandler(this.extractionToolStripMenuItem_Click);
             // 
@@ -892,6 +892,7 @@
             // 
             // progressBar1
             // 
+            this.progressBar1.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.progressBar1.Location = new System.Drawing.Point(637, 725);
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(100, 20);
@@ -920,7 +921,7 @@
             this.groupBox1.Size = new System.Drawing.Size(156, 499);
             this.groupBox1.TabIndex = 43;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "groupBox1";
+            this.groupBox1.Text = "Processing";
             // 
             // Pixelate_Bar
             // 
@@ -945,7 +946,7 @@
             // 
             // Pixelate_Name_label
             // 
-            this.Pixelate_Name_label.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.Pixelate_Name_label.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.Pixelate_Name_label.AutoSize = true;
             this.Pixelate_Name_label.Location = new System.Drawing.Point(91, 254);
             this.Pixelate_Name_label.Name = "Pixelate_Name_label";
@@ -976,7 +977,7 @@
             // 
             // Blur_Name_label
             // 
-            this.Blur_Name_label.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.Blur_Name_label.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.Blur_Name_label.AutoSize = true;
             this.Blur_Name_label.Location = new System.Drawing.Point(32, 254);
             this.Blur_Name_label.Name = "Blur_Name_label";
@@ -1008,7 +1009,7 @@
             // 
             // Color_Shallowing_Value_label
             // 
-            this.Color_Shallowing_Value_label.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.Color_Shallowing_Value_label.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.Color_Shallowing_Value_label.AutoSize = true;
             this.Color_Shallowing_Value_label.Location = new System.Drawing.Point(106, 232);
             this.Color_Shallowing_Value_label.Name = "Color_Shallowing_Value_label";
@@ -1039,7 +1040,7 @@
             // 
             // Threshold_Value_label
             // 
-            this.Threshold_Value_label.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.Threshold_Value_label.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.Threshold_Value_label.AutoSize = true;
             this.Threshold_Value_label.Location = new System.Drawing.Point(39, 232);
             this.Threshold_Value_label.Name = "Threshold_Value_label";
