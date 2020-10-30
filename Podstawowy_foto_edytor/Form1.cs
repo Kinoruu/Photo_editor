@@ -1907,7 +1907,8 @@ namespace Podstawowy_foto_edytor
 
         private void helpToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("What is not working yet:" + "\n" + "- Drawing" + "\n" + "- Statistic" + "\n" + "- Resize(BiCubic)" + "\n" + "- Stich(Stich different images)" + "\n" + "- Components(TCbCr)");
+            MessageBox.Show("What is not working yet:" + "\n" + "- Drawing" + "\n" + "- Statistic" + "\n" + "- Resize(BiCubic)" + "\n" 
+                + "- Stich(Stich different images)" + "\n" + "- Components(YCbCr)" + "\n" + "- Extraction");
         }
 
         private void aboutToolStripMenuItem1_Click(object sender, EventArgs e)
