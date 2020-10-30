@@ -54,11 +54,11 @@
             this.filtersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.grayscaleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sepiaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.blurToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.negativeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.edgeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addRGBVersionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addRGBV2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.edgeWhiteOnBlackToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mirrorsInvertsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mirrorLeftSideToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mirrorRightSideToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -83,6 +83,8 @@
             this.rightSideToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.topSideToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bottomSideToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.horizontalStichToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.verticalStichToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.stichDifferentImagesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.firstLeftToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.firstRightToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -94,6 +96,7 @@
             this.componentsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rGBToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.yCbCrToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.extractionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
@@ -110,14 +113,19 @@
             this.Hue_groupbox = new System.Windows.Forms.GroupBox();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.Threshold_Bar = new System.Windows.Forms.TrackBar();
-            this.Threshold_Value_label = new System.Windows.Forms.Label();
-            this.Threshold_Name_label = new System.Windows.Forms.Label();
+            this.Pixelate_Bar = new System.Windows.Forms.TrackBar();
+            this.Pixelate_Value_label = new System.Windows.Forms.Label();
+            this.Pixelate_Name_label = new System.Windows.Forms.Label();
+            this.Blur_Bar = new System.Windows.Forms.TrackBar();
+            this.Blur_Value_label = new System.Windows.Forms.Label();
+            this.Blur_Name_label = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.Color_Shallowing_Bar = new System.Windows.Forms.TrackBar();
             this.Color_Shallowing_Value_label = new System.Windows.Forms.Label();
             this.Color_Shallowing_Name_label = new System.Windows.Forms.Label();
-            this.horizontalStichToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.verticalStichToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.Threshold_Bar = new System.Windows.Forms.TrackBar();
+            this.Threshold_Value_label = new System.Windows.Forms.Label();
+            this.Threshold_Name_label = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.Red_Bar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Green_Bar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Blue_Bar)).BeginInit();
@@ -131,8 +139,10 @@
             this.RGB_groupbox.SuspendLayout();
             this.Hue_groupbox.SuspendLayout();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.Threshold_Bar)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Pixelate_Bar)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Blur_Bar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Color_Shallowing_Bar)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Threshold_Bar)).BeginInit();
             this.SuspendLayout();
             // 
             // None_button
@@ -354,21 +364,22 @@
             this.openImageToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.saveImageToolStripMenuItem,
             this.openImageToolStripMenuItem1});
+            this.openImageToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.openImageToolStripMenuItem.Name = "openImageToolStripMenuItem";
-            this.openImageToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+            this.openImageToolStripMenuItem.Size = new System.Drawing.Size(38, 20);
             this.openImageToolStripMenuItem.Text = "File";
             // 
             // saveImageToolStripMenuItem
             // 
             this.saveImageToolStripMenuItem.Name = "saveImageToolStripMenuItem";
-            this.saveImageToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
+            this.saveImageToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.saveImageToolStripMenuItem.Text = "Save image";
             this.saveImageToolStripMenuItem.Click += new System.EventHandler(this.saveImageToolStripMenuItem_Click);
             // 
             // openImageToolStripMenuItem1
             // 
             this.openImageToolStripMenuItem1.Name = "openImageToolStripMenuItem1";
-            this.openImageToolStripMenuItem1.Size = new System.Drawing.Size(139, 22);
+            this.openImageToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.openImageToolStripMenuItem1.Text = "Open image";
             this.openImageToolStripMenuItem1.Click += new System.EventHandler(this.openImageToolStripMenuItem1_Click);
             // 
@@ -377,63 +388,64 @@
             this.filtersToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.grayscaleToolStripMenuItem,
             this.sepiaToolStripMenuItem,
-            this.blurToolStripMenuItem,
             this.negativeToolStripMenuItem,
             this.edgeToolStripMenuItem,
             this.addRGBVersionToolStripMenuItem,
-            this.addRGBV2ToolStripMenuItem});
+            this.addRGBV2ToolStripMenuItem,
+            this.edgeWhiteOnBlackToolStripMenuItem});
+            this.filtersToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.filtersToolStripMenuItem.Name = "filtersToolStripMenuItem";
-            this.filtersToolStripMenuItem.Size = new System.Drawing.Size(50, 20);
+            this.filtersToolStripMenuItem.Size = new System.Drawing.Size(53, 20);
             this.filtersToolStripMenuItem.Text = "Filters";
             // 
             // grayscaleToolStripMenuItem
             // 
             this.grayscaleToolStripMenuItem.Name = "grayscaleToolStripMenuItem";
-            this.grayscaleToolStripMenuItem.Size = new System.Drawing.Size(185, 22);
+            this.grayscaleToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
             this.grayscaleToolStripMenuItem.Text = "Grayscale";
             this.grayscaleToolStripMenuItem.Click += new System.EventHandler(this.grayscaleToolStripMenuItem_Click);
             // 
             // sepiaToolStripMenuItem
             // 
             this.sepiaToolStripMenuItem.Name = "sepiaToolStripMenuItem";
-            this.sepiaToolStripMenuItem.Size = new System.Drawing.Size(185, 22);
+            this.sepiaToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
             this.sepiaToolStripMenuItem.Text = "Sepia";
             this.sepiaToolStripMenuItem.Click += new System.EventHandler(this.sepiaToolStripMenuItem_Click);
-            // 
-            // blurToolStripMenuItem
-            // 
-            this.blurToolStripMenuItem.Name = "blurToolStripMenuItem";
-            this.blurToolStripMenuItem.Size = new System.Drawing.Size(185, 22);
-            this.blurToolStripMenuItem.Text = "Blur";
-            this.blurToolStripMenuItem.Click += new System.EventHandler(this.blurToolStripMenuItem_Click);
             // 
             // negativeToolStripMenuItem
             // 
             this.negativeToolStripMenuItem.Name = "negativeToolStripMenuItem";
-            this.negativeToolStripMenuItem.Size = new System.Drawing.Size(185, 22);
+            this.negativeToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
             this.negativeToolStripMenuItem.Text = "Negative";
             this.negativeToolStripMenuItem.Click += new System.EventHandler(this.negativeToolStripMenuItem_Click);
             // 
             // edgeToolStripMenuItem
             // 
             this.edgeToolStripMenuItem.Name = "edgeToolStripMenuItem";
-            this.edgeToolStripMenuItem.Size = new System.Drawing.Size(185, 22);
-            this.edgeToolStripMenuItem.Text = "Edge(black on white)";
+            this.edgeToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
+            this.edgeToolStripMenuItem.Text = "Edge(Black on White)";
             this.edgeToolStripMenuItem.Click += new System.EventHandler(this.edgeToolStripMenuItem_Click);
             // 
             // addRGBVersionToolStripMenuItem
             // 
             this.addRGBVersionToolStripMenuItem.Name = "addRGBVersionToolStripMenuItem";
-            this.addRGBVersionToolStripMenuItem.Size = new System.Drawing.Size(185, 22);
+            this.addRGBVersionToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
             this.addRGBVersionToolStripMenuItem.Text = "Add RGB version";
             this.addRGBVersionToolStripMenuItem.Click += new System.EventHandler(this.addRGBVersionToolStripMenuItem_Click);
             // 
             // addRGBV2ToolStripMenuItem
             // 
             this.addRGBV2ToolStripMenuItem.Name = "addRGBV2ToolStripMenuItem";
-            this.addRGBV2ToolStripMenuItem.Size = new System.Drawing.Size(185, 22);
+            this.addRGBV2ToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
             this.addRGBV2ToolStripMenuItem.Text = "Add RGB v2";
             this.addRGBV2ToolStripMenuItem.Click += new System.EventHandler(this.addRGBV2ToolStripMenuItem_Click);
+            // 
+            // edgeWhiteOnBlackToolStripMenuItem
+            // 
+            this.edgeWhiteOnBlackToolStripMenuItem.Name = "edgeWhiteOnBlackToolStripMenuItem";
+            this.edgeWhiteOnBlackToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
+            this.edgeWhiteOnBlackToolStripMenuItem.Text = "Edge(White on Black)";
+            this.edgeWhiteOnBlackToolStripMenuItem.Click += new System.EventHandler(this.edgeWhiteOnBlackToolStripMenuItem_Click);
             // 
             // mirrorsInvertsToolStripMenuItem
             // 
@@ -444,49 +456,50 @@
             this.mirrorBottomSideToolStripMenuItem,
             this.invertHorizontalToolStripMenuItem,
             this.invertVerticalToolStripMenuItem});
+            this.mirrorsInvertsToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.mirrorsInvertsToolStripMenuItem.Name = "mirrorsInvertsToolStripMenuItem";
-            this.mirrorsInvertsToolStripMenuItem.Size = new System.Drawing.Size(97, 20);
+            this.mirrorsInvertsToolStripMenuItem.Size = new System.Drawing.Size(105, 20);
             this.mirrorsInvertsToolStripMenuItem.Text = "Mirrors/Inverts";
             // 
             // mirrorLeftSideToolStripMenuItem
             // 
             this.mirrorLeftSideToolStripMenuItem.Name = "mirrorLeftSideToolStripMenuItem";
-            this.mirrorLeftSideToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.mirrorLeftSideToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.mirrorLeftSideToolStripMenuItem.Text = "Mirror left side";
             this.mirrorLeftSideToolStripMenuItem.Click += new System.EventHandler(this.mirrorLeftSideToolStripMenuItem_Click);
             // 
             // mirrorRightSideToolStripMenuItem
             // 
             this.mirrorRightSideToolStripMenuItem.Name = "mirrorRightSideToolStripMenuItem";
-            this.mirrorRightSideToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.mirrorRightSideToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.mirrorRightSideToolStripMenuItem.Text = "Mirror right side";
             this.mirrorRightSideToolStripMenuItem.Click += new System.EventHandler(this.mirrorRightSideToolStripMenuItem_Click);
             // 
             // mirrorTopSideToolStripMenuItem
             // 
             this.mirrorTopSideToolStripMenuItem.Name = "mirrorTopSideToolStripMenuItem";
-            this.mirrorTopSideToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.mirrorTopSideToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.mirrorTopSideToolStripMenuItem.Text = "Mirror top side";
             this.mirrorTopSideToolStripMenuItem.Click += new System.EventHandler(this.mirrorTopSideToolStripMenuItem_Click);
             // 
             // mirrorBottomSideToolStripMenuItem
             // 
             this.mirrorBottomSideToolStripMenuItem.Name = "mirrorBottomSideToolStripMenuItem";
-            this.mirrorBottomSideToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.mirrorBottomSideToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.mirrorBottomSideToolStripMenuItem.Text = "Mirror bottom side";
             this.mirrorBottomSideToolStripMenuItem.Click += new System.EventHandler(this.mirrorBottomSideToolStripMenuItem_Click);
             // 
             // invertHorizontalToolStripMenuItem
             // 
             this.invertHorizontalToolStripMenuItem.Name = "invertHorizontalToolStripMenuItem";
-            this.invertHorizontalToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.invertHorizontalToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.invertHorizontalToolStripMenuItem.Text = "Invert horizontal";
             this.invertHorizontalToolStripMenuItem.Click += new System.EventHandler(this.invertHorizontalToolStripMenuItem_Click);
             // 
             // invertVerticalToolStripMenuItem
             // 
             this.invertVerticalToolStripMenuItem.Name = "invertVerticalToolStripMenuItem";
-            this.invertVerticalToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.invertVerticalToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.invertVerticalToolStripMenuItem.Text = "Invert vertical";
             this.invertVerticalToolStripMenuItem.Click += new System.EventHandler(this.invertVerticalToolStripMenuItem_Click);
             // 
@@ -501,7 +514,7 @@
             // colorToolStripMenuItem
             // 
             this.colorToolStripMenuItem.Name = "colorToolStripMenuItem";
-            this.colorToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.colorToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.colorToolStripMenuItem.Text = "Color";
             // 
             // statisticsToolStripMenuItem
@@ -515,7 +528,7 @@
             // histogramToolStripMenuItem
             // 
             this.histogramToolStripMenuItem.Name = "histogramToolStripMenuItem";
-            this.histogramToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
+            this.histogramToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.histogramToolStripMenuItem.Text = "Histogram";
             this.histogramToolStripMenuItem.Click += new System.EventHandler(this.histogramToolStripMenuItem_Click);
             // 
@@ -525,8 +538,9 @@
             this.nearestNeighbourToolStripMenuItem,
             this.biLinearToolStripMenuItem,
             this.biCubicToolStripMenuItem});
+            this.resizeToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.resizeToolStripMenuItem.Name = "resizeToolStripMenuItem";
-            this.resizeToolStripMenuItem.Size = new System.Drawing.Size(51, 20);
+            this.resizeToolStripMenuItem.Size = new System.Drawing.Size(55, 20);
             this.resizeToolStripMenuItem.Text = "Resize";
             // 
             // nearestNeighbourToolStripMenuItem
@@ -534,13 +548,13 @@
             this.nearestNeighbourToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.x3ToolStripMenuItem});
             this.nearestNeighbourToolStripMenuItem.Name = "nearestNeighbourToolStripMenuItem";
-            this.nearestNeighbourToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
+            this.nearestNeighbourToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.nearestNeighbourToolStripMenuItem.Text = "Nearest neighbour";
             // 
             // x3ToolStripMenuItem
             // 
             this.x3ToolStripMenuItem.Name = "x3ToolStripMenuItem";
-            this.x3ToolStripMenuItem.Size = new System.Drawing.Size(86, 22);
+            this.x3ToolStripMenuItem.Size = new System.Drawing.Size(88, 22);
             this.x3ToolStripMenuItem.Text = "x3";
             this.x3ToolStripMenuItem.Click += new System.EventHandler(this.x3ToolStripMenuItem_Click);
             // 
@@ -550,27 +564,27 @@
             this.x2ToolStripMenuItem1,
             this.x3ToolStripMenuItem1});
             this.biLinearToolStripMenuItem.Name = "biLinearToolStripMenuItem";
-            this.biLinearToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
+            this.biLinearToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.biLinearToolStripMenuItem.Text = "BiLinear";
             // 
             // x2ToolStripMenuItem1
             // 
             this.x2ToolStripMenuItem1.Name = "x2ToolStripMenuItem1";
-            this.x2ToolStripMenuItem1.Size = new System.Drawing.Size(86, 22);
+            this.x2ToolStripMenuItem1.Size = new System.Drawing.Size(88, 22);
             this.x2ToolStripMenuItem1.Text = "x2";
             this.x2ToolStripMenuItem1.Click += new System.EventHandler(this.x2ToolStripMenuItem1_Click);
             // 
             // x3ToolStripMenuItem1
             // 
             this.x3ToolStripMenuItem1.Name = "x3ToolStripMenuItem1";
-            this.x3ToolStripMenuItem1.Size = new System.Drawing.Size(86, 22);
+            this.x3ToolStripMenuItem1.Size = new System.Drawing.Size(88, 22);
             this.x3ToolStripMenuItem1.Text = "x3";
             this.x3ToolStripMenuItem1.Click += new System.EventHandler(this.x3ToolStripMenuItem1_Click_1);
             // 
             // biCubicToolStripMenuItem
             // 
             this.biCubicToolStripMenuItem.Name = "biCubicToolStripMenuItem";
-            this.biCubicToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
+            this.biCubicToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.biCubicToolStripMenuItem.Text = "BiCubic";
             // 
             // stichOneImageToolStripMenuItem
@@ -580,8 +594,9 @@
             this.horizontalStichToolStripMenuItem,
             this.verticalStichToolStripMenuItem,
             this.stichDifferentImagesToolStripMenuItem});
+            this.stichOneImageToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.stichOneImageToolStripMenuItem.Name = "stichOneImageToolStripMenuItem";
-            this.stichOneImageToolStripMenuItem.Size = new System.Drawing.Size(45, 20);
+            this.stichOneImageToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
             this.stichOneImageToolStripMenuItem.Text = "Stich";
             // 
             // stichOneImageToolStripMenuItem1
@@ -592,36 +607,50 @@
             this.topSideToolStripMenuItem,
             this.bottomSideToolStripMenuItem});
             this.stichOneImageToolStripMenuItem1.Name = "stichOneImageToolStripMenuItem1";
-            this.stichOneImageToolStripMenuItem1.Size = new System.Drawing.Size(194, 22);
+            this.stichOneImageToolStripMenuItem1.Size = new System.Drawing.Size(200, 22);
             this.stichOneImageToolStripMenuItem1.Text = "Mirror stich one image";
             // 
             // leftSideToolStripMenuItem
             // 
             this.leftSideToolStripMenuItem.Name = "leftSideToolStripMenuItem";
-            this.leftSideToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
+            this.leftSideToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
             this.leftSideToolStripMenuItem.Text = "Left side";
             this.leftSideToolStripMenuItem.Click += new System.EventHandler(this.leftSideToolStripMenuItem_Click);
             // 
             // rightSideToolStripMenuItem
             // 
             this.rightSideToolStripMenuItem.Name = "rightSideToolStripMenuItem";
-            this.rightSideToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
+            this.rightSideToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
             this.rightSideToolStripMenuItem.Text = "Right side";
             this.rightSideToolStripMenuItem.Click += new System.EventHandler(this.rightSideToolStripMenuItem_Click);
             // 
             // topSideToolStripMenuItem
             // 
             this.topSideToolStripMenuItem.Name = "topSideToolStripMenuItem";
-            this.topSideToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
+            this.topSideToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
             this.topSideToolStripMenuItem.Text = "Top side";
             this.topSideToolStripMenuItem.Click += new System.EventHandler(this.topSideToolStripMenuItem_Click);
             // 
             // bottomSideToolStripMenuItem
             // 
             this.bottomSideToolStripMenuItem.Name = "bottomSideToolStripMenuItem";
-            this.bottomSideToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
+            this.bottomSideToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
             this.bottomSideToolStripMenuItem.Text = "Bottom side";
             this.bottomSideToolStripMenuItem.Click += new System.EventHandler(this.bottomSideToolStripMenuItem_Click);
+            // 
+            // horizontalStichToolStripMenuItem
+            // 
+            this.horizontalStichToolStripMenuItem.Name = "horizontalStichToolStripMenuItem";
+            this.horizontalStichToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
+            this.horizontalStichToolStripMenuItem.Text = "Horizontal stich";
+            this.horizontalStichToolStripMenuItem.Click += new System.EventHandler(this.horizontalStichToolStripMenuItem_Click);
+            // 
+            // verticalStichToolStripMenuItem
+            // 
+            this.verticalStichToolStripMenuItem.Name = "verticalStichToolStripMenuItem";
+            this.verticalStichToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
+            this.verticalStichToolStripMenuItem.Text = "Vertical stich";
+            this.verticalStichToolStripMenuItem.Click += new System.EventHandler(this.verticalStichToolStripMenuItem_Click);
             // 
             // stichDifferentImagesToolStripMenuItem
             // 
@@ -631,31 +660,31 @@
             this.firstTopToolStripMenuItem,
             this.firstBottomToolStripMenuItem});
             this.stichDifferentImagesToolStripMenuItem.Name = "stichDifferentImagesToolStripMenuItem";
-            this.stichDifferentImagesToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
+            this.stichDifferentImagesToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
             this.stichDifferentImagesToolStripMenuItem.Text = "Stich different images";
             // 
             // firstLeftToolStripMenuItem
             // 
             this.firstLeftToolStripMenuItem.Name = "firstLeftToolStripMenuItem";
-            this.firstLeftToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
+            this.firstLeftToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             this.firstLeftToolStripMenuItem.Text = "First left";
             // 
             // firstRightToolStripMenuItem
             // 
             this.firstRightToolStripMenuItem.Name = "firstRightToolStripMenuItem";
-            this.firstRightToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
+            this.firstRightToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             this.firstRightToolStripMenuItem.Text = "First right";
             // 
             // firstTopToolStripMenuItem
             // 
             this.firstTopToolStripMenuItem.Name = "firstTopToolStripMenuItem";
-            this.firstTopToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
+            this.firstTopToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             this.firstTopToolStripMenuItem.Text = "First top";
             // 
             // firstBottomToolStripMenuItem
             // 
             this.firstBottomToolStripMenuItem.Name = "firstBottomToolStripMenuItem";
-            this.firstBottomToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
+            this.firstBottomToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             this.firstBottomToolStripMenuItem.Text = "First bottom";
             // 
             // rotateToolStripMenuItem
@@ -663,21 +692,22 @@
             this.rotateToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.leftToolStripMenuItem,
             this.rightToolStripMenuItem});
+            this.rotateToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.rotateToolStripMenuItem.Name = "rotateToolStripMenuItem";
-            this.rotateToolStripMenuItem.Size = new System.Drawing.Size(53, 20);
+            this.rotateToolStripMenuItem.Size = new System.Drawing.Size(57, 20);
             this.rotateToolStripMenuItem.Text = "Rotate";
             // 
             // leftToolStripMenuItem
             // 
             this.leftToolStripMenuItem.Name = "leftToolStripMenuItem";
-            this.leftToolStripMenuItem.Size = new System.Drawing.Size(102, 22);
+            this.leftToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.leftToolStripMenuItem.Text = "Left";
             this.leftToolStripMenuItem.Click += new System.EventHandler(this.leftToolStripMenuItem_Click);
             // 
             // rightToolStripMenuItem
             // 
             this.rightToolStripMenuItem.Name = "rightToolStripMenuItem";
-            this.rightToolStripMenuItem.Size = new System.Drawing.Size(102, 22);
+            this.rightToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.rightToolStripMenuItem.Text = "Right";
             this.rightToolStripMenuItem.Click += new System.EventHandler(this.rightToolStripMenuItem_Click);
             // 
@@ -685,36 +715,47 @@
             // 
             this.componentsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.rGBToolStripMenuItem,
-            this.yCbCrToolStripMenuItem});
+            this.yCbCrToolStripMenuItem,
+            this.extractionToolStripMenuItem});
+            this.componentsToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.componentsToolStripMenuItem.Name = "componentsToolStripMenuItem";
-            this.componentsToolStripMenuItem.Size = new System.Drawing.Size(88, 20);
+            this.componentsToolStripMenuItem.Size = new System.Drawing.Size(89, 20);
             this.componentsToolStripMenuItem.Text = "Components";
             // 
             // rGBToolStripMenuItem
             // 
             this.rGBToolStripMenuItem.Name = "rGBToolStripMenuItem";
-            this.rGBToolStripMenuItem.Size = new System.Drawing.Size(108, 22);
+            this.rGBToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.rGBToolStripMenuItem.Text = "RGB";
             this.rGBToolStripMenuItem.Click += new System.EventHandler(this.rGBToolStripMenuItem_Click);
             // 
             // yCbCrToolStripMenuItem
             // 
             this.yCbCrToolStripMenuItem.Name = "yCbCrToolStripMenuItem";
-            this.yCbCrToolStripMenuItem.Size = new System.Drawing.Size(108, 22);
+            this.yCbCrToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.yCbCrToolStripMenuItem.Text = "YCbCr";
             this.yCbCrToolStripMenuItem.Click += new System.EventHandler(this.yCbCrToolStripMenuItem_Click);
             // 
+            // extractionToolStripMenuItem
+            // 
+            this.extractionToolStripMenuItem.Name = "extractionToolStripMenuItem";
+            this.extractionToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.extractionToolStripMenuItem.Text = "Extraction";
+            this.extractionToolStripMenuItem.Click += new System.EventHandler(this.extractionToolStripMenuItem_Click);
+            // 
             // aboutToolStripMenuItem1
             // 
+            this.aboutToolStripMenuItem1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.aboutToolStripMenuItem1.Name = "aboutToolStripMenuItem1";
-            this.aboutToolStripMenuItem1.Size = new System.Drawing.Size(52, 20);
+            this.aboutToolStripMenuItem1.Size = new System.Drawing.Size(53, 20);
             this.aboutToolStripMenuItem1.Text = "About";
             this.aboutToolStripMenuItem1.Click += new System.EventHandler(this.aboutToolStripMenuItem1_Click);
             // 
             // helpToolStripMenuItem
             // 
+            this.helpToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(45, 20);
             this.helpToolStripMenuItem.Text = "Help";
             this.helpToolStripMenuItem.Click += new System.EventHandler(this.helpToolStripMenuItem_Click);
             // 
@@ -747,7 +788,7 @@
             // 
             this.Gamma_Value_label.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.Gamma_Value_label.AutoSize = true;
-            this.Gamma_Value_label.Location = new System.Drawing.Point(128, 469);
+            this.Gamma_Value_label.Location = new System.Drawing.Point(129, 469);
             this.Gamma_Value_label.Name = "Gamma_Value_label";
             this.Gamma_Value_label.Size = new System.Drawing.Size(19, 13);
             this.Gamma_Value_label.TabIndex = 37;
@@ -861,6 +902,13 @@
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.groupBox1.Controls.Add(this.Pixelate_Bar);
+            this.groupBox1.Controls.Add(this.Pixelate_Value_label);
+            this.groupBox1.Controls.Add(this.Pixelate_Name_label);
+            this.groupBox1.Controls.Add(this.Blur_Bar);
+            this.groupBox1.Controls.Add(this.Blur_Value_label);
+            this.groupBox1.Controls.Add(this.Blur_Name_label);
+            this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.Color_Shallowing_Bar);
             this.groupBox1.Controls.Add(this.Color_Shallowing_Value_label);
             this.groupBox1.Controls.Add(this.Color_Shallowing_Name_label);
@@ -874,48 +922,87 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "groupBox1";
             // 
-            // Threshold_Bar
+            // Pixelate_Bar
             // 
-            this.Threshold_Bar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.Threshold_Bar.BackColor = System.Drawing.SystemColors.MenuBar;
-            this.Threshold_Bar.Location = new System.Drawing.Point(23, 33);
-            this.Threshold_Bar.Name = "Threshold_Bar";
-            this.Threshold_Bar.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.Threshold_Bar.Size = new System.Drawing.Size(45, 184);
-            this.Threshold_Bar.TabIndex = 44;
-            this.Threshold_Bar.Scroll += new System.EventHandler(this.Threshold_Bar_Scroll);
+            this.Pixelate_Bar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.Pixelate_Bar.BackColor = System.Drawing.SystemColors.MenuBar;
+            this.Pixelate_Bar.Location = new System.Drawing.Point(90, 270);
+            this.Pixelate_Bar.Maximum = 7;
+            this.Pixelate_Bar.Name = "Pixelate_Bar";
+            this.Pixelate_Bar.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.Pixelate_Bar.Size = new System.Drawing.Size(45, 196);
+            this.Pixelate_Bar.TabIndex = 55;
             // 
-            // Threshold_Value_label
+            // Pixelate_Value_label
             // 
-            this.Threshold_Value_label.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.Threshold_Value_label.AutoSize = true;
-            this.Threshold_Value_label.Location = new System.Drawing.Point(35, 230);
-            this.Threshold_Value_label.Name = "Threshold_Value_label";
-            this.Threshold_Value_label.Size = new System.Drawing.Size(13, 13);
-            this.Threshold_Value_label.TabIndex = 1;
-            this.Threshold_Value_label.Text = "0";
+            this.Pixelate_Value_label.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.Pixelate_Value_label.AutoSize = true;
+            this.Pixelate_Value_label.Location = new System.Drawing.Point(106, 469);
+            this.Pixelate_Value_label.Name = "Pixelate_Value_label";
+            this.Pixelate_Value_label.Size = new System.Drawing.Size(13, 13);
+            this.Pixelate_Value_label.TabIndex = 54;
+            this.Pixelate_Value_label.Text = "0";
             // 
-            // Threshold_Name_label
+            // Pixelate_Name_label
             // 
-            this.Threshold_Name_label.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.Threshold_Name_label.AutoSize = true;
-            this.Threshold_Name_label.Location = new System.Drawing.Point(23, 16);
-            this.Threshold_Name_label.Name = "Threshold_Name_label";
-            this.Threshold_Name_label.Size = new System.Drawing.Size(54, 13);
-            this.Threshold_Name_label.TabIndex = 0;
-            this.Threshold_Name_label.Text = "Threshold";
+            this.Pixelate_Name_label.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.Pixelate_Name_label.AutoSize = true;
+            this.Pixelate_Name_label.Location = new System.Drawing.Point(91, 254);
+            this.Pixelate_Name_label.Name = "Pixelate_Name_label";
+            this.Pixelate_Name_label.Size = new System.Drawing.Size(44, 13);
+            this.Pixelate_Name_label.TabIndex = 53;
+            this.Pixelate_Name_label.Text = "Pixelate";
+            // 
+            // Blur_Bar
+            // 
+            this.Blur_Bar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.Blur_Bar.BackColor = System.Drawing.SystemColors.MenuBar;
+            this.Blur_Bar.Location = new System.Drawing.Point(23, 270);
+            this.Blur_Bar.Name = "Blur_Bar";
+            this.Blur_Bar.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.Blur_Bar.Size = new System.Drawing.Size(45, 196);
+            this.Blur_Bar.TabIndex = 52;
+            this.Blur_Bar.Scroll += new System.EventHandler(this.Blur_Bar_Scroll);
+            // 
+            // Blur_Value_label
+            // 
+            this.Blur_Value_label.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.Blur_Value_label.AutoSize = true;
+            this.Blur_Value_label.Location = new System.Drawing.Point(39, 469);
+            this.Blur_Value_label.Name = "Blur_Value_label";
+            this.Blur_Value_label.Size = new System.Drawing.Size(13, 13);
+            this.Blur_Value_label.TabIndex = 51;
+            this.Blur_Value_label.Text = "0";
+            // 
+            // Blur_Name_label
+            // 
+            this.Blur_Name_label.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.Blur_Name_label.AutoSize = true;
+            this.Blur_Name_label.Location = new System.Drawing.Point(32, 254);
+            this.Blur_Name_label.Name = "Blur_Name_label";
+            this.Blur_Name_label.Size = new System.Drawing.Size(25, 13);
+            this.Blur_Name_label.TabIndex = 50;
+            this.Blur_Name_label.Text = "Blur";
+            // 
+            // label1
+            // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(40, 471);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(13, 13);
+            this.label1.TabIndex = 49;
+            this.label1.Text = "0";
             // 
             // Color_Shallowing_Bar
             // 
-            this.Color_Shallowing_Bar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.Color_Shallowing_Bar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.Color_Shallowing_Bar.BackColor = System.Drawing.SystemColors.MenuBar;
             this.Color_Shallowing_Bar.Location = new System.Drawing.Point(90, 33);
             this.Color_Shallowing_Bar.Maximum = 7;
             this.Color_Shallowing_Bar.Name = "Color_Shallowing_Bar";
             this.Color_Shallowing_Bar.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.Color_Shallowing_Bar.Size = new System.Drawing.Size(45, 184);
+            this.Color_Shallowing_Bar.Size = new System.Drawing.Size(45, 196);
             this.Color_Shallowing_Bar.TabIndex = 47;
             this.Color_Shallowing_Bar.Scroll += new System.EventHandler(this.Color_Shallowing_Bar_Scroll);
             // 
@@ -923,7 +1010,7 @@
             // 
             this.Color_Shallowing_Value_label.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.Color_Shallowing_Value_label.AutoSize = true;
-            this.Color_Shallowing_Value_label.Location = new System.Drawing.Point(102, 230);
+            this.Color_Shallowing_Value_label.Location = new System.Drawing.Point(106, 232);
             this.Color_Shallowing_Value_label.Name = "Color_Shallowing_Value_label";
             this.Color_Shallowing_Value_label.Size = new System.Drawing.Size(13, 13);
             this.Color_Shallowing_Value_label.TabIndex = 46;
@@ -939,19 +1026,36 @@
             this.Color_Shallowing_Name_label.TabIndex = 45;
             this.Color_Shallowing_Name_label.Text = "Color Shallow";
             // 
-            // horizontalStichToolStripMenuItem
+            // Threshold_Bar
             // 
-            this.horizontalStichToolStripMenuItem.Name = "horizontalStichToolStripMenuItem";
-            this.horizontalStichToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
-            this.horizontalStichToolStripMenuItem.Text = "Horizontal stich";
-            this.horizontalStichToolStripMenuItem.Click += new System.EventHandler(this.horizontalStichToolStripMenuItem_Click);
+            this.Threshold_Bar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.Threshold_Bar.BackColor = System.Drawing.SystemColors.MenuBar;
+            this.Threshold_Bar.Location = new System.Drawing.Point(22, 33);
+            this.Threshold_Bar.Name = "Threshold_Bar";
+            this.Threshold_Bar.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.Threshold_Bar.Size = new System.Drawing.Size(45, 196);
+            this.Threshold_Bar.TabIndex = 44;
+            this.Threshold_Bar.Scroll += new System.EventHandler(this.Threshold_Bar_Scroll);
             // 
-            // verticalStichToolStripMenuItem
+            // Threshold_Value_label
             // 
-            this.verticalStichToolStripMenuItem.Name = "verticalStichToolStripMenuItem";
-            this.verticalStichToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
-            this.verticalStichToolStripMenuItem.Text = "Vertical stich";
-            this.verticalStichToolStripMenuItem.Click += new System.EventHandler(this.verticalStichToolStripMenuItem_Click);
+            this.Threshold_Value_label.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.Threshold_Value_label.AutoSize = true;
+            this.Threshold_Value_label.Location = new System.Drawing.Point(39, 232);
+            this.Threshold_Value_label.Name = "Threshold_Value_label";
+            this.Threshold_Value_label.Size = new System.Drawing.Size(13, 13);
+            this.Threshold_Value_label.TabIndex = 1;
+            this.Threshold_Value_label.Text = "0";
+            // 
+            // Threshold_Name_label
+            // 
+            this.Threshold_Name_label.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.Threshold_Name_label.AutoSize = true;
+            this.Threshold_Name_label.Location = new System.Drawing.Point(19, 16);
+            this.Threshold_Name_label.Name = "Threshold_Name_label";
+            this.Threshold_Name_label.Size = new System.Drawing.Size(54, 13);
+            this.Threshold_Name_label.TabIndex = 0;
+            this.Threshold_Name_label.Text = "Threshold";
             // 
             // Form1
             // 
@@ -972,6 +1076,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.MinimumSize = new System.Drawing.Size(1118, 785);
             this.Name = "Form1";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Photo Editor";
             ((System.ComponentModel.ISupportInitialize)(this.Red_Bar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Green_Bar)).EndInit();
@@ -991,8 +1096,10 @@
             this.Hue_groupbox.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.Threshold_Bar)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Pixelate_Bar)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Blur_Bar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Color_Shallowing_Bar)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Threshold_Bar)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1027,7 +1134,6 @@
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem grayscaleToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem sepiaToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem blurToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem negativeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem edgeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem mirrorsInvertsToolStripMenuItem;
@@ -1089,5 +1195,14 @@
         private System.Windows.Forms.Label Color_Shallowing_Name_label;
         private System.Windows.Forms.ToolStripMenuItem horizontalStichToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem verticalStichToolStripMenuItem;
+        private System.Windows.Forms.TrackBar Pixelate_Bar;
+        private System.Windows.Forms.Label Pixelate_Value_label;
+        private System.Windows.Forms.Label Pixelate_Name_label;
+        private System.Windows.Forms.TrackBar Blur_Bar;
+        private System.Windows.Forms.Label Blur_Value_label;
+        private System.Windows.Forms.Label Blur_Name_label;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ToolStripMenuItem extractionToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem edgeWhiteOnBlackToolStripMenuItem;
     }
 }
