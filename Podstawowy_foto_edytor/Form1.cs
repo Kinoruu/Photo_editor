@@ -33,7 +33,7 @@ namespace Podstawowy_foto_edytor
             biCubicToolStripMenuItem.Enabled = false;
             yCbCrToolStripMenuItem.Enabled = false;
             extractionToolStripMenuItem.Enabled = false;
-            stichDifferentImagesToolStripMenuItem.Enabled = false;
+            //stichDifferentImagesToolStripMenuItem.Enabled = false;
         }
 
         void openImage()  //funkcja otwierająca obraz 
@@ -143,6 +143,31 @@ namespace Podstawowy_foto_edytor
                     rgbpoints.Text = "  ";
                 }
             }*/
+        }
+
+        int squareroot(int x)
+        {
+            if (x < 1) return 1 / squareroot(x);  // MSalter's general solution
+
+            double xhi = Convert.ToDouble(x);
+            double xlo = 0;
+            double guess = x / 2;
+            int ans;
+
+            while (guess * guess != x)
+            {
+                if (guess * guess > x)
+                    xhi = guess;
+                else
+                    xlo = guess;
+
+                double new_guess = (xhi + xlo) / 2;
+                if (new_guess == guess)
+                    break; 
+                guess = new_guess;
+            }
+            ans = Convert.ToInt32(guess);
+            return ans;
         }
 
         void hue()    //funkcja zmieniająca wartości RGB obrazu
@@ -395,7 +420,6 @@ namespace Podstawowy_foto_edytor
                 Graphics g = Graphics.FromImage(bmpInverted);
 
                 g.DrawImage(img, new Rectangle(0, 0, img.Width, img.Height), 0, 0, img.Width, img.Height, GraphicsUnit.Pixel, ia);
-
 
                 g.Dispose();
                 pictureBox.Image = bmpInverted;
@@ -1230,6 +1254,48 @@ namespace Podstawowy_foto_edytor
             pictureBox.Image = newBitmap;
         }
 
+        void stich_sec_left()    // funkcja doklejająca to samo zdjęcie z prawej strony
+        {
+            int width = pictureBox.Image.Width;
+            int height = pictureBox.Image.Height;
+
+            DialogResult dr2 = openFileDialog1.ShowDialog();
+            if (dr2 == DialogResult.OK)
+            {
+                file2 = Image.FromFile(openFileDialog1.FileName);
+                newSecondBitmap = new Bitmap(openFileDialog1.FileName);
+                pictureBox1.Image = file2;
+            }
+
+            height = Math.Max(pictureBox.Height, newSecondBitmap.Height);
+
+            int width_sum = width + newSecondBitmap.Width;
+
+            Bitmap newBitmapTemp = new Bitmap(width_sum, height);
+            Graphics g = Graphics.FromImage(newBitmapTemp);
+            g.Clear(Color.Black);
+
+            g.DrawImage(newSecondBitmap, new Point(0, 0));
+            g.DrawImage(newBitmap, new Point(newSecondBitmap.Width, 0));
+
+            /*for (int xl = 0, xr = newSecondBitmap.Width; xr < width_sum; xl++, xr++)
+            {
+                for (int y = 0; y < height; y++)
+                {
+                    try
+                    {
+                        Color pixel = newSecondBitmap.GetPixel(xl, y);
+                        Color pixel2 = newBitmap.GetPixel(xl, y);
+                        newBitmapTemp.SetPixel(xl, y, pixel);
+                        newBitmapTemp.SetPixel(xr, y, pixel2);
+                    }
+                    catch (Exception) { newBitmapTemp.SetPixel(xr, y, Color.Black); }
+                }
+            }*/
+            //newBitmap = newBitmapTemp;
+            pictureBox.Image = newBitmapTemp;
+        }
+
         void rotate_right()    // funkcja obracająca zdjęcie o 90 stopni w prawo
         {
             int width = pictureBox.Image.Width;
@@ -1315,6 +1381,75 @@ namespace Podstawowy_foto_edytor
             pictureBox.Image = newBitmap;
         }
 
+        void comp_rgb2()    // funkcja pokazująca składowe rgb w postaci kolejnych zdjęć
+        {
+            int width = pictureBox.Image.Width;
+            int height = pictureBox.Image.Height;
+
+            Bitmap newBitmapTemp = new Bitmap(3 * width, height);
+
+            for (int y = 0; y < newBitmap.Height; y++)
+            {
+                for (int x = 0; x < 3 * newBitmap.Width; x++)
+                {
+                    try
+                    {
+                        if ((x > 0) && (x <= width))
+                        {
+                            Color pixel = newBitmap.GetPixel(x, y);
+                            int R = (int)pixel.R;
+                            int G = (int)pixel.G;
+                            int B = (int)pixel.B;
+                            if (((R > G) && (R > B)) )
+                            {
+                                newBitmapTemp.SetPixel(x, y, Color.FromArgb(R, G, B));
+                            }
+                            else
+                            {
+                                int GRAY = (((R) + (G) + (B)) / 3);
+                                newBitmapTemp.SetPixel(x, y, Color.FromArgb(GRAY, GRAY, GRAY));
+                            }
+                        }
+                        else if ((x > width) && (x <= 2 * width))
+                        {
+                            Color pixel = newBitmap.GetPixel(x - width, y);
+                            int R = (int)pixel.R;
+                            int G = (int)pixel.G;
+                            int B = (int)pixel.B;
+                            if ((G > R) && (G > B))
+                            {
+                                newBitmapTemp.SetPixel(x, y, Color.FromArgb(R, G, B));
+                            }
+                            else
+                            {
+                                int GRAY = (((R) + (G) + (B)) / 3);
+                                newBitmapTemp.SetPixel(x, y, Color.FromArgb(GRAY, GRAY, GRAY));
+                            }
+                        }
+                        else if ((x > 2 * width) && (x <= 3 * width))
+                        {
+                            Color pixel = newBitmap.GetPixel(x - (2 * width), y);
+                            int R = (int)pixel.R;
+                            int G = (int)pixel.G;
+                            int B = (int)pixel.B;
+                            if ((B > G) && (B > R))
+                            {
+                                newBitmapTemp.SetPixel(x, y, Color.FromArgb(R, G, B));
+                            }
+                            else
+                            {
+                                int GRAY = (((R) + (G) + (B)) / 3);
+                                newBitmapTemp.SetPixel(x, y, Color.FromArgb(GRAY, GRAY, GRAY));
+                            }
+                        }
+                    }
+                    catch (Exception) { }
+                }
+            }
+            newBitmap = newBitmapTemp;
+            pictureBox.Image = newBitmap;
+        }
+
         void comp_ycbcr()    // funkcja pokazująca składowe YCbCr w postaci kolejnych zdjęć
         {
             int width = pictureBox.Image.Width;
@@ -1356,6 +1491,117 @@ namespace Podstawowy_foto_edytor
                             int B = (int)pixel.B;
                             int cr = (int)(128 + (0.5 * R) - (0.418688 * G) - (0.81312 * B));
                             newBitmapTemp.SetPixel(x, y, Color.FromArgb((int)(128 + (0.5 * R)), 128 + (int)( (0.418688 * G)), 128 + (int)((0.81312 * B))));
+                        }
+                    }
+                    catch (Exception) { }
+                }
+            }
+            newBitmap = newBitmapTemp;
+            pictureBox.Image = newBitmap;
+        }
+
+        void comp_bR()    
+        {
+            int width = pictureBox.Image.Width;
+            int height = pictureBox.Image.Height;
+
+            Bitmap newBitmapTemp = new Bitmap(width, height);
+
+            for (int y = 0; y < newBitmap.Height; y++)
+            {
+                for (int x = 0; x < newBitmap.Width; x++)
+                {
+                    try
+                    {
+                        if ((x > 0) && (x <= width))
+                        {
+                            Color pixel = newBitmap.GetPixel(x, y);
+                            int R = (int)pixel.R;
+                            int G = (int)pixel.G;
+                            int B = (int)pixel.B;
+                            if (((R > G) && (R > B)))
+                            {
+                                newBitmapTemp.SetPixel(x, y, Color.FromArgb(R, G, B));
+                            }
+                            else
+                            {
+                                int GRAY = (((R) + (G) + (B)) / 3);
+                                newBitmapTemp.SetPixel(x, y, Color.FromArgb(GRAY, GRAY, GRAY));
+                            }
+                        }
+                    }
+                    catch (Exception) { }
+                }
+            }
+            newBitmap = newBitmapTemp;
+            pictureBox.Image = newBitmap;
+        }
+
+        void comp_bG()
+        {
+            int width = pictureBox.Image.Width;
+            int height = pictureBox.Image.Height;
+
+            Bitmap newBitmapTemp = new Bitmap(width, height);
+
+            for (int y = 0; y < newBitmap.Height; y++)
+            {
+                for (int x = 0; x < newBitmap.Width; x++)
+                {
+                    try
+                    {
+                        if ((x > 0) && (x <= width))
+                        {
+                            Color pixel = newBitmap.GetPixel(x, y);
+                            int R = (int)pixel.R;
+                            int G = (int)pixel.G;
+                            int B = (int)pixel.B;
+                            if (((G > R) && (G > B)))
+                            {
+                                newBitmapTemp.SetPixel(x, y, Color.FromArgb(R, G, B));
+                            }
+                            else
+                            {
+                                int GRAY = (((R) + (G) + (B)) / 3);
+                                newBitmapTemp.SetPixel(x, y, Color.FromArgb(GRAY, GRAY, GRAY));
+                            }
+                        }
+                    }
+                    catch (Exception) { }
+                }
+            }
+            newBitmap = newBitmapTemp;
+            pictureBox.Image = newBitmap;
+        }
+
+        void comp_bB()
+        {
+            int width = pictureBox.Image.Width;
+            int height = pictureBox.Image.Height;
+
+            Bitmap newBitmapTemp = new Bitmap(width, height);
+
+            for (int y = 0; y < newBitmap.Height; y++)
+            {
+                for (int x = 0; x < newBitmap.Width; x++)
+                {
+                    try
+                    {
+                        if ((x > 0) && (x <= width))
+                        {
+                            Color pixel = newBitmap.GetPixel(x, y);
+                            int R = (int)pixel.R;
+                            int G = (int)pixel.G;
+                            int B = (int)pixel.B;
+                            if (((B > G) && (B > R)))
+                            {
+                                newBitmapTemp.SetPixel(x, y, Color.FromArgb(R, G, B));
+                            }
+                            else
+                            {
+                                int GRAY = (((R) + (G) + (B)) / 3);
+                                newBitmapTemp.SetPixel(x, y, Color.FromArgb(GRAY, GRAY, GRAY));
+                            }
                         }
                     }
                     catch (Exception) { }
@@ -1704,8 +1950,10 @@ namespace Podstawowy_foto_edytor
         Bitmap newBitmap;        // 
         Bitmap newBitmapTemp;
         Bitmap newBitmapTemp2;
+        Bitmap newSecondBitmap;
         Bitmap newBitmapSize2;        // 2x większe niż newBitmap w obu kierunkach
         Image file;              // implemerntacja zmiennych wykorzystywanych w funkcjach
+        Image file2;
         //Image original;          // iplementacja 
         //Image file_2;
         int lastCol = 0;         //
@@ -1893,6 +2141,26 @@ namespace Podstawowy_foto_edytor
             comp_rgb();
         }
 
+        private void rGB2ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            comp_rgb2();
+        }
+
+        private void rExtractionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            comp_bR();
+        }
+
+        private void gExtractionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            comp_bG();
+        }
+
+        private void bExtractionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            comp_bB();
+        }
+
         private void yCbCrToolStripMenuItem_Click(object sender, EventArgs e)
         {
             comp_ycbcr();
@@ -1963,6 +2231,11 @@ namespace Podstawowy_foto_edytor
         private void edgeWhiteOnBlackToolStripMenuItem_Click(object sender, EventArgs e)
         {
             edge_WoB();
+        }
+
+        private void firstLeftToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            stich_sec_left();
         }
     }
 }
