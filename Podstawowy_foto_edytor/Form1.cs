@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing.Imaging;
@@ -286,7 +287,7 @@ namespace Podstawowy_foto_edytor
 
         void gamma()  //funkcja zmieniająca współczynnik gamma obrazu
         {
-            //reload();
+            reload();
             if (!opened)
             {
             }
@@ -469,6 +470,11 @@ namespace Podstawowy_foto_edytor
             }
             else
             {
+                /*var options = new ParallelOptions()
+                {
+                    MaxDegreeOfParallelism = 32000
+                };*/
+
                 Blur_Value_label.Text = Blur_Bar.Value.ToString();
                 newBitmapTemp = newBitmap;
                 int blur = Convert.ToInt32(Blur_Bar.Value * 10);
@@ -476,8 +482,10 @@ namespace Podstawowy_foto_edytor
                 for (int i = 0; i < blur; i++)
                 {
                     for (int x = 0; x < newBitmap.Width; x++)
+                    //Parallel.For(0, newBitmap.Width, x =>
                     {
-                        for (int y = 0; y < newBitmap.Height; y++)
+                        Parallel.For(0, newBitmap.Height, y =>
+                        //for (int y = 0; y < newBitmap.Height; y++)
                         {
                             try
                             {
@@ -489,12 +497,12 @@ namespace Podstawowy_foto_edytor
                                 int avgR = (int)((prevX.R + nextX.R + prevY.R + nextY.R) / 4);
                                 int avgG = (int)((prevX.G + nextX.G + prevY.G + nextY.G) / 4);
                                 int avgB = (int)((prevX.B + nextX.B + prevY.B + nextY.B) / 4);
-
+                                
                                 newBitmapTemp2.SetPixel(x, y, Color.FromArgb(avgR, avgG, avgB));
                             }
                             catch (Exception) { }
-                        }
-                    }
+                        });
+                    }//);
                     newBitmapTemp = newBitmapTemp2;
                 }
                 pictureBox.Image = newBitmapTemp2;
@@ -595,1296 +603,1562 @@ namespace Podstawowy_foto_edytor
 
         void invert()   // funkcja odwracająca kolory(negatyw)
         {
-            for (int x = 0; x < newBitmap.Width; x++)
+            if (!opened)
             {
-                for (int y = 0; y < newBitmap.Height; y++)
-                {
-                    try
-                    {
-                        Color pixel = newBitmap.GetPixel(x, y);
-
-                        int red = pixel.R;
-                        int green = pixel.G;
-                        int blue = pixel.B;
-
-                        newBitmap.SetPixel(x, y, Color.FromArgb(255 - red, 255 - green, 255 - blue));
-                    }
-                    catch (Exception) { }
-                }
+                MessageBox.Show("Open an Image then apply changes");
             }
-            pictureBox.Image = newBitmap;
+            else
+            {
+                for (int x = 0; x < newBitmap.Width; x++)
+                {
+                    for (int y = 0; y < newBitmap.Height; y++)
+                    {
+                        try
+                        {
+                            Color pixel = newBitmap.GetPixel(x, y);
+
+                            int red = pixel.R;
+                            int green = pixel.G;
+                            int blue = pixel.B;
+
+                            newBitmap.SetPixel(x, y, Color.FromArgb(255 - red, 255 - green, 255 - blue));
+                        }
+                        catch (Exception) { }
+                    }
+                }
+                pictureBox.Image = newBitmap;
+            }
         }
 
         void edge()   //funkcja znajdująca krawędzie na podstawie różnicy wartości piikseli( imitacja emboss)
         {
-            Bitmap nB = new Bitmap(newBitmap.Width, newBitmap.Height);
-
-            for (int x = 0; x <= newBitmap.Width - 1; x++)
+            if (!opened)
             {
-                for (int y = 0; y <= newBitmap.Height - 1; y++)
-                {
-                    nB.SetPixel(x, y, Color.White);
-                }
+                MessageBox.Show("Open an Image then apply changes");
             }
-            for (int x = 1; x <= newBitmap.Width - 1; x++)
+            else
             {
-                for (int y = 1; y <= newBitmap.Height - 1; y++)
+                Bitmap nB = new Bitmap(newBitmap.Width, newBitmap.Height);
+
+                for (int x = 0; x <= newBitmap.Width - 1; x++)
                 {
-                    try
+                    for (int y = 0; y <= newBitmap.Height - 1; y++)
                     {
-                        Color pixel = newBitmap.GetPixel(x, y);
-
-                        int colVal = (pixel.R + pixel.G + pixel.B);
-
-                        if (lastCol == 0) lastCol = (pixel.R + pixel.G + pixel.B);
-
-                        int diff;
-
-                        if (colVal > lastCol)
-                        {
-                            diff = colVal - lastCol;
-                        }
-                        else
-                        {
-                            diff = lastCol - colVal;
-                        }
-
-                        if (diff > 100)
-                        {
-                            nB.SetPixel(x, y, Color.Black);
-                            lastCol = colVal;
-                        }
+                        nB.SetPixel(x, y, Color.White);
                     }
-                    catch (Exception) { }
                 }
-
-                for (int y = 1; y <= newBitmap.Height - 1; y++)
+                for (int x = 1; x <= newBitmap.Width - 1; x++)
                 {
-                    try
+                    for (int y = 1; y <= newBitmap.Height - 1; y++)
                     {
-                        Color pixel = newBitmap.GetPixel(x, y);
-
-                        int colVal = (pixel.R + pixel.G + pixel.B);
-
-                        if (lastCol == 0) lastCol = (pixel.R + pixel.G + pixel.B);
-
-                        int diff;
-
-                        if (colVal > lastCol)
+                        try
                         {
-                            diff = colVal - lastCol;
+                            Color pixel = newBitmap.GetPixel(x, y);
+
+                            int colVal = (pixel.R + pixel.G + pixel.B);
+
+                            if (lastCol == 0) lastCol = (pixel.R + pixel.G + pixel.B);
+
+                            int diff;
+
+                            if (colVal > lastCol)
+                            {
+                                diff = colVal - lastCol;
+                            }
+                            else
+                            {
+                                diff = lastCol - colVal;
+                            }
+
+                            if (diff > 100)
+                            {
+                                nB.SetPixel(x, y, Color.Black);
+                                lastCol = colVal;
+                            }
                         }
-                        else
-                        {
-                            diff = lastCol - colVal;
-                        }
-                        if (diff > 100)
-                        {
-                            nB.SetPixel(x, y, Color.Black);
-                            lastCol = colVal;
-                        }
+                        catch (Exception) { }
                     }
-                    catch (Exception) { }
+
+                    for (int y = 1; y <= newBitmap.Height - 1; y++)
+                    {
+                        try
+                        {
+                            Color pixel = newBitmap.GetPixel(x, y);
+
+                            int colVal = (pixel.R + pixel.G + pixel.B);
+
+                            if (lastCol == 0) lastCol = (pixel.R + pixel.G + pixel.B);
+
+                            int diff;
+
+                            if (colVal > lastCol)
+                            {
+                                diff = colVal - lastCol;
+                            }
+                            else
+                            {
+                                diff = lastCol - colVal;
+                            }
+                            if (diff > 100)
+                            {
+                                nB.SetPixel(x, y, Color.Black);
+                                lastCol = colVal;
+                            }
+                        }
+                        catch (Exception) { }
+                    }
                 }
+                pictureBox.Image = nB;
             }
-            pictureBox.Image = nB;
         }
 
         void edge_WoB()   //funkcja znajdująca krawędzie na podstawie różnicy wartości piikseli( imitacja emboss)
         {
-            Bitmap nB = new Bitmap(newBitmap.Width, newBitmap.Height);
-
-            for (int x = 0; x <= newBitmap.Width - 1; x++)
+            if (!opened)
             {
-                for (int y = 0; y <= newBitmap.Height - 1; y++)
-                {
-                    nB.SetPixel(x, y, Color.Black);
-                }
+                MessageBox.Show("Open an Image then apply changes");
             }
-            for (int x = 1; x <= newBitmap.Width - 1; x++)
+            else
             {
-                for (int y = 1; y <= newBitmap.Height - 1; y++)
+                Bitmap nB = new Bitmap(newBitmap.Width, newBitmap.Height);
+
+                for (int x = 0; x <= newBitmap.Width - 1; x++)
                 {
-                    try
+                    for (int y = 0; y <= newBitmap.Height - 1; y++)
                     {
-                        Color pixel = newBitmap.GetPixel(x, y);
-
-                        int colVal = (pixel.R + pixel.G + pixel.B);
-
-                        if (lastCol == 0) lastCol = (pixel.R + pixel.G + pixel.B);
-
-                        int diff;
-
-                        if (colVal > lastCol)
-                        {
-                            diff = colVal - lastCol;
-                        }
-                        else
-                        {
-                            diff = lastCol - colVal;
-                        }
-
-                        if (diff > 100)
-                        {
-                            nB.SetPixel(x, y, Color.White);
-                            lastCol = colVal;
-                        }
+                        nB.SetPixel(x, y, Color.Black);
                     }
-                    catch (Exception) { }
                 }
-
-                for (int y = 1; y <= newBitmap.Height - 1; y++)
+                for (int x = 1; x <= newBitmap.Width - 1; x++)
                 {
-                    try
+                    for (int y = 1; y <= newBitmap.Height - 1; y++)
                     {
-                        Color pixel = newBitmap.GetPixel(x, y);
-
-                        int colVal = (pixel.R + pixel.G + pixel.B);
-
-                        if (lastCol == 0) lastCol = (pixel.R + pixel.G + pixel.B);
-
-                        int diff;
-
-                        if (colVal > lastCol)
+                        try
                         {
-                            diff = colVal - lastCol;
+                            Color pixel = newBitmap.GetPixel(x, y);
+
+                            int colVal = (pixel.R + pixel.G + pixel.B);
+
+                            if (lastCol == 0) lastCol = (pixel.R + pixel.G + pixel.B);
+
+                            int diff;
+
+                            if (colVal > lastCol)
+                            {
+                                diff = colVal - lastCol;
+                            }
+                            else
+                            {
+                                diff = lastCol - colVal;
+                            }
+
+                            if (diff > 100)
+                            {
+                                nB.SetPixel(x, y, Color.White);
+                                lastCol = colVal;
+                            }
                         }
-                        else
-                        {
-                            diff = lastCol - colVal;
-                        }
-                        if (diff > 100)
-                        {
-                            nB.SetPixel(x, y, Color.White);
-                            lastCol = colVal;
-                        }
+                        catch (Exception) { }
                     }
-                    catch (Exception) { }
+
+                    for (int y = 1; y <= newBitmap.Height - 1; y++)
+                    {
+                        try
+                        {
+                            Color pixel = newBitmap.GetPixel(x, y);
+
+                            int colVal = (pixel.R + pixel.G + pixel.B);
+
+                            if (lastCol == 0) lastCol = (pixel.R + pixel.G + pixel.B);
+
+                            int diff;
+
+                            if (colVal > lastCol)
+                            {
+                                diff = colVal - lastCol;
+                            }
+                            else
+                            {
+                                diff = lastCol - colVal;
+                            }
+                            if (diff > 100)
+                            {
+                                nB.SetPixel(x, y, Color.White);
+                                lastCol = colVal;
+                            }
+                        }
+                        catch (Exception) { }
+                    }
                 }
+                pictureBox.Image = nB;
             }
-            pictureBox.Image = nB;
         }
 
         void add_RGB_ver()  //funkcja skejająca 4 takie same obrazy w formacie rgb
         {
-            int width = pictureBox.Image.Width;
-            int height = pictureBox.Image.Height;
-
-            Bitmap newBitmapSize2 = new Bitmap(2 * width, 2 * height);
-
-            for (int x = 0; x < newBitmapSize2.Width; x++)
+            if (!opened)
             {
-                for (int y = 0; y < newBitmapSize2.Height; y++)
-                {
-                    try
-                    {
-                        if (((x > 0) && (x <= width)) && ((y > 0) && (y < height)))
-                        {
-                            Color pixel = newBitmap.GetPixel(x, y);
-                            int R = (int)pixel.R;
-                            int G = (int)pixel.G;
-                            int B = (int)pixel.B;
-                            newBitmapSize2.SetPixel(x, y, Color.FromArgb(R, G, B));
-                        }
-                        else if (((x > width) && (x <= (2 * width))) && ((y > 0) && (y <= height)))
-                        {
-                            Color pixel = newBitmap.GetPixel((x - width), y);
-                            int R = (int)pixel.R;
-                            int G = (int)pixel.G;
-                            int B = (int)pixel.B;
-                            newBitmapSize2.SetPixel(x, y, Color.FromArgb(R, 0, 0));
-                        }
-                        else if (((x > 0) && (x <= width)) && ((y > height) && (y <= (2 * height))))
-                        {
-                            Color pixel = newBitmap.GetPixel(x, (y - height));
-                            int R = (int)pixel.R;
-                            int G = (int)pixel.G;
-                            int B = (int)pixel.B;
-                            newBitmapSize2.SetPixel(x, y, Color.FromArgb(0, G, 0));
-                        }
-                        else if (((x > width) && (x <= (2 * width))) && ((y > height) && (y <= (2 * height))))
-                        {
-                            Color pixel = newBitmap.GetPixel((x - width), (y - height));
-                            int R = (int)pixel.R;
-                            int G = (int)pixel.G;
-                            int B = (int)pixel.B;
-                            newBitmapSize2.SetPixel(x, y, Color.FromArgb(0, 0, B));
-                        }
-                    }
-                    catch (Exception) { }
-                }
+                MessageBox.Show("Open an Image then apply changes");
             }
-            newBitmap = newBitmapSize2;
-            pictureBox.Image = newBitmap;
+            else
+            {
+                int width = pictureBox.Image.Width;
+                int height = pictureBox.Image.Height;
+
+                Bitmap newBitmapSize2 = new Bitmap(2 * width, 2 * height);
+
+                for (int x = 0; x < newBitmapSize2.Width; x++)
+                {
+                    for (int y = 0; y < newBitmapSize2.Height; y++)
+                    {
+                        try
+                        {
+                            if (((x > 0) && (x <= width)) && ((y > 0) && (y < height)))
+                            {
+                                Color pixel = newBitmap.GetPixel(x, y);
+                                int R = (int)pixel.R;
+                                int G = (int)pixel.G;
+                                int B = (int)pixel.B;
+                                newBitmapSize2.SetPixel(x, y, Color.FromArgb(R, G, B));
+                            }
+                            else if (((x > width) && (x <= (2 * width))) && ((y > 0) && (y <= height)))
+                            {
+                                Color pixel = newBitmap.GetPixel((x - width), y);
+                                int R = (int)pixel.R;
+                                int G = (int)pixel.G;
+                                int B = (int)pixel.B;
+                                newBitmapSize2.SetPixel(x, y, Color.FromArgb(R, 0, 0));
+                            }
+                            else if (((x > 0) && (x <= width)) && ((y > height) && (y <= (2 * height))))
+                            {
+                                Color pixel = newBitmap.GetPixel(x, (y - height));
+                                int R = (int)pixel.R;
+                                int G = (int)pixel.G;
+                                int B = (int)pixel.B;
+                                newBitmapSize2.SetPixel(x, y, Color.FromArgb(0, G, 0));
+                            }
+                            else if (((x > width) && (x <= (2 * width))) && ((y > height) && (y <= (2 * height))))
+                            {
+                                Color pixel = newBitmap.GetPixel((x - width), (y - height));
+                                int R = (int)pixel.R;
+                                int G = (int)pixel.G;
+                                int B = (int)pixel.B;
+                                newBitmapSize2.SetPixel(x, y, Color.FromArgb(0, 0, B));
+                            }
+                        }
+                        catch (Exception) { }
+                    }
+                }
+                newBitmap = newBitmapSize2;
+                pictureBox.Image = newBitmap;
+            }
         }
 
         void add_RGB_ver_extended()  //funkcja skejająca 9 takiech samych obrazów w formacie rgb
         {
-            int width = pictureBox.Image.Width;
-            int height = pictureBox.Image.Height;
-
-            Bitmap newBitmapSize2 = new Bitmap(3 * width, 3 * height);
-
-            for (int x = 0; x < newBitmapSize2.Width; x++)
+            if (!opened)
             {
-                for (int y = 0; y < newBitmapSize2.Height; y++)
-                {
-                    try
-                    {
-                        if (((x > 0) && (x <= width)) && ((y > 0) && (y < height))) //1,1
-                        {
-                            Color pixel = newBitmap.GetPixel(x, y);
-                            int R = (int)pixel.R;
-                            int G = (int)pixel.G;
-                            int B = (int)pixel.B;
-                            newBitmapSize2.SetPixel(x, y, Color.FromArgb(R, G, 0));
-                        }
-                        else if (((x > width) && (x <= (2 * width))) && ((y > 0) && (y <= height)))   //1,2
-                        {
-                            Color pixel = newBitmap.GetPixel((x - width), y);
-                            int R = (int)pixel.R;
-                            int G = (int)pixel.G;
-                            int B = (int)pixel.B;
-                            newBitmapSize2.SetPixel(x, y, Color.FromArgb(0, G, 0));
-                        }
-                        else if (((x > 0) && (x <= width)) && ((y > height) && (y <= (2 * height))))   //2,1
-                        {
-                            Color pixel = newBitmap.GetPixel(x, (y - height));
-                            int R = (int)pixel.R;
-                            int G = (int)pixel.G;
-                            int B = (int)pixel.B;
-                            newBitmapSize2.SetPixel(x, y, Color.FromArgb(R, 0, 0));
-                        }
-                        else if (((x > width) && (x <= (2 * width))) && ((y > height) && (y <= (2 * height))))   //2,2
-                        {
-                            Color pixel = newBitmap.GetPixel((x - width), (y - height));
-                            int R = (int)pixel.R;
-                            int G = (int)pixel.G;
-                            int B = (int)pixel.B;
-                            newBitmapSize2.SetPixel(x, y, Color.FromArgb(R, G, B));
-                        }
-                        else if (((x > 0) && (x <= width)) && ((y > 2 * height) && (y <= 3 * height)))  //1,3
-                        {
-                            Color pixel = newBitmap.GetPixel(x, (y - (2 * height)));
-                            int R = (int)pixel.R;
-                            int G = (int)pixel.G;
-                            int B = (int)pixel.B;
-                            int gray = (int)((0.299f * R) + (0.587f * G) + (.114f * B));
-                            newBitmapSize2.SetPixel(x, y, Color.FromArgb(gray, gray, gray));
-                            //grayscale();
-                        }
-                        else if (((x > width) && (x <= (2 * width))) && ((y > 2 * height) && (y <= (3 * height))))   //2,3
-                        {
-                            Color pixel = newBitmap.GetPixel((x - width), (y - (2 * height)));
-                            int R = (int)pixel.R;
-                            int G = (int)pixel.G;
-                            int B = (int)pixel.B;
-                            newBitmapSize2.SetPixel(x, y, Color.FromArgb(R, 0, B));
-                        }
-                        else if (((x > 2 * width) && (x <= (3 * width))) && ((y > 0) && (y <= height)))  //3,1
-                        {
-                            Color pixel = newBitmap.GetPixel((x - (2 * width)), y);
-                            int R = (int)pixel.R;
-                            int G = (int)pixel.G;
-                            int B = (int)pixel.B;
-                            newBitmapSize2.SetPixel(x, y, Color.FromArgb(0, G, B));
-
-                        }
-                        else if (((x > 2 * width) && (x <= (3 * width))) && ((y > height) && (y <= (2 * height))))   //3,2
-                        {
-                            Color pixel = newBitmap.GetPixel((x - (2 * width)), (y - height));
-                            int R = (int)pixel.R;
-                            int G = (int)pixel.G;
-                            int B = (int)pixel.B;
-                            newBitmapSize2.SetPixel(x, y, Color.FromArgb(0, 0, B));
-                        }
-                        else if (((x > 2 * width) && (x <= (3 * width))) && ((y > 2 * height) && (y <= (3 * height))))    //3,3
-                        {
-                            Color pixel = newBitmap.GetPixel((x - (2 * width)), (y - (2 * height)));
-                            int R = (int)pixel.R;
-                            int G = (int)pixel.G;
-                            int B = (int)pixel.B;
-                            newBitmapSize2.SetPixel(x, y, Color.FromArgb(255 - R, 255 - G, 255 - B));
-                        }
-                    }
-                    catch (Exception) { }
-                }
+                MessageBox.Show("Open an Image then apply changes");
             }
-            newBitmap = newBitmapSize2;
-            pictureBox.Image = newBitmap;
+            else
+            {
+                int width = pictureBox.Image.Width;
+                int height = pictureBox.Image.Height;
+
+                Bitmap newBitmapSize2 = new Bitmap(3 * width, 3 * height);
+
+                for (int x = 0; x < newBitmapSize2.Width; x++)
+                {
+                    for (int y = 0; y < newBitmapSize2.Height; y++)
+                    {
+                        try
+                        {
+                            if (((x > 0) && (x <= width)) && ((y > 0) && (y < height))) //1,1
+                            {
+                                Color pixel = newBitmap.GetPixel(x, y);
+                                int R = (int)pixel.R;
+                                int G = (int)pixel.G;
+                                int B = (int)pixel.B;
+                                newBitmapSize2.SetPixel(x, y, Color.FromArgb(R, G, 0));
+                            }
+                            else if (((x > width) && (x <= (2 * width))) && ((y > 0) && (y <= height)))   //1,2
+                            {
+                                Color pixel = newBitmap.GetPixel((x - width), y);
+                                int R = (int)pixel.R;
+                                int G = (int)pixel.G;
+                                int B = (int)pixel.B;
+                                newBitmapSize2.SetPixel(x, y, Color.FromArgb(0, G, 0));
+                            }
+                            else if (((x > 0) && (x <= width)) && ((y > height) && (y <= (2 * height))))   //2,1
+                            {
+                                Color pixel = newBitmap.GetPixel(x, (y - height));
+                                int R = (int)pixel.R;
+                                int G = (int)pixel.G;
+                                int B = (int)pixel.B;
+                                newBitmapSize2.SetPixel(x, y, Color.FromArgb(R, 0, 0));
+                            }
+                            else if (((x > width) && (x <= (2 * width))) && ((y > height) && (y <= (2 * height))))   //2,2
+                            {
+                                Color pixel = newBitmap.GetPixel((x - width), (y - height));
+                                int R = (int)pixel.R;
+                                int G = (int)pixel.G;
+                                int B = (int)pixel.B;
+                                newBitmapSize2.SetPixel(x, y, Color.FromArgb(R, G, B));
+                            }
+                            else if (((x > 0) && (x <= width)) && ((y > 2 * height) && (y <= 3 * height)))  //1,3
+                            {
+                                Color pixel = newBitmap.GetPixel(x, (y - (2 * height)));
+                                int R = (int)pixel.R;
+                                int G = (int)pixel.G;
+                                int B = (int)pixel.B;
+                                int gray = (int)((0.299f * R) + (0.587f * G) + (.114f * B));
+                                newBitmapSize2.SetPixel(x, y, Color.FromArgb(gray, gray, gray));
+                                //grayscale();
+                            }
+                            else if (((x > width) && (x <= (2 * width))) && ((y > 2 * height) && (y <= (3 * height))))   //2,3
+                            {
+                                Color pixel = newBitmap.GetPixel((x - width), (y - (2 * height)));
+                                int R = (int)pixel.R;
+                                int G = (int)pixel.G;
+                                int B = (int)pixel.B;
+                                newBitmapSize2.SetPixel(x, y, Color.FromArgb(R, 0, B));
+                            }
+                            else if (((x > 2 * width) && (x <= (3 * width))) && ((y > 0) && (y <= height)))  //3,1
+                            {
+                                Color pixel = newBitmap.GetPixel((x - (2 * width)), y);
+                                int R = (int)pixel.R;
+                                int G = (int)pixel.G;
+                                int B = (int)pixel.B;
+                                newBitmapSize2.SetPixel(x, y, Color.FromArgb(0, G, B));
+
+                            }
+                            else if (((x > 2 * width) && (x <= (3 * width))) && ((y > height) && (y <= (2 * height))))   //3,2
+                            {
+                                Color pixel = newBitmap.GetPixel((x - (2 * width)), (y - height));
+                                int R = (int)pixel.R;
+                                int G = (int)pixel.G;
+                                int B = (int)pixel.B;
+                                newBitmapSize2.SetPixel(x, y, Color.FromArgb(0, 0, B));
+                            }
+                            else if (((x > 2 * width) && (x <= (3 * width))) && ((y > 2 * height) && (y <= (3 * height))))    //3,3
+                            {
+                                Color pixel = newBitmap.GetPixel((x - (2 * width)), (y - (2 * height)));
+                                int R = (int)pixel.R;
+                                int G = (int)pixel.G;
+                                int B = (int)pixel.B;
+                                newBitmapSize2.SetPixel(x, y, Color.FromArgb(255 - R, 255 - G, 255 - B));
+                            }
+                        }
+                        catch (Exception) { }
+                    }
+                }
+                newBitmap = newBitmapSize2;
+                pictureBox.Image = newBitmap;
+            }
         }
 
         void mirror_l()  //funkcja odbijająca lewą połowę obrazu 
         {
-            for (int xl = 0, xr = newBitmap.Width; xl < newBitmap.Width; xl++, xr--)
+            if (!opened)
             {
-                for (int y = 0; y <= newBitmap.Height; y++)
-                {
-                    try
-                    {
-                        Color pixel = newBitmap.GetPixel(xl, y);
-                        newBitmap.SetPixel(xr, y, pixel);
-                    }
-                    catch (Exception) { }
-                }
+                MessageBox.Show("Open an Image then apply changes");
             }
-            pictureBox.Image = newBitmap;
+            else
+            {
+                for (int xl = 0, xr = newBitmap.Width; xl < newBitmap.Width; xl++, xr--)
+                {
+                    for (int y = 0; y <= newBitmap.Height; y++)
+                    {
+                        try
+                        {
+                            Color pixel = newBitmap.GetPixel(xl, y);
+                            newBitmap.SetPixel(xr, y, pixel);
+                        }
+                        catch (Exception) { }
+                    }
+                }
+                pictureBox.Image = newBitmap;
+            }
         }
 
         void mirror_r()     //funkcja odbijająca prawą połowę obrazu 
         {
-            for (int xl = 0, xr = newBitmap.Width; xl < newBitmap.Width; xl++, xr--)
+            if (!opened)
             {
-                for (int y = 0; y < newBitmap.Height; y++)
-                {
-                    try
-                    {
-                        Color pixel = newBitmap.GetPixel(xr, y);
-                        newBitmap.SetPixel(xl, y, pixel);
-                    }
-                    catch (Exception) { }
-                }
+                MessageBox.Show("Open an Image then apply changes");
             }
-            pictureBox.Image = newBitmap;
+            else
+            {
+                for (int xl = 0, xr = newBitmap.Width; xl < newBitmap.Width; xl++, xr--)
+                {
+                    for (int y = 0; y < newBitmap.Height; y++)
+                    {
+                        try
+                        {
+                            Color pixel = newBitmap.GetPixel(xr, y);
+                            newBitmap.SetPixel(xl, y, pixel);
+                        }
+                        catch (Exception) { }
+                    }
+                }
+                pictureBox.Image = newBitmap;
+            }
         }
         void mirror_t()    //funkcja odbijająca górną połowę obrazu 
         {
-            for (int x = 0; x < newBitmap.Width; x++)
+            if (!opened)
             {
-                for (int yt = 0, yb = newBitmap.Height; yt < newBitmap.Height; yt++, yb--)
-                {
-                    try
-                    {
-                        Color pixel = newBitmap.GetPixel(x, yt);
-                        newBitmap.SetPixel(x, yb, pixel);
-                    }
-                    catch (Exception) { }
-                }
+                MessageBox.Show("Open an Image then apply changes");
             }
-            pictureBox.Image = newBitmap;
+            else
+            {
+                for (int x = 0; x < newBitmap.Width; x++)
+                {
+                    for (int yt = 0, yb = newBitmap.Height; yt < newBitmap.Height; yt++, yb--)
+                    {
+                        try
+                        {
+                            Color pixel = newBitmap.GetPixel(x, yt);
+                            newBitmap.SetPixel(x, yb, pixel);
+                        }
+                        catch (Exception) { }
+                    }
+                }
+                pictureBox.Image = newBitmap;
+            }
         }
 
         void mirror_b()    //funkcja odbijająca dolną połowę obrazu 
         {
-            for (int x = 0; x < newBitmap.Width; x++)
+            if (!opened)
             {
-                for (int yt = 0, yb = newBitmap.Height; yt < newBitmap.Height; yt++, yb--)
-                {
-                    try
-                    {
-                        Color pixel = newBitmap.GetPixel(x, yb);
-                        newBitmap.SetPixel(x, yt, pixel);
-                    }
-                    catch (Exception) { }
-                }
+                MessageBox.Show("Open an Image then apply changes");
             }
-            pictureBox.Image = newBitmap;
+            else
+            {
+                for (int x = 0; x < newBitmap.Width; x++)
+                {
+                    for (int yt = 0, yb = newBitmap.Height; yt < newBitmap.Height; yt++, yb--)
+                    {
+                        try
+                        {
+                            Color pixel = newBitmap.GetPixel(x, yb);
+                            newBitmap.SetPixel(x, yt, pixel);
+                        }
+                        catch (Exception) { }
+                    }
+                }
+                pictureBox.Image = newBitmap;
+            }
         }
 
         void mirror_vertical()  //funkcja odwracająca wertykalnie lewo-prawo
         {
-            for (int xl = 0, xr = newBitmap.Width; xl < newBitmap.Width; xl++, xr--)
+            if (!opened)
             {
-                for (int y = 0; y < newBitmap.Height; y++)
-                {
-                    try
-                    {
-                        Color pixel = newBitmap.GetPixel(xl, y);
-                        newBitmapTemp.SetPixel(xr, y, pixel);
-                    }
-                    catch (Exception) { }
-                }
+                MessageBox.Show("Open an Image then apply changes");
             }
-            pictureBox.Image = newBitmapTemp;
+            else
+            {
+                for (int xl = 0, xr = newBitmap.Width; xl < newBitmap.Width; xl++, xr--)
+                {
+                    for (int y = 0; y < newBitmap.Height; y++)
+                    {
+                        try
+                        {
+                            Color pixel = newBitmap.GetPixel(xl, y);
+                            newBitmapTemp.SetPixel(xr, y, pixel);
+                        }
+                        catch (Exception) { }
+                    }
+                }
+                pictureBox.Image = newBitmapTemp;
+            }
         }
 
         void mirror_horizontal()    //funkcja odwracająca horyzontalnie góra-dół
         {
-            for (int x = 0; x < newBitmap.Width; x++)
+            if (!opened)
             {
-                for (int yt = 0, yb = newBitmap.Height; yt < newBitmap.Height; yt++, yb--)
-                {
-                    try
-                    {
-                        Color pixel = newBitmap.GetPixel(x, yt);
-                        newBitmapTemp.SetPixel(x, yb, pixel);
-                    }
-                    catch (Exception) { }
-                }
+                MessageBox.Show("Open an Image then apply changes");
             }
-            pictureBox.Image = newBitmapTemp;
+            else
+            {
+                for (int x = 0; x < newBitmap.Width; x++)
+                {
+                    for (int yt = 0, yb = newBitmap.Height; yt < newBitmap.Height; yt++, yb--)
+                    {
+                        try
+                        {
+                            Color pixel = newBitmap.GetPixel(x, yt);
+                            newBitmapTemp.SetPixel(x, yb, pixel);
+                        }
+                        catch (Exception) { }
+                    }
+                }
+                pictureBox.Image = newBitmapTemp;
+            }
         }
 
         void stich_horizontal()    // funkcja doklejająca to samo zdjęcie z prawej strony
         {
-            int width = pictureBox.Image.Width;
-            int height = pictureBox.Image.Height;
-
-            Bitmap newBitmapTemp = new Bitmap(2 * width, height);
-
-            for (int y = 0; y < newBitmap.Height; y++)
+            if (!opened)
             {
-                for (int xl = 0, xr = newBitmap.Width; xl < newBitmap.Width; xl++, xr++)
-                {
-                    try
-                    {
-                        Color pixel = newBitmap.GetPixel(xl, y);
-
-                        newBitmapTemp.SetPixel(xl, y, pixel);
-                        newBitmapTemp.SetPixel(xr, y, pixel);
-                    }
-                    catch (Exception) { }
-                }
+                MessageBox.Show("Open an Image then apply changes");
             }
-            newBitmap = newBitmapTemp;
-            pictureBox.Image = newBitmap;
+            else
+            {
+                int width = pictureBox.Image.Width;
+                int height = pictureBox.Image.Height;
+
+                Bitmap newBitmapTemp = new Bitmap(2 * width, height);
+
+                for (int y = 0; y < newBitmap.Height; y++)
+                {
+                    for (int xl = 0, xr = newBitmap.Width; xl < newBitmap.Width; xl++, xr++)
+                    {
+                        try
+                        {
+                            Color pixel = newBitmap.GetPixel(xl, y);
+
+                            newBitmapTemp.SetPixel(xl, y, pixel);
+                            newBitmapTemp.SetPixel(xr, y, pixel);
+                        }
+                        catch (Exception) { }
+                    }
+                }
+                newBitmap = newBitmapTemp;
+                pictureBox.Image = newBitmap;
+            }
         }
 
         void stich_vertical()    // funkcja doklejająca to samo zdjęcie od dołu
         {
-            int width = pictureBox.Image.Width;
-            int height = pictureBox.Image.Height;
-
-            Bitmap newBitmapTemp = new Bitmap(width, 2 * height);
-
-            for (int x = 0; x < newBitmap.Height; x++)
+            if (!opened)
             {
-                for (int yl = 0, yr = newBitmap.Height; yl < newBitmap.Height; yl++, yr++)
-                {
-                    try
-                    {
-                        Color pixel = newBitmap.GetPixel(x, yl);
-                        newBitmapTemp.SetPixel(x, yl, pixel);
-                        newBitmapTemp.SetPixel(x, yr, pixel);
-                    }
-                    catch (Exception) { }
-                }
+                MessageBox.Show("Open an Image then apply changes");
             }
-            newBitmap = newBitmapTemp;
-            pictureBox.Image = newBitmap;
+            else
+            {
+                int width = pictureBox.Image.Width;
+                int height = pictureBox.Image.Height;
+
+                Bitmap newBitmapTemp = new Bitmap(width, 2 * height);
+
+                for (int x = 0; x < newBitmap.Height; x++)
+                {
+                    for (int yl = 0, yr = newBitmap.Height; yl < newBitmap.Height; yl++, yr++)
+                    {
+                        try
+                        {
+                            Color pixel = newBitmap.GetPixel(x, yl);
+                            newBitmapTemp.SetPixel(x, yl, pixel);
+                            newBitmapTemp.SetPixel(x, yr, pixel);
+                        }
+                        catch (Exception) { }
+                    }
+                }
+                newBitmap = newBitmapTemp;
+                pictureBox.Image = newBitmap;
+            }
         }
 
         void mirror_stich_right()    // funkcja doklejająca to samo zdjęcie z prawej strony
         {
-            int width = pictureBox.Image.Width;
-            int height = pictureBox.Image.Height;
-
-            Bitmap newBitmapTemp = new Bitmap(2 * width, height);
-
-            for (int y = 0; y < newBitmap.Height; y++)
+            if (!opened)
             {
-                for (int xl = 0, xr = 2 * newBitmap.Width; xl < newBitmap.Width; xl++, xr--)
-                {
-                    try
-                    {
-                        Color pixel = newBitmap.GetPixel(xl, y);
-                        newBitmapTemp.SetPixel(xl, y, pixel);
-                        newBitmapTemp.SetPixel(xr, y, pixel);
-                    }
-                    catch (Exception) { }
-                }
+                MessageBox.Show("Open an Image then apply changes");
             }
-            newBitmap = newBitmapTemp;
-            pictureBox.Image = newBitmap;
+            else
+            {
+                int width = pictureBox.Image.Width;
+                int height = pictureBox.Image.Height;
+
+                Bitmap newBitmapTemp = new Bitmap(2 * width, height);
+
+                for (int y = 0; y < newBitmap.Height; y++)
+                {
+                    for (int xl = 0, xr = 2 * newBitmap.Width; xl < newBitmap.Width; xl++, xr--)
+                    {
+                        try
+                        {
+                            Color pixel = newBitmap.GetPixel(xl, y);
+                            newBitmapTemp.SetPixel(xl, y, pixel);
+                            newBitmapTemp.SetPixel(xr, y, pixel);
+                        }
+                        catch (Exception) { }
+                    }
+                }
+                newBitmap = newBitmapTemp;
+                pictureBox.Image = newBitmap;
+            }
         }
 
         void mirror_stich_left()    // funkcja doklejająca to samo zdjęcie z lewej strony
         {
-            int width = pictureBox.Image.Width;
-            int height = pictureBox.Image.Height;
-
-            Bitmap newBitmapTemp = new Bitmap(2 * width, height);
-
-            for (int y = 0; y < newBitmap.Height; y++)
+            if (!opened)
             {
-                for (int xl = 0, xr = 2 * newBitmap.Width; xl < newBitmap.Width; xl++, xr--)
-                {
-                    try
-                    {
-                        Color pixel = newBitmap.GetPixel(xl, y);
-                        newBitmapTemp.SetPixel(xl + width, y, pixel);
-                        newBitmapTemp.SetPixel(xr - width, y, pixel);
-                    }
-                    catch (Exception) { }
-                }
+                MessageBox.Show("Open an Image then apply changes");
             }
-            newBitmap = newBitmapTemp;
-            pictureBox.Image = newBitmap;
+            else
+            {
+                int width = pictureBox.Image.Width;
+                int height = pictureBox.Image.Height;
+
+                Bitmap newBitmapTemp = new Bitmap(2 * width, height);
+
+                for (int y = 0; y < newBitmap.Height; y++)
+                {
+                    for (int xl = 0, xr = 2 * newBitmap.Width; xl < newBitmap.Width; xl++, xr--)
+                    {
+                        try
+                        {
+                            Color pixel = newBitmap.GetPixel(xl, y);
+                            newBitmapTemp.SetPixel(xl + width, y, pixel);
+                            newBitmapTemp.SetPixel(xr - width, y, pixel);
+                        }
+                        catch (Exception) { }
+                    }
+                }
+                newBitmap = newBitmapTemp;
+                pictureBox.Image = newBitmap;
+            }
         }
 
         void mirror_stich_bottom()    // funkcja doklejająca to samo zdjęcie od dołu
         {
-            int width = pictureBox.Image.Width;
-            int height = pictureBox.Image.Height;
-
-            Bitmap newBitmapTemp = new Bitmap(width, 2 * height);
-
-            for (int x = 0; x < newBitmap.Height; x++)
+            if (!opened)
             {
-                for (int yl = 0, yr = 2 * newBitmap.Height; yl < newBitmap.Height; yl++, yr--)
-                {
-                    try
-                    {
-                        Color pixel = newBitmap.GetPixel(x, yl);
-                        newBitmapTemp.SetPixel(x, yl, pixel);
-                        newBitmapTemp.SetPixel(x, yr, pixel);
-                    }
-                    catch (Exception) { }
-                }
+                MessageBox.Show("Open an Image then apply changes");
             }
-            newBitmap = newBitmapTemp;
-            pictureBox.Image = newBitmap;
+            else
+            {
+                int width = pictureBox.Image.Width;
+                int height = pictureBox.Image.Height;
+
+                Bitmap newBitmapTemp = new Bitmap(width, 2 * height);
+
+                for (int x = 0; x < newBitmap.Height; x++)
+                {
+                    for (int yl = 0, yr = 2 * newBitmap.Height; yl < newBitmap.Height; yl++, yr--)
+                    {
+                        try
+                        {
+                            Color pixel = newBitmap.GetPixel(x, yl);
+                            newBitmapTemp.SetPixel(x, yl, pixel);
+                            newBitmapTemp.SetPixel(x, yr, pixel);
+                        }
+                        catch (Exception) { }
+                    }
+                }
+                newBitmap = newBitmapTemp;
+                pictureBox.Image = newBitmap;
+            }
         }
 
         void mirror_stich_top()    // funkcja doklejająca to samo zdjęcie ponad oryginalnym
         {
-            int width = pictureBox.Image.Width;
-            int height = pictureBox.Image.Height;
-
-            Bitmap newBitmapTemp = new Bitmap(width, 2 * height);
-
-            for (int x = 0; x < newBitmap.Height; x++)
+            if (!opened)
             {
-                for (int yl = 0, yr = 2 * newBitmap.Height; yl < newBitmap.Height; yl++, yr--)
-                {
-                    try
-                    {
-                        Color pixel = newBitmap.GetPixel(x, yl);
-                        newBitmapTemp.SetPixel(x, yl + height, pixel);
-                        newBitmapTemp.SetPixel(x, yr - height, pixel);
-                    }
-                    catch (Exception) { }
-                }
+                MessageBox.Show("Open an Image then apply changes");
             }
-            newBitmap = newBitmapTemp;
-            pictureBox.Image = newBitmap;
+            else
+            {
+                int width = pictureBox.Image.Width;
+                int height = pictureBox.Image.Height;
+
+                Bitmap newBitmapTemp = new Bitmap(width, 2 * height);
+
+                for (int x = 0; x < newBitmap.Height; x++)
+                {
+                    for (int yl = 0, yr = 2 * newBitmap.Height; yl < newBitmap.Height; yl++, yr--)
+                    {
+                        try
+                        {
+                            Color pixel = newBitmap.GetPixel(x, yl);
+                            newBitmapTemp.SetPixel(x, yl + height, pixel);
+                            newBitmapTemp.SetPixel(x, yr - height, pixel);
+                        }
+                        catch (Exception) { }
+                    }
+                }
+                newBitmap = newBitmapTemp;
+                pictureBox.Image = newBitmap;
+            }
         }
 
         void stich_left()    // funkcja doklejająca to samo zdjęcie z prawej strony
         {
-            int width = pictureBox.Image.Width;
-            int height = pictureBox.Image.Height;
-
-            Bitmap newBitmapTemp = new Bitmap(2 * width, height);
-
-            for (int y = 0; y < newBitmap.Height; y++)
+            if (!opened)
             {
-                for (int xl = 0, xr = newBitmap.Width; xl < newBitmap.Width; xl++, xr++)
-                {
-                    try
-                    {
-                        Color pixel = newBitmap.GetPixel(xl, y);
-                        newBitmapTemp.SetPixel(xl, y, pixel);
-                        newBitmapTemp.SetPixel(xr, y, pixel);
-                    }
-                    catch (Exception) { }
-                }
+                MessageBox.Show("Open an Image then apply changes");
             }
-            newBitmap = newBitmapTemp;
-            pictureBox.Image = newBitmap;
+            else
+            {
+                int width = pictureBox.Image.Width;
+                int height = pictureBox.Image.Height;
+
+                Bitmap newBitmapTemp = new Bitmap(2 * width, height);
+
+                for (int y = 0; y < newBitmap.Height; y++)
+                {
+                    for (int xl = 0, xr = newBitmap.Width; xl < newBitmap.Width; xl++, xr++)
+                    {
+                        try
+                        {
+                            Color pixel = newBitmap.GetPixel(xl, y);
+                            newBitmapTemp.SetPixel(xl, y, pixel);
+                            newBitmapTemp.SetPixel(xr, y, pixel);
+                        }
+                        catch (Exception) { }
+                    }
+                }
+                newBitmap = newBitmapTemp;
+                pictureBox.Image = newBitmap;
+            }
         }
 
         void stich_right()    // funkcja doklejająca to samo zdjęcie z prawej strony
         {
-            int width = pictureBox.Image.Width;
-            int height = pictureBox.Image.Height;
-
-            Bitmap newBitmapTemp = new Bitmap(2 * width, height);
-
-            for (int y = 0; y < newBitmap.Height; y++)
+            if (!opened)
             {
-                for (int xl = 0, xr = newBitmap.Width; xl < newBitmap.Width; xl++, xr++)
-                {
-                    try
-                    {
-                        Color pixel = newBitmap.GetPixel(xl, y);
-                        newBitmapTemp.SetPixel(xl, y, pixel);
-                        newBitmapTemp.SetPixel(xr, y, pixel);
-                    }
-                    catch (Exception) { }
-                }
+                MessageBox.Show("Open an Image then apply changes");
             }
-            newBitmap = newBitmapTemp;
-            pictureBox.Image = newBitmap;
+            else
+            {
+                int width = pictureBox.Image.Width;
+                int height = pictureBox.Image.Height;
+
+                Bitmap newBitmapTemp = new Bitmap(2 * width, height);
+
+                for (int y = 0; y < newBitmap.Height; y++)
+                {
+                    for (int xl = 0, xr = newBitmap.Width; xl < newBitmap.Width; xl++, xr++)
+                    {
+                        try
+                        {
+                            Color pixel = newBitmap.GetPixel(xl, y);
+                            newBitmapTemp.SetPixel(xl, y, pixel);
+                            newBitmapTemp.SetPixel(xr, y, pixel);
+                        }
+                        catch (Exception) { }
+                    }
+                }
+                newBitmap = newBitmapTemp;
+                pictureBox.Image = newBitmap;
+            }
         }
 
         void stich_top()    // funkcja doklejająca to samo zdjęcie od dołu
         {
-            int width = pictureBox.Image.Width;
-            int height = pictureBox.Image.Height;
-
-            Bitmap newBitmapTemp = new Bitmap(width, 2 * height);
-
-            for (int x = 0; x < newBitmap.Height; x++)
+            if (!opened)
             {
-                for (int yl = 0, yr = newBitmap.Height; yl < newBitmap.Height; yl++, yr++)
-                {
-                    try
-                    {
-                        Color pixel = newBitmap.GetPixel(x, yl);
-                        newBitmapTemp.SetPixel(x, yl, pixel);
-                        newBitmapTemp.SetPixel(x, yr, pixel);
-                    }
-                    catch (Exception) { }
-                }
+                MessageBox.Show("Open an Image then apply changes");
             }
-            newBitmap = newBitmapTemp;
-            pictureBox.Image = newBitmap;
+            else
+            {
+                int width = pictureBox.Image.Width;
+                int height = pictureBox.Image.Height;
+
+                Bitmap newBitmapTemp = new Bitmap(width, 2 * height);
+
+                for (int x = 0; x < newBitmap.Height; x++)
+                {
+                    for (int yl = 0, yr = newBitmap.Height; yl < newBitmap.Height; yl++, yr++)
+                    {
+                        try
+                        {
+                            Color pixel = newBitmap.GetPixel(x, yl);
+                            newBitmapTemp.SetPixel(x, yl, pixel);
+                            newBitmapTemp.SetPixel(x, yr, pixel);
+                        }
+                        catch (Exception) { }
+                    }
+                }
+                newBitmap = newBitmapTemp;
+                pictureBox.Image = newBitmap;
+            }
         }
 
         void stich_bottom()    // funkcja doklejająca to samo zdjęcie od dołu
         {
-            int width = pictureBox.Image.Width;
-            int height = pictureBox.Image.Height;
-
-            Bitmap newBitmapTemp = new Bitmap(width, 2 * height);
-
-            for (int x = 0; x < newBitmap.Height; x++)
+            if (!opened)
             {
-                for (int yl = 0, yr = newBitmap.Height; yl < newBitmap.Height; yl++, yr++)
-                {
-                    try
-                    {
-                        Color pixel = newBitmap.GetPixel(x, yl);
-                        newBitmapTemp.SetPixel(x, yl, pixel);
-                        newBitmapTemp.SetPixel(x, yr, pixel);
-                    }
-                    catch (Exception) { }
-                }
+                MessageBox.Show("Open an Image then apply changes");
             }
-            newBitmap = newBitmapTemp;
-            pictureBox.Image = newBitmap;
+            else
+            {
+                int width = pictureBox.Image.Width;
+                int height = pictureBox.Image.Height;
+
+                Bitmap newBitmapTemp = new Bitmap(width, 2 * height);
+
+                for (int x = 0; x < newBitmap.Height; x++)
+                {
+                    for (int yl = 0, yr = newBitmap.Height; yl < newBitmap.Height; yl++, yr++)
+                    {
+                        try
+                        {
+                            Color pixel = newBitmap.GetPixel(x, yl);
+                            newBitmapTemp.SetPixel(x, yl, pixel);
+                            newBitmapTemp.SetPixel(x, yr, pixel);
+                        }
+                        catch (Exception) { }
+                    }
+                }
+                newBitmap = newBitmapTemp;
+                pictureBox.Image = newBitmap;
+            }
         }
 
         void stich_sec_left()    // funkcja doklejająca to samo zdjęcie z prawej strony
         {
-            int width = pictureBox.Image.Width;
-            int height = pictureBox.Image.Height;
-
-            DialogResult dr2 = openFileDialog1.ShowDialog();
-            if (dr2 == DialogResult.OK)
+            if (!opened)
             {
-                file2 = Image.FromFile(openFileDialog1.FileName);
-                newSecondBitmap = new Bitmap(openFileDialog1.FileName);
-                pictureBox1.Image = file2;
+                MessageBox.Show("Open an Image then apply changes");
             }
-
-            height = Math.Max(pictureBox.Height, newSecondBitmap.Height);
-
-            int width_sum = width + newSecondBitmap.Width;
-
-            Bitmap newBitmapTemp = new Bitmap(width_sum, height);
-            Graphics g = Graphics.FromImage(newBitmapTemp);
-            g.Clear(Color.Black);
-
-            g.DrawImage(newSecondBitmap, new Point(0, 0));
-            g.DrawImage(newBitmap, new Point(newSecondBitmap.Width, 0));
-
-            /*for (int xl = 0, xr = newSecondBitmap.Width; xr < width_sum; xl++, xr++)
+            else
             {
-                for (int y = 0; y < height; y++)
+                int width = pictureBox.Image.Width;
+                int height = pictureBox.Image.Height;
+
+                DialogResult dr2 = openFileDialog1.ShowDialog();
+                if (dr2 == DialogResult.OK)
                 {
-                    try
-                    {
-                        Color pixel = newSecondBitmap.GetPixel(xl, y);
-                        Color pixel2 = newBitmap.GetPixel(xl, y);
-                        newBitmapTemp.SetPixel(xl, y, pixel);
-                        newBitmapTemp.SetPixel(xr, y, pixel2);
-                    }
-                    catch (Exception) { newBitmapTemp.SetPixel(xr, y, Color.Black); }
+                    file2 = Image.FromFile(openFileDialog1.FileName);
+                    newSecondBitmap = new Bitmap(openFileDialog1.FileName);
+                    pictureBox1.Image = file2;
                 }
-            }*/
-            //newBitmap = newBitmapTemp;
-            pictureBox.Image = newBitmapTemp;
+
+                height = Math.Max(pictureBox.Height, newSecondBitmap.Height);
+
+                int width_sum = width + newSecondBitmap.Width;
+
+                Bitmap newBitmapTemp = new Bitmap(width_sum, height);
+                Graphics g = Graphics.FromImage(newBitmapTemp);
+                g.Clear(Color.Black);
+
+                g.DrawImage(newSecondBitmap, new Point(0, 0));
+                g.DrawImage(newBitmap, new Point(newSecondBitmap.Width, 0));
+
+                /*for (int xl = 0, xr = newSecondBitmap.Width; xr < width_sum; xl++, xr++)
+                {
+                    for (int y = 0; y < height; y++)
+                    {
+                        try
+                        {
+                            Color pixel = newSecondBitmap.GetPixel(xl, y);
+                            Color pixel2 = newBitmap.GetPixel(xl, y);
+                            newBitmapTemp.SetPixel(xl, y, pixel);
+                            newBitmapTemp.SetPixel(xr, y, pixel2);
+                        }
+                        catch (Exception) { newBitmapTemp.SetPixel(xr, y, Color.Black); }
+                    }
+                }*/
+                //newBitmap = newBitmapTemp;
+                pictureBox.Image = newBitmapTemp;
+            }
         }
 
         void rotate_right()    // funkcja obracająca zdjęcie o 90 stopni w prawo
         {
-            int width = pictureBox.Image.Width;
-            int height = pictureBox.Image.Height;
-
-            Bitmap newBitmapTemp = new Bitmap(height , width);
-
-            for (int y = 0; y < newBitmap.Height; y++)
+            if (!opened)
             {
-                for (int x = 0; x < newBitmap.Width; x++)
-                {
-                    try
-                    {
-                        Color pixel = newBitmap.GetPixel(x, height - y);
-                        newBitmapTemp.SetPixel(y, x, pixel);
-                    }
-                    catch (Exception) { }
-                }
+                MessageBox.Show("Open an Image then apply changes");
             }
-            newBitmap = newBitmapTemp;
-            pictureBox.Image = newBitmap;
+            else
+            {
+                int width = pictureBox.Image.Width;
+                int height = pictureBox.Image.Height;
+
+                Bitmap newBitmapTemp = new Bitmap(height, width);
+
+                for (int y = 0; y < newBitmap.Height; y++)
+                {
+                    for (int x = 0; x < newBitmap.Width; x++)
+                    {
+                        try
+                        {
+                            Color pixel = newBitmap.GetPixel(x, height - y);
+                            newBitmapTemp.SetPixel(y, x, pixel);
+                        }
+                        catch (Exception) { }
+                    }
+                }
+                newBitmap = newBitmapTemp;
+                pictureBox.Image = newBitmap;
+            }
         }
 
         void rotate_left()    // funkcja obracająca zdjęcie o 90 stopni w lewo
         {
-            int width = pictureBox.Image.Width;
-            int height = pictureBox.Image.Height;
-
-            Bitmap newBitmapTemp = new Bitmap(height, width);
-
-            for (int y = 0; y < newBitmap.Height; y++)
+            if (!opened)
             {
-                for (int x = 0; x < newBitmap.Width; x++)
-                {
-                    try
-                    {
-                        Color pixel = newBitmap.GetPixel(width - x, y);
-                        newBitmapTemp.SetPixel(y, x, pixel);
-                    }
-                    catch (Exception) { }
-                }
+                MessageBox.Show("Open an Image then apply changes");
             }
-            newBitmap = newBitmapTemp;
-            pictureBox.Image = newBitmap;
+            else
+            {
+                int width = pictureBox.Image.Width;
+                int height = pictureBox.Image.Height;
+
+                Bitmap newBitmapTemp = new Bitmap(height, width);
+
+                for (int y = 0; y < newBitmap.Height; y++)
+                {
+                    for (int x = 0; x < newBitmap.Width; x++)
+                    {
+                        try
+                        {
+                            Color pixel = newBitmap.GetPixel(width - x, y);
+                            newBitmapTemp.SetPixel(y, x, pixel);
+                        }
+                        catch (Exception) { }
+                    }
+                }
+                newBitmap = newBitmapTemp;
+                pictureBox.Image = newBitmap;
+            }
         }
 
         void comp_rgb()    // funkcja pokazująca składowe rgb w postaci kolejnych zdjęć
         {
-            int width = pictureBox.Image.Width;
-            int height = pictureBox.Image.Height;
-
-            Bitmap newBitmapTemp = new Bitmap(3 * width, height);
-
-            for (int y = 0; y < newBitmap.Height; y++)
+            if (!opened)
             {
-                for (int x = 0; x < 3 * newBitmap.Width; x++)
-                {
-                    try
-                    {
-                        if ((x > 0) && (x <= width))
-                        {
-                            Color pixel = newBitmap.GetPixel(x, y);
-                            int R = (int)pixel.R;
-                            newBitmapTemp.SetPixel(x, y, Color.FromArgb(R, 0, 0));
-                        }
-                        else if((x > width) && (x <= 2 * width))
-                        {
-                            Color pixel = newBitmap.GetPixel(x - width, y);
-                            int G = (int)pixel.G;
-                            newBitmapTemp.SetPixel(x, y, Color.FromArgb(0, G, 0));
-                        }
-                        else if((x > 2 * width) && (x <= 3 * width))
-                        {
-                            Color pixel = newBitmap.GetPixel(x - (2 * width), y);
-                            int B = (int)pixel.B;
-                            newBitmapTemp.SetPixel(x, y, Color.FromArgb(0, 0, B));
-                        }
-                    }
-                    catch (Exception) { }
-                }
+                MessageBox.Show("Open an Image then apply changes");
             }
-            newBitmap = newBitmapTemp;
-            pictureBox.Image = newBitmap;
+            else
+            {
+                int width = pictureBox.Image.Width;
+                int height = pictureBox.Image.Height;
+
+                Bitmap newBitmapTemp = new Bitmap(3 * width, height);
+
+                for (int y = 0; y < newBitmap.Height; y++)
+                {
+                    for (int x = 0; x < 3 * newBitmap.Width; x++)
+                    {
+                        try
+                        {
+                            if ((x > 0) && (x <= width))
+                            {
+                                Color pixel = newBitmap.GetPixel(x, y);
+                                int R = (int)pixel.R;
+                                newBitmapTemp.SetPixel(x, y, Color.FromArgb(R, 0, 0));
+                            }
+                            else if ((x > width) && (x <= 2 * width))
+                            {
+                                Color pixel = newBitmap.GetPixel(x - width, y);
+                                int G = (int)pixel.G;
+                                newBitmapTemp.SetPixel(x, y, Color.FromArgb(0, G, 0));
+                            }
+                            else if ((x > 2 * width) && (x <= 3 * width))
+                            {
+                                Color pixel = newBitmap.GetPixel(x - (2 * width), y);
+                                int B = (int)pixel.B;
+                                newBitmapTemp.SetPixel(x, y, Color.FromArgb(0, 0, B));
+                            }
+                        }
+                        catch (Exception) { }
+                    }
+                }
+                newBitmap = newBitmapTemp;
+                pictureBox.Image = newBitmap;
+            }
         }
 
         void comp_rgb2()    // funkcja pokazująca składowe rgb w postaci kolejnych zdjęć
         {
-            int width = pictureBox.Image.Width;
-            int height = pictureBox.Image.Height;
-
-            Bitmap newBitmapTemp = new Bitmap(3 * width, height);
-
-            for (int y = 0; y < newBitmap.Height; y++)
+            if (!opened)
             {
-                for (int x = 0; x < 3 * newBitmap.Width; x++)
-                {
-                    try
-                    {
-                        if ((x > 0) && (x <= width))
-                        {
-                            Color pixel = newBitmap.GetPixel(x, y);
-                            int R = (int)pixel.R;
-                            int G = (int)pixel.G;
-                            int B = (int)pixel.B;
-                            if (((R > G) && (R > B)) )
-                            {
-                                newBitmapTemp.SetPixel(x, y, Color.FromArgb(R, G, B));
-                            }
-                            else
-                            {
-                                int GRAY = (((R) + (G) + (B)) / 3);
-                                newBitmapTemp.SetPixel(x, y, Color.FromArgb(GRAY, GRAY, GRAY));
-                            }
-                        }
-                        else if ((x > width) && (x <= 2 * width))
-                        {
-                            Color pixel = newBitmap.GetPixel(x - width, y);
-                            int R = (int)pixel.R;
-                            int G = (int)pixel.G;
-                            int B = (int)pixel.B;
-                            if ((G > R) && (G > B))
-                            {
-                                newBitmapTemp.SetPixel(x, y, Color.FromArgb(R, G, B));
-                            }
-                            else
-                            {
-                                int GRAY = (((R) + (G) + (B)) / 3);
-                                newBitmapTemp.SetPixel(x, y, Color.FromArgb(GRAY, GRAY, GRAY));
-                            }
-                        }
-                        else if ((x > 2 * width) && (x <= 3 * width))
-                        {
-                            Color pixel = newBitmap.GetPixel(x - (2 * width), y);
-                            int R = (int)pixel.R;
-                            int G = (int)pixel.G;
-                            int B = (int)pixel.B;
-                            if ((B > G) && (B > R))
-                            {
-                                newBitmapTemp.SetPixel(x, y, Color.FromArgb(R, G, B));
-                            }
-                            else
-                            {
-                                int GRAY = (((R) + (G) + (B)) / 3);
-                                newBitmapTemp.SetPixel(x, y, Color.FromArgb(GRAY, GRAY, GRAY));
-                            }
-                        }
-                    }
-                    catch (Exception) { }
-                }
+                MessageBox.Show("Open an Image then apply changes");
             }
-            newBitmap = newBitmapTemp;
-            pictureBox.Image = newBitmap;
+            else
+            {
+                int width = pictureBox.Image.Width;
+                int height = pictureBox.Image.Height;
+
+                Bitmap newBitmapTemp = new Bitmap(3 * width, height);
+
+                for (int y = 0; y < newBitmap.Height; y++)
+                {
+                    for (int x = 0; x < 3 * newBitmap.Width; x++)
+                    {
+                        try
+                        {
+                            if ((x > 0) && (x <= width))
+                            {
+                                Color pixel = newBitmap.GetPixel(x, y);
+                                int R = (int)pixel.R;
+                                int G = (int)pixel.G;
+                                int B = (int)pixel.B;
+                                if (((R > G) && (R > B)))
+                                {
+                                    newBitmapTemp.SetPixel(x, y, Color.FromArgb(R, G, B));
+                                }
+                                else
+                                {
+                                    int GRAY = (((R) + (G) + (B)) / 3);
+                                    newBitmapTemp.SetPixel(x, y, Color.FromArgb(GRAY, GRAY, GRAY));
+                                }
+                            }
+                            else if ((x > width) && (x <= 2 * width))
+                            {
+                                Color pixel = newBitmap.GetPixel(x - width, y);
+                                int R = (int)pixel.R;
+                                int G = (int)pixel.G;
+                                int B = (int)pixel.B;
+                                if ((G > R) && (G > B))
+                                {
+                                    newBitmapTemp.SetPixel(x, y, Color.FromArgb(R, G, B));
+                                }
+                                else
+                                {
+                                    int GRAY = (((R) + (G) + (B)) / 3);
+                                    newBitmapTemp.SetPixel(x, y, Color.FromArgb(GRAY, GRAY, GRAY));
+                                }
+                            }
+                            else if ((x > 2 * width) && (x <= 3 * width))
+                            {
+                                Color pixel = newBitmap.GetPixel(x - (2 * width), y);
+                                int R = (int)pixel.R;
+                                int G = (int)pixel.G;
+                                int B = (int)pixel.B;
+                                if ((B > G) && (B > R))
+                                {
+                                    newBitmapTemp.SetPixel(x, y, Color.FromArgb(R, G, B));
+                                }
+                                else
+                                {
+                                    int GRAY = (((R) + (G) + (B)) / 3);
+                                    newBitmapTemp.SetPixel(x, y, Color.FromArgb(GRAY, GRAY, GRAY));
+                                }
+                            }
+                        }
+                        catch (Exception) { }
+                    }
+                }
+                newBitmap = newBitmapTemp;
+                pictureBox.Image = newBitmap;
+            }
         }
 
         void comp_ycbcr()    // funkcja pokazująca składowe YCbCr w postaci kolejnych zdjęć
         {
-            int width = pictureBox.Image.Width;
-            int height = pictureBox.Image.Height;
-
-            Bitmap newBitmapTemp = new Bitmap(3 * width, height);
-
-            for (int y = 0; y < newBitmap.Height; y++)
+            if (!opened)
             {
-                for (int x = 0; x < 3 * newBitmap.Width; x++)
-                {
-                    try
-                    {
-                        //int Y = (int)((0.299 * R) + (0.587 * G) + (0.114 * B));
-
-                        if ((x > 0) && (x <= width))
-                        {
-                            Color pixel = newBitmap.GetPixel(x, y);
-                            int R = (int)pixel.R;
-                            int G = (int)pixel.G;
-                            int B = (int)pixel.B;
-                            newBitmapTemp.SetPixel(x, y, Color.FromArgb((int)(0.299 * R) , (int)(0.587 * G) , (int)(0.114 * B)));
-                        }
-                        else if ((x > width) && (x <= 2 * width))
-                        {
-                            Color pixel = newBitmap.GetPixel(x - width, y);
-                            int R = (int)pixel.R;
-                            int G = (int)pixel.G;
-                            int B = (int)pixel.B;
-                            int cb = (int)(128 - (0.168736 * R) - (0.331264 * G) + (0.5 * B));
-                            newBitmapTemp.SetPixel(x, y, Color.FromArgb((int)(128 - (0.168736 * R)), (int)(128 - (0.331264 * G)), (int)(128 + (0.5 * B))));
-                            //newBitmapTemp.SetPixel(x, y, Color.
-                        }
-                        else if ((x > 2 * width) && (x <= 3 * width))
-                        {
-                            Color pixel = newBitmap.GetPixel(x - (2 * width), y);
-                            int R = (int)pixel.R;
-                            int G = (int)pixel.G;
-                            int B = (int)pixel.B;
-                            int cr = (int)(128 + (0.5 * R) - (0.418688 * G) - (0.81312 * B));
-                            newBitmapTemp.SetPixel(x, y, Color.FromArgb((int)(128 + (0.5 * R)), 128 + (int)( (0.418688 * G)), 128 + (int)((0.81312 * B))));
-                        }
-                    }
-                    catch (Exception) { }
-                }
+                MessageBox.Show("Open an Image then apply changes");
             }
-            newBitmap = newBitmapTemp;
-            pictureBox.Image = newBitmap;
+            else
+            {
+                int width = pictureBox.Image.Width;
+                int height = pictureBox.Image.Height;
+
+                Bitmap newBitmapTemp = new Bitmap(3 * width, height);
+
+                for (int y = 0; y < newBitmap.Height; y++)
+                {
+                    for (int x = 0; x < 3 * newBitmap.Width; x++)
+                    {
+                        try
+                        {
+                            //int Y = (int)((0.299 * R) + (0.587 * G) + (0.114 * B));
+
+                            if ((x > 0) && (x <= width))
+                            {
+                                Color pixel = newBitmap.GetPixel(x, y);
+                                int R = (int)pixel.R;
+                                int G = (int)pixel.G;
+                                int B = (int)pixel.B;
+                                newBitmapTemp.SetPixel(x, y, Color.FromArgb((int)(0.299 * R), (int)(0.587 * G), (int)(0.114 * B)));
+                            }
+                            else if ((x > width) && (x <= 2 * width))
+                            {
+                                Color pixel = newBitmap.GetPixel(x - width, y);
+                                int R = (int)pixel.R;
+                                int G = (int)pixel.G;
+                                int B = (int)pixel.B;
+                                int cb = (int)(128 - (0.168736 * R) - (0.331264 * G) + (0.5 * B));
+                                newBitmapTemp.SetPixel(x, y, Color.FromArgb((int)(128 - (0.168736 * R)), (int)(128 - (0.331264 * G)), (int)(128 + (0.5 * B))));
+                                //newBitmapTemp.SetPixel(x, y, Color.
+                            }
+                            else if ((x > 2 * width) && (x <= 3 * width))
+                            {
+                                Color pixel = newBitmap.GetPixel(x - (2 * width), y);
+                                int R = (int)pixel.R;
+                                int G = (int)pixel.G;
+                                int B = (int)pixel.B;
+                                int cr = (int)(128 + (0.5 * R) - (0.418688 * G) - (0.81312 * B));
+                                newBitmapTemp.SetPixel(x, y, Color.FromArgb((int)(128 + (0.5 * R)), 128 + (int)((0.418688 * G)), 128 + (int)((0.81312 * B))));
+                            }
+                        }
+                        catch (Exception) { }
+                    }
+                }
+                newBitmap = newBitmapTemp;
+                pictureBox.Image = newBitmap;
+            }
         }
 
         void comp_bR()    
         {
-            int width = pictureBox.Image.Width;
-            int height = pictureBox.Image.Height;
-
-            Bitmap newBitmapTemp = new Bitmap(width, height);
-
-            for (int y = 0; y < newBitmap.Height; y++)
+            if (!opened)
             {
-                for (int x = 0; x < newBitmap.Width; x++)
+                MessageBox.Show("Open an Image then apply changes");
+            }
+            else
+            {
+                int width = pictureBox.Image.Width;
+                int height = pictureBox.Image.Height;
+
+                Bitmap newBitmapTemp = new Bitmap(width, height);
+
+                for (int y = 0; y < newBitmap.Height; y++)
                 {
-                    try
+                    for (int x = 0; x < newBitmap.Width; x++)
                     {
-                        if ((x > 0) && (x <= width))
+                        try
                         {
-                            Color pixel = newBitmap.GetPixel(x, y);
-                            int R = (int)pixel.R;
-                            int G = (int)pixel.G;
-                            int B = (int)pixel.B;
-                            if (((R > G) && (R > B)))
+                            if ((x > 0) && (x <= width))
                             {
-                                newBitmapTemp.SetPixel(x, y, Color.FromArgb(R, G, B));
-                            }
-                            else
-                            {
-                                int GRAY = (((R) + (G) + (B)) / 3);
-                                newBitmapTemp.SetPixel(x, y, Color.FromArgb(GRAY, GRAY, GRAY));
+                                Color pixel = newBitmap.GetPixel(x, y);
+                                int R = (int)pixel.R;
+                                int G = (int)pixel.G;
+                                int B = (int)pixel.B;
+                                if (((R > G) && (R > B)))
+                                {
+                                    newBitmapTemp.SetPixel(x, y, Color.FromArgb(R, G, B));
+                                }
+                                else
+                                {
+                                    int GRAY = (((R) + (G) + (B)) / 3);
+                                    newBitmapTemp.SetPixel(x, y, Color.FromArgb(GRAY, GRAY, GRAY));
+                                }
                             }
                         }
+                        catch (Exception) { }
                     }
-                    catch (Exception) { }
                 }
+                newBitmap = newBitmapTemp;
+                pictureBox.Image = newBitmap;
             }
-            newBitmap = newBitmapTemp;
-            pictureBox.Image = newBitmap;
         }
 
         void comp_bG()
         {
-            int width = pictureBox.Image.Width;
-            int height = pictureBox.Image.Height;
-
-            Bitmap newBitmapTemp = new Bitmap(width, height);
-
-            for (int y = 0; y < newBitmap.Height; y++)
+            if (!opened)
             {
-                for (int x = 0; x < newBitmap.Width; x++)
+                MessageBox.Show("Open an Image then apply changes");
+            }
+            else
+            {
+                int width = pictureBox.Image.Width;
+                int height = pictureBox.Image.Height;
+
+                Bitmap newBitmapTemp = new Bitmap(width, height);
+
+                for (int y = 0; y < newBitmap.Height; y++)
                 {
-                    try
+                    for (int x = 0; x < newBitmap.Width; x++)
                     {
-                        if ((x > 0) && (x <= width))
+                        try
                         {
-                            Color pixel = newBitmap.GetPixel(x, y);
-                            int R = (int)pixel.R;
-                            int G = (int)pixel.G;
-                            int B = (int)pixel.B;
-                            if (((G > R) && (G > B)))
+                            if ((x > 0) && (x <= width))
                             {
-                                newBitmapTemp.SetPixel(x, y, Color.FromArgb(R, G, B));
-                            }
-                            else
-                            {
-                                int GRAY = (((R) + (G) + (B)) / 3);
-                                newBitmapTemp.SetPixel(x, y, Color.FromArgb(GRAY, GRAY, GRAY));
+                                Color pixel = newBitmap.GetPixel(x, y);
+                                int R = (int)pixel.R;
+                                int G = (int)pixel.G;
+                                int B = (int)pixel.B;
+                                if (((G > R) && (G > B)))
+                                {
+                                    newBitmapTemp.SetPixel(x, y, Color.FromArgb(R, G, B));
+                                }
+                                else
+                                {
+                                    int GRAY = (((R) + (G) + (B)) / 3);
+                                    newBitmapTemp.SetPixel(x, y, Color.FromArgb(GRAY, GRAY, GRAY));
+                                }
                             }
                         }
+                        catch (Exception) { }
                     }
-                    catch (Exception) { }
                 }
+                newBitmap = newBitmapTemp;
+                pictureBox.Image = newBitmap;
             }
-            newBitmap = newBitmapTemp;
-            pictureBox.Image = newBitmap;
         }
 
         void comp_bB()
         {
-            int width = pictureBox.Image.Width;
-            int height = pictureBox.Image.Height;
-
-            Bitmap newBitmapTemp = new Bitmap(width, height);
-
-            for (int y = 0; y < newBitmap.Height; y++)
+            if (!opened)
             {
-                for (int x = 0; x < newBitmap.Width; x++)
+                MessageBox.Show("Open an Image then apply changes");
+            }
+            else
+            {
+                int width = pictureBox.Image.Width;
+                int height = pictureBox.Image.Height;
+
+                Bitmap newBitmapTemp = new Bitmap(width, height);
+
+                for (int y = 0; y < newBitmap.Height; y++)
                 {
-                    try
+                    for (int x = 0; x < newBitmap.Width; x++)
                     {
-                        if ((x > 0) && (x <= width))
+                        try
                         {
-                            Color pixel = newBitmap.GetPixel(x, y);
-                            int R = (int)pixel.R;
-                            int G = (int)pixel.G;
-                            int B = (int)pixel.B;
-                            if (((B > G) && (B > R)))
+                            if ((x > 0) && (x <= width))
                             {
-                                newBitmapTemp.SetPixel(x, y, Color.FromArgb(R, G, B));
-                            }
-                            else
-                            {
-                                int GRAY = (((R) + (G) + (B)) / 3);
-                                newBitmapTemp.SetPixel(x, y, Color.FromArgb(GRAY, GRAY, GRAY));
+                                Color pixel = newBitmap.GetPixel(x, y);
+                                int R = (int)pixel.R;
+                                int G = (int)pixel.G;
+                                int B = (int)pixel.B;
+                                if (((B > G) && (B > R)))
+                                {
+                                    newBitmapTemp.SetPixel(x, y, Color.FromArgb(R, G, B));
+                                }
+                                else
+                                {
+                                    int GRAY = (((R) + (G) + (B)) / 3);
+                                    newBitmapTemp.SetPixel(x, y, Color.FromArgb(GRAY, GRAY, GRAY));
+                                }
                             }
                         }
+                        catch (Exception) { }
                     }
-                    catch (Exception) { }
                 }
+                newBitmap = newBitmapTemp;
+                pictureBox.Image = newBitmap;
             }
-            newBitmap = newBitmapTemp;
-            pictureBox.Image = newBitmap;
         }
 
         void comp_rR()
         {
-            int width = pictureBox.Image.Width;
-            int height = pictureBox.Image.Height;
-
-            Bitmap newBitmapTemp = new Bitmap(width, height);
-
-            for (int y = 0; y < newBitmap.Height; y++)
+            if (!opened)
             {
-                for (int x = 0; x < newBitmap.Width; x++)
+                MessageBox.Show("Open an Image then apply changes");
+            }
+            else
+            {
+                int width = pictureBox.Image.Width;
+                int height = pictureBox.Image.Height;
+
+                Bitmap newBitmapTemp = new Bitmap(width, height);
+
+                for (int y = 0; y < newBitmap.Height; y++)
                 {
-                    try
+                    for (int x = 0; x < newBitmap.Width; x++)
                     {
-                        if ((x > 0) && (x <= width))
+                        try
                         {
-                            Color pixel = newBitmap.GetPixel(x, y);
-                            int R = (int)pixel.R;
-                            int G = (int)pixel.G;
-                            int B = (int)pixel.B;
-                            if (((R > (G + B)) && (B <= (R * 0.65)) && (G <= (R * 0.65))))
+                            if ((x > 0) && (x <= width))
                             {
-                                newBitmapTemp.SetPixel(x, y, Color.FromArgb(R, G, B));
-                            }
-                            else
-                            {
-                                int GRAY = (((R) + (G) + (B)) / 3);
-                                newBitmapTemp.SetPixel(x, y, Color.FromArgb(GRAY, GRAY, GRAY));
+                                Color pixel = newBitmap.GetPixel(x, y);
+                                int R = (int)pixel.R;
+                                int G = (int)pixel.G;
+                                int B = (int)pixel.B;
+                                if (((R > (G + B)) && (B <= (R * 0.65)) && (G <= (R * 0.65))))
+                                {
+                                    newBitmapTemp.SetPixel(x, y, Color.FromArgb(R, G, B));
+                                }
+                                else
+                                {
+                                    int GRAY = (((R) + (G) + (B)) / 3);
+                                    newBitmapTemp.SetPixel(x, y, Color.FromArgb(GRAY, GRAY, GRAY));
+                                }
                             }
                         }
+                        catch (Exception) { }
                     }
-                    catch (Exception) { }
                 }
+                newBitmap = newBitmapTemp;
+                pictureBox.Image = newBitmap;
             }
-            newBitmap = newBitmapTemp;
-            pictureBox.Image = newBitmap;
         }
 
         void comp_rG()
         {
-            int width = pictureBox.Image.Width;
-            int height = pictureBox.Image.Height;
-
-            Bitmap newBitmapTemp = new Bitmap(width, height);
-
-            for (int y = 0; y < newBitmap.Height; y++)
+            if (!opened)
             {
-                for (int x = 0; x < newBitmap.Width; x++)
+                MessageBox.Show("Open an Image then apply changes");
+            }
+            else
+            {
+                int width = pictureBox.Image.Width;
+                int height = pictureBox.Image.Height;
+
+                Bitmap newBitmapTemp = new Bitmap(width, height);
+
+                for (int y = 0; y < newBitmap.Height; y++)
                 {
-                    try
+                    for (int x = 0; x < newBitmap.Width; x++)
                     {
-                        if ((x > 0) && (x <= width))
+                        try
                         {
-                            Color pixel = newBitmap.GetPixel(x, y);
-                            int R = (int)pixel.R;
-                            int G = (int)pixel.G;
-                            int B = (int)pixel.B;
-                            if (((G > (R + B)) && (B <= (G * 0.65)) && (R <= (G * 0.65))))
+                            if ((x > 0) && (x <= width))
                             {
-                                newBitmapTemp.SetPixel(x, y, Color.FromArgb(R, G, B));
-                            }
-                            else
-                            {
-                                int GRAY = (((R) + (G) + (B)) / 3);
-                                newBitmapTemp.SetPixel(x, y, Color.FromArgb(GRAY, GRAY, GRAY));
+                                Color pixel = newBitmap.GetPixel(x, y);
+                                int R = (int)pixel.R;
+                                int G = (int)pixel.G;
+                                int B = (int)pixel.B;
+                                if (((G > (R + B)) && (B <= (G * 0.65)) && (R <= (G * 0.65))))
+                                {
+                                    newBitmapTemp.SetPixel(x, y, Color.FromArgb(R, G, B));
+                                }
+                                else
+                                {
+                                    int GRAY = (((R) + (G) + (B)) / 3);
+                                    newBitmapTemp.SetPixel(x, y, Color.FromArgb(GRAY, GRAY, GRAY));
+                                }
                             }
                         }
+                        catch (Exception) { }
                     }
-                    catch (Exception) { }
                 }
+                newBitmap = newBitmapTemp;
+                pictureBox.Image = newBitmap;
             }
-            newBitmap = newBitmapTemp;
-            pictureBox.Image = newBitmap;
         }
 
         void comp_rB()
         {
-            int width = pictureBox.Image.Width;
-            int height = pictureBox.Image.Height;
-
-            Bitmap newBitmapTemp = new Bitmap(width, height);
-
-            for (int y = 0; y < newBitmap.Height; y++)
+            if (!opened)
             {
-                for (int x = 0; x < newBitmap.Width; x++)
+                MessageBox.Show("Open an Image then apply changes");
+            }
+            else
+            {
+                int width = pictureBox.Image.Width;
+                int height = pictureBox.Image.Height;
+
+                Bitmap newBitmapTemp = new Bitmap(width, height);
+
+                for (int y = 0; y < newBitmap.Height; y++)
                 {
-                    try
+                    for (int x = 0; x < newBitmap.Width; x++)
                     {
-                        if ((x > 0) && (x <= width))
+                        try
                         {
-                            Color pixel = newBitmap.GetPixel(x, y);
-                            int R = (int)pixel.R;
-                            int G = (int)pixel.G;
-                            int B = (int)pixel.B;
-                            if (((B > (G + R)) && (R <= (B * 0.65)) && (G <= (B * 0.65))))
+                            if ((x > 0) && (x <= width))
                             {
-                                newBitmapTemp.SetPixel(x, y, Color.FromArgb(R, G, B));
-                            }
-                            else
-                            {
-                                int GRAY = (((R) + (G) + (B)) / 3);
-                                newBitmapTemp.SetPixel(x, y, Color.FromArgb(GRAY, GRAY, GRAY));
+                                Color pixel = newBitmap.GetPixel(x, y);
+                                int R = (int)pixel.R;
+                                int G = (int)pixel.G;
+                                int B = (int)pixel.B;
+                                if (((B > (G + R)) && (R <= (B * 0.65)) && (G <= (B * 0.65))))
+                                {
+                                    newBitmapTemp.SetPixel(x, y, Color.FromArgb(R, G, B));
+                                }
+                                else
+                                {
+                                    int GRAY = (((R) + (G) + (B)) / 3);
+                                    newBitmapTemp.SetPixel(x, y, Color.FromArgb(GRAY, GRAY, GRAY));
+                                }
                             }
                         }
+                        catch (Exception) { }
                     }
-                    catch (Exception) { }
                 }
+                newBitmap = newBitmapTemp;
+                pictureBox.Image = newBitmap;
             }
-            newBitmap = newBitmapTemp;
-            pictureBox.Image = newBitmap;
         }
 
         void comp_rC()
         {
-            int width = pictureBox.Image.Width;
-            int height = pictureBox.Image.Height;
-
-            Bitmap newBitmapTemp = new Bitmap(width, height);
-
-            for (int y = 0; y < newBitmap.Height; y++)
+            if (!opened)
             {
-                for (int x = 0; x < newBitmap.Width; x++)
+                MessageBox.Show("Open an Image then apply changes");
+            }
+            else
+            {
+                int width = pictureBox.Image.Width;
+                int height = pictureBox.Image.Height;
+
+                Bitmap newBitmapTemp = new Bitmap(width, height);
+
+                for (int y = 0; y < newBitmap.Height; y++)
                 {
-                    try
+                    for (int x = 0; x < newBitmap.Width; x++)
                     {
-                        if ((x > 0) && (x <= width))
+                        try
                         {
-                            Color pixel = newBitmap.GetPixel(x, y);
-                            int R = (int)pixel.R;
-                            int G = (int)pixel.G;
-                            int B = (int)pixel.B;
-                            if (((B * 0.65) >= R) && ((G * 0.65) >= R) && (G > (0.75 * B)) && (B > (0.75 * G)))
+                            if ((x > 0) && (x <= width))
                             {
-                                newBitmapTemp.SetPixel(x, y, Color.FromArgb(R, G, B));
-                            }
-                            else
-                            {
-                                int GRAY = (((R) + (G) + (B)) / 3);
-                                newBitmapTemp.SetPixel(x, y, Color.FromArgb(GRAY, GRAY, GRAY));
+                                Color pixel = newBitmap.GetPixel(x, y);
+                                int R = (int)pixel.R;
+                                int G = (int)pixel.G;
+                                int B = (int)pixel.B;
+                                if (((B * 0.65) >= R) && ((G * 0.65) >= R) && (G > (0.75 * B)) && (B > (0.75 * G)))
+                                {
+                                    newBitmapTemp.SetPixel(x, y, Color.FromArgb(R, G, B));
+                                }
+                                else
+                                {
+                                    int GRAY = (((R) + (G) + (B)) / 3);
+                                    newBitmapTemp.SetPixel(x, y, Color.FromArgb(GRAY, GRAY, GRAY));
+                                }
                             }
                         }
+                        catch (Exception) { }
                     }
-                    catch (Exception) { }
                 }
+                newBitmap = newBitmapTemp;
+                pictureBox.Image = newBitmap;
             }
-            newBitmap = newBitmapTemp;
-            pictureBox.Image = newBitmap;
         }
 
         void comp_rM()
         {
-            int width = pictureBox.Image.Width;
-            int height = pictureBox.Image.Height;
-
-            Bitmap newBitmapTemp = new Bitmap(width, height);
-
-            for (int y = 0; y < newBitmap.Height; y++)
+            if (!opened)
             {
-                for (int x = 0; x < newBitmap.Width; x++)
+                MessageBox.Show("Open an Image then apply changes");
+            }
+            else
+            {
+                int width = pictureBox.Image.Width;
+                int height = pictureBox.Image.Height;
+
+                Bitmap newBitmapTemp = new Bitmap(width, height);
+
+                for (int y = 0; y < newBitmap.Height; y++)
                 {
-                    try
+                    for (int x = 0; x < newBitmap.Width; x++)
                     {
-                        if ((x > 0) && (x <= width))
+                        try
                         {
-                            Color pixel = newBitmap.GetPixel(x, y);
-                            int R = (int)pixel.R;
-                            int G = (int)pixel.G;
-                            int B = (int)pixel.B;
-                            if (((B * 0.65) >= G) && ((R * 0.65) >= G) && (R > (0.65 * B)) && (B > (0.65 * R)))
+                            if ((x > 0) && (x <= width))
                             {
-                                newBitmapTemp.SetPixel(x, y, Color.FromArgb(R, G, B));
-                            }
-                            else
-                            {
-                                int GRAY = (((R) + (G) + (B)) / 3);
-                                newBitmapTemp.SetPixel(x, y, Color.FromArgb(GRAY, GRAY, GRAY));
+                                Color pixel = newBitmap.GetPixel(x, y);
+                                int R = (int)pixel.R;
+                                int G = (int)pixel.G;
+                                int B = (int)pixel.B;
+                                if (((B * 0.65) >= G) && ((R * 0.65) >= G) && (R > (0.65 * B)) && (B > (0.65 * R)))
+                                {
+                                    newBitmapTemp.SetPixel(x, y, Color.FromArgb(R, G, B));
+                                }
+                                else
+                                {
+                                    int GRAY = (((R) + (G) + (B)) / 3);
+                                    newBitmapTemp.SetPixel(x, y, Color.FromArgb(GRAY, GRAY, GRAY));
+                                }
                             }
                         }
+                        catch (Exception) { }
                     }
-                    catch (Exception) { }
                 }
+                newBitmap = newBitmapTemp;
+                pictureBox.Image = newBitmap;
             }
-            newBitmap = newBitmapTemp;
-            pictureBox.Image = newBitmap;
         }
 
         void comp_rY()
         {
-            int width = pictureBox.Image.Width;
-            int height = pictureBox.Image.Height;
-
-            Bitmap newBitmapTemp = new Bitmap(width, height);
-
-            for (int y = 0; y < newBitmap.Height; y++)
+            if (!opened)
             {
-                for (int x = 0; x < newBitmap.Width; x++)
+                MessageBox.Show("Open an Image then apply changes");
+            }
+            else
+            {
+                int width = pictureBox.Image.Width;
+                int height = pictureBox.Image.Height;
+
+                Bitmap newBitmapTemp = new Bitmap(width, height);
+
+                for (int y = 0; y < newBitmap.Height; y++)
                 {
-                    try
+                    for (int x = 0; x < newBitmap.Width; x++)
                     {
-                        if ((x > 0) && (x <= width))
+                        try
                         {
-                            Color pixel = newBitmap.GetPixel(x, y);
-                            int R = (int)pixel.R;
-                            int G = (int)pixel.G;
-                            int B = (int)pixel.B;
-                            if (((G * 0.65) >= B) && ((G * 0.65) >= B) && (G > (0.6 * R)) && (R > (0.65 * G)))
+                            if ((x > 0) && (x <= width))
                             {
-                                newBitmapTemp.SetPixel(x, y, Color.FromArgb(R, G, B));
-                            }
-                            else
-                            {
-                                int GRAY = (((R) + (G) + (B)) / 3);
-                                newBitmapTemp.SetPixel(x, y, Color.FromArgb(GRAY, GRAY, GRAY));
+                                Color pixel = newBitmap.GetPixel(x, y);
+                                int R = (int)pixel.R;
+                                int G = (int)pixel.G;
+                                int B = (int)pixel.B;
+                                if (((G * 0.65) >= B) && ((G * 0.65) >= B) && (G > (0.6 * R)) && (R > (0.65 * G)))
+                                {
+                                    newBitmapTemp.SetPixel(x, y, Color.FromArgb(R, G, B));
+                                }
+                                else
+                                {
+                                    int GRAY = (((R) + (G) + (B)) / 3);
+                                    newBitmapTemp.SetPixel(x, y, Color.FromArgb(GRAY, GRAY, GRAY));
+                                }
                             }
                         }
+                        catch (Exception) { }
                     }
-                    catch (Exception) { }
                 }
+                newBitmap = newBitmapTemp;
+                pictureBox.Image = newBitmap;
             }
-            newBitmap = newBitmapTemp;
-            pictureBox.Image = newBitmap;
         }
 
         private void extractionToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ex = new Extraction(this);
-            ex.ShowDialog();
+            if (!opened)
+            {
+                MessageBox.Show("Open an Image then apply changes");
+            }
+            else
+            {
+                ex = new Extraction(this);
+                ex.ShowDialog();
+            }
         }
 
         void comp_extraction()
         {
-            int width = pictureBox.Image.Width;
-            int height = pictureBox.Image.Height;
-
-            Bitmap newBitmapTemp = new Bitmap(width, height);
-
-            //int cR = Convert.ToInt32(ex.e_R_textBox.Text);
-            //int cG = Convert.ToInt32(ex.e_R_textBox.Text);
-            //int cB = Convert.ToInt32(ex.e_R_textBox.Text);
-
-            int cR = Convert.ToInt32(ex.Send_R);
-            int cG = Convert.ToInt32(ex.Send_G);
-            int cB = Convert.ToInt32(ex.Send_B);
-
-            for (int y = 0; y < newBitmap.Height; y++)
+            if (!opened)
             {
-                for (int x = 0; x < newBitmap.Width; x++)
-                {
-                    try
-                    {
-                        if ((x > 0) && (x <= width))
-                        {
-                            Color pixel = newBitmap.GetPixel(x, y);
-                            int R = (int)pixel.R;
-                            int G = (int)pixel.G;
-                            int B = (int)pixel.B;
+                MessageBox.Show("Open an Image then apply changes");
+            }
+            else
+            {
+                int width = pictureBox.Image.Width;
+                int height = pictureBox.Image.Height;
 
-                            if (((R == cR) && (G == cG) && (B == cB)))
+                Bitmap newBitmapTemp = new Bitmap(width, height);
+
+                //int cR = Convert.ToInt32(ex.e_R_textBox.Text);
+                //int cG = Convert.ToInt32(ex.e_R_textBox.Text);
+                //int cB = Convert.ToInt32(ex.e_R_textBox.Text);
+
+                int cR = Convert.ToInt32(ex.Send_R);
+                int cG = Convert.ToInt32(ex.Send_G);
+                int cB = Convert.ToInt32(ex.Send_B);
+
+                for (int y = 0; y < newBitmap.Height; y++)
+                {
+                    for (int x = 0; x < newBitmap.Width; x++)
+                    {
+                        try
+                        {
+                            if ((x > 0) && (x <= width))
                             {
-                                newBitmapTemp.SetPixel(x, y, Color.FromArgb(R, G, B));
-                            }
-                            else
-                            {
-                                int GRAY = (((R) + (G) + (B)) / 3);
-                                newBitmapTemp.SetPixel(x, y, Color.FromArgb(GRAY, GRAY, GRAY));
+                                Color pixel = newBitmap.GetPixel(x, y);
+                                int R = (int)pixel.R;
+                                int G = (int)pixel.G;
+                                int B = (int)pixel.B;
+
+                                if (((R == cR) && (G == cG) && (B == cB)))
+                                {
+                                    newBitmapTemp.SetPixel(x, y, Color.FromArgb(R, G, B));
+                                }
+                                else
+                                {
+                                    int GRAY = (((R) + (G) + (B)) / 3);
+                                    newBitmapTemp.SetPixel(x, y, Color.FromArgb(GRAY, GRAY, GRAY));
+                                }
                             }
                         }
+                        catch (Exception) { }
                     }
-                    catch (Exception) { }
                 }
+                newBitmap = newBitmapTemp;
+                pictureBox.Image = newBitmap;
             }
-            newBitmap = newBitmapTemp;
-            pictureBox.Image = newBitmap;
         }
 
         void bilinear_x2()   // funkcja zmieniająca rozmiar obrazu w sposób biliniowy tj za pomocą wyliczania średniej/stosunku odleglości
