@@ -105,7 +105,6 @@ namespace Podstawowy_foto_edytor
 
         private void pictureBox_MouseMove(object sender, MouseEventArgs e)  //funkcja obsługi myszki oraz wyświetlania rozmiaru obrazu oraz informacji na temat pixeli
         {
-            /*   //nadal coś nie działa później ogarnę
             if (!opened)
             {
                // MessageBox.Show("Open an Image then apply changes");
@@ -122,17 +121,21 @@ namespace Podstawowy_foto_edytor
                 {
                     if((e.Location.X >= ((wi - w) / 2)) && (e.Location.X <= (wi - ((wi - w) / 2))) && ((e.Location.Y >= ((he - h) / 2))) && (e.Location.Y <= (he - ((he - h) / 2))))
                     {
-                        Color pixel = newBitmap.GetPixel(e.X, e.Y);
-                        int R = (int)pixel.R;
-                        int G = (int)pixel.G;
-                        int B = (int)pixel.B;
+                        try
+                        {
+                            Color pixel = newBitmap.GetPixel(e.X, e.Y);
+                            int R = (int)pixel.R;
+                            int G = (int)pixel.G;
+                            int B = (int)pixel.B;
 
-                        int xx = e.X + ((wi - w) / 2);
-                        int yy = e.Y + ((he - h) / 2);
+                            int xx = e.X + ((wi - w) / 2);
+                            int yy = e.Y + ((he - h) / 2);
 
-                        resolution.Text = " | " + w + " x " + h + " | ";
-                        position.Text = " | x " + e.X.ToString() + " , y " + e.Y.ToString() + " | ";
-                        rgbpoints.Text = " | R " + R + " , G " + G + " , B " + G + " | ";
+                            resolution.Text = " | " + w + " x " + h + " | ";
+                            position.Text = " | x " + e.X.ToString() + " , y " + e.Y.ToString() + " | ";
+                            rgbpoints.Text = " | R " + R + " , G " + G + " , B " + G + " | ";
+                        }
+                        catch (Exception) { }
                     }
                     else
                     {
@@ -145,7 +148,7 @@ namespace Podstawowy_foto_edytor
                     position.Text = " ";
                     rgbpoints.Text = "  ";
                 }
-            }*/
+            }
         }
 
         int squareroot(int x)
