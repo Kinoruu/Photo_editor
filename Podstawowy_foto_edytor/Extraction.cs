@@ -43,7 +43,7 @@ namespace Podstawowy_foto_edytor
 
         private void e_rgb_ok_button_Click(object sender, EventArgs e)
         {
-            
+            Close();
         }
     }
 }

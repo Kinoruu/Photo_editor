@@ -8,9 +8,13 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Collections;
 using System.Drawing.Imaging;
+using System.Runtime.InteropServices;
 using System.IO;
 using System.Drawing.Printing;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Runtime.Serialization;
 
 namespace Podstawowy_foto_edytor
 {
@@ -18,9 +22,20 @@ namespace Podstawowy_foto_edytor
     {
         private Histogram histogramWin = new Histogram();
         private Extraction ex;
+        private Pen_size ps;
+
+        public Point current = new Point();
+        public Point old = new Point();
+        public Pen p = new Pen(Color.Black, 4);
+        public Graphics g;
+
+
+
         public Form1()
         {
             InitializeComponent();
+            g = pictureBox.CreateGraphics();
+            p.SetLineCap(System.Drawing.Drawing2D.LineCap.Round, System.Drawing.Drawing2D.LineCap.Round, System.Drawing.Drawing2D.DashCap.Round);
 
             //this.ex = extr;
 
@@ -31,7 +46,7 @@ namespace Podstawowy_foto_edytor
             //histogramWin.VisibleChanged += new EventHandler(histogram_VisibleChanged);
 
             Pixelate_Bar.Enabled = false;
-            drawingToolStripMenuItem.Enabled = false;
+            //drawingToolStripMenuItem.Enabled = false;
             statisticsToolStripMenuItem.Enabled = false;
             biCubicToolStripMenuItem.Enabled = false;
             yCbCrToolStripMenuItem.Enabled = false;
@@ -105,9 +120,17 @@ namespace Podstawowy_foto_edytor
 
         private void pictureBox_MouseMove(object sender, MouseEventArgs e)  //funkcja obsługi myszki oraz wyświetlania rozmiaru obrazu oraz informacji na temat pixeli
         {
+            if (e.Button == MouseButtons.Left)
+            {
+                current = e.Location;
+                g.DrawLine(p, old, current);
+                old = current;
+            }
+
+
             if (!opened)
             {
-               // MessageBox.Show("Open an Image then apply changes");
+                // MessageBox.Show("Open an Image then apply changes");
             }
             else
             {
@@ -117,9 +140,9 @@ namespace Podstawowy_foto_edytor
                 int wi = pictureBox.Width;
                 int he = pictureBox.Height;
 
-                if (((e.Location.X >= 0) && (e.Location.X <= wi )) && ((e.Location.Y >= 0) && (e.Location.Y <= he)))
+                if (((e.Location.X >= 0) && (e.Location.X <= wi)) && ((e.Location.Y >= 0) && (e.Location.Y <= he)))
                 {
-                    if((e.Location.X >= ((wi - w) / 2)) && (e.Location.X <= (wi - ((wi - w) / 2))) && ((e.Location.Y >= ((he - h) / 2))) && (e.Location.Y <= (he - ((he - h) / 2))))
+                    if ((e.Location.X >= ((wi - w) / 2)) && (e.Location.X <= (wi - ((wi - w) / 2))) && ((e.Location.Y >= ((he - h) / 2))) && (e.Location.Y <= (he - ((he - h) / 2))))
                     {
                         try
                         {
@@ -149,6 +172,11 @@ namespace Podstawowy_foto_edytor
                     rgbpoints.Text = "  ";
                 }
             }
+        }
+        
+        private void pictureBox_MouseDown(object sender, MouseEventArgs e)
+        {
+            old = e.Location;
         }
 
         int squareroot(int x)
@@ -2500,6 +2528,8 @@ namespace Podstawowy_foto_edytor
             }
         }*/
 
+        
+
         Bitmap newBitmap;        // 
         Bitmap newBitmapTemp;
         Bitmap newBitmapTemp2;
@@ -2819,6 +2849,26 @@ namespace Podstawowy_foto_edytor
         private void rYExtractionToolStripMenuItem_Click(object sender, EventArgs e)
         {
             comp_rY();
+        }
+
+        private void Clear_button_Click(object sender, EventArgs e)
+        {
+            pictureBox.Invalidate();
+            //reload();
+        }
+
+        private void pencilToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ColorDialog pc = new ColorDialog();
+            if (pc.ShowDialog() == DialogResult.OK)
+                p.Color = pc.Color;
+        }
+
+        private void pencilToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            ps = new Pen_size(this);
+            ps.ShowDialog();
+            p.Width = float.Parse(ps.Pen_size_size_textBox.Text);
         }
     }
 }
