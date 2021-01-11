@@ -71,6 +71,8 @@
             this.panelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pencilToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.figuureToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.sizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pencilToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.insertToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statisticsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.histogramToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -143,8 +145,7 @@
             this.Threshold_Value_label = new System.Windows.Forms.Label();
             this.Threshold_Name_label = new System.Windows.Forms.Label();
             this.Clear_button = new System.Windows.Forms.Button();
-            this.sizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.pencilToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveDrawingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.Red_Bar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Green_Bar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Blue_Bar)).BeginInit();
@@ -382,7 +383,8 @@
             // 
             this.openImageToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.saveImageToolStripMenuItem,
-            this.openImageToolStripMenuItem1});
+            this.openImageToolStripMenuItem1,
+            this.saveDrawingToolStripMenuItem});
             this.openImageToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.openImageToolStripMenuItem.Name = "openImageToolStripMenuItem";
             this.openImageToolStripMenuItem.Size = new System.Drawing.Size(38, 20);
@@ -548,6 +550,7 @@
             this.panelToolStripMenuItem.Name = "panelToolStripMenuItem";
             this.panelToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.panelToolStripMenuItem.Text = "Panel";
+            this.panelToolStripMenuItem.Click += new System.EventHandler(this.panelToolStripMenuItem_Click);
             // 
             // pencilToolStripMenuItem
             // 
@@ -561,6 +564,21 @@
             this.figuureToolStripMenuItem.Name = "figuureToolStripMenuItem";
             this.figuureToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.figuureToolStripMenuItem.Text = "Figuure";
+            // 
+            // sizeToolStripMenuItem
+            // 
+            this.sizeToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.pencilToolStripMenuItem1});
+            this.sizeToolStripMenuItem.Name = "sizeToolStripMenuItem";
+            this.sizeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.sizeToolStripMenuItem.Text = "Size";
+            // 
+            // pencilToolStripMenuItem1
+            // 
+            this.pencilToolStripMenuItem1.Name = "pencilToolStripMenuItem1";
+            this.pencilToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.pencilToolStripMenuItem1.Text = "Pencil";
+            this.pencilToolStripMenuItem1.Click += new System.EventHandler(this.pencilToolStripMenuItem1_Click);
             // 
             // insertToolStripMenuItem
             // 
@@ -579,7 +597,7 @@
             // histogramToolStripMenuItem
             // 
             this.histogramToolStripMenuItem.Name = "histogramToolStripMenuItem";
-            this.histogramToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
+            this.histogramToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.histogramToolStripMenuItem.Text = "Histogram";
             this.histogramToolStripMenuItem.Click += new System.EventHandler(this.histogramToolStripMenuItem_Click);
             // 
@@ -1217,20 +1235,12 @@
             this.Clear_button.UseVisualStyleBackColor = true;
             this.Clear_button.Click += new System.EventHandler(this.Clear_button_Click);
             // 
-            // sizeToolStripMenuItem
+            // saveDrawingToolStripMenuItem
             // 
-            this.sizeToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.pencilToolStripMenuItem1});
-            this.sizeToolStripMenuItem.Name = "sizeToolStripMenuItem";
-            this.sizeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.sizeToolStripMenuItem.Text = "Size";
-            // 
-            // pencilToolStripMenuItem1
-            // 
-            this.pencilToolStripMenuItem1.Name = "pencilToolStripMenuItem1";
-            this.pencilToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
-            this.pencilToolStripMenuItem1.Text = "Pencil";
-            this.pencilToolStripMenuItem1.Click += new System.EventHandler(this.pencilToolStripMenuItem1_Click);
+            this.saveDrawingToolStripMenuItem.Name = "saveDrawingToolStripMenuItem";
+            this.saveDrawingToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.saveDrawingToolStripMenuItem.Text = "Save Drawing";
+            this.saveDrawingToolStripMenuItem.Click += new System.EventHandler(this.saveDrawingToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -1399,5 +1409,6 @@
         private System.Windows.Forms.Button Clear_button;
         private System.Windows.Forms.ToolStripMenuItem sizeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem pencilToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem saveDrawingToolStripMenuItem;
     }
 }

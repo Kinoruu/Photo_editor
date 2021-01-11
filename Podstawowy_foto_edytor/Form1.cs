@@ -27,6 +27,7 @@ namespace Podstawowy_foto_edytor
         public Point current = new Point();
         public Point old = new Point();
         public Pen p = new Pen(Color.Black, 4);
+        
         public Graphics g;
 
 
@@ -99,6 +100,23 @@ namespace Podstawowy_foto_edytor
                 }
             }
             else { MessageBox.Show("No image loaded, first upload image "); }
+        }
+
+        private void saveDrawingToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Bitmap obraz = new Bitmap(pictureBox.Width, pictureBox.Height);
+            Graphics grafika = Graphics.FromImage(obraz);
+            Rectangle obrazek = pictureBox.RectangleToScreen(pictureBox.ClientRectangle);
+            //ImageFormat format = ImageFormat.Png;
+            grafika.CopyFromScreen(obrazek.Location, Point.Empty, pictureBox.Size);
+            grafika.Dispose();
+
+            SaveFileDialog dialog = new SaveFileDialog();
+            dialog.Filter = "jpeg files (*.jpeg)|*.jpeg| bmp files (*.bmp)|*.bmp | gif files|*.gif | all files |*.*";
+            dialog.Title = "Zapisz plik jako: ";
+            dialog.ShowDialog();
+            if (dialog.FileName != "")
+                obraz.Save(dialog.FileName);
         }
 
         /*private void ShowHistogram(bool show)  //funkcja odpowiadająca za wyświetlanie histogamu w nowym oknie lub przypiętym oknie
@@ -2854,6 +2872,8 @@ namespace Podstawowy_foto_edytor
         private void Clear_button_Click(object sender, EventArgs e)
         {
             pictureBox.Invalidate();
+            pictureBox.BackgroundImage = null;
+            pictureBox.BackColor = Color.White;
             //reload();
         }
 
@@ -2870,5 +2890,14 @@ namespace Podstawowy_foto_edytor
             ps.ShowDialog();
             p.Width = float.Parse(ps.Pen_size_size_textBox.Text);
         }
+
+        private void panelToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ColorDialog picturebox_color = new ColorDialog();
+            if (picturebox_color.ShowDialog() == DialogResult.OK)
+                pictureBox.BackColor = picturebox_color.Color;
+        }
+
+        
     }
 }
