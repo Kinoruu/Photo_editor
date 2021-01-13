@@ -85,18 +85,23 @@
             this.x3ToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.biCubicToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.stichOneImageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.stichOneImageToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.leftSideToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.rightSideToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.topSideToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.bottomSideToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.stichOneImageToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.leftSideToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rightSideToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.topSideToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bottomSideToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.horizontalStichToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.verticalStichToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.stichDifferentImagesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.firstLeftToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.firstRightToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.firstTopToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.firstBottomToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.horizontalStichToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.verticalStichToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rotateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.leftToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rightToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -106,9 +111,9 @@
             this.yCbCrToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.extractionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.basicExtractionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.bExtractionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.gExtractionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.rExtractionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.bRExtractionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.bGExtractionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.bBExtractionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.realExtractionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rRExtractionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rGExtractionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -146,11 +151,6 @@
             this.Threshold_Value_label = new System.Windows.Forms.Label();
             this.Threshold_Name_label = new System.Windows.Forms.Label();
             this.Clear_button = new System.Windows.Forms.Button();
-            this.stichOneImageToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.leftSideToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.rightSideToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.topSideToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.bottomSideToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.Red_Bar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Green_Bar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Blue_Bar)).BeginInit();
@@ -470,7 +470,7 @@
             // 
             this.addRGBVersionToolStripMenuItem.Name = "addRGBVersionToolStripMenuItem";
             this.addRGBVersionToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
-            this.addRGBVersionToolStripMenuItem.Text = "Add RGB version";
+            this.addRGBVersionToolStripMenuItem.Text = "Add RGB v1";
             this.addRGBVersionToolStripMenuItem.Click += new System.EventHandler(this.addRGBVersionToolStripMenuItem_Click);
             // 
             // addRGBV2ToolStripMenuItem
@@ -673,13 +673,52 @@
             this.stichOneImageToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.stichOneImageToolStripMenuItem2,
             this.stichOneImageToolStripMenuItem1,
+            this.stichDifferentImagesToolStripMenuItem,
             this.horizontalStichToolStripMenuItem,
-            this.verticalStichToolStripMenuItem,
-            this.stichDifferentImagesToolStripMenuItem});
+            this.verticalStichToolStripMenuItem});
             this.stichOneImageToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.stichOneImageToolStripMenuItem.Name = "stichOneImageToolStripMenuItem";
             this.stichOneImageToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
             this.stichOneImageToolStripMenuItem.Text = "Stich";
+            // 
+            // stichOneImageToolStripMenuItem2
+            // 
+            this.stichOneImageToolStripMenuItem2.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.leftSideToolStripMenuItem1,
+            this.rightSideToolStripMenuItem1,
+            this.topSideToolStripMenuItem1,
+            this.bottomSideToolStripMenuItem1});
+            this.stichOneImageToolStripMenuItem2.Name = "stichOneImageToolStripMenuItem2";
+            this.stichOneImageToolStripMenuItem2.Size = new System.Drawing.Size(200, 22);
+            this.stichOneImageToolStripMenuItem2.Text = "Stich one image";
+            // 
+            // leftSideToolStripMenuItem1
+            // 
+            this.leftSideToolStripMenuItem1.Name = "leftSideToolStripMenuItem1";
+            this.leftSideToolStripMenuItem1.Size = new System.Drawing.Size(142, 22);
+            this.leftSideToolStripMenuItem1.Text = "Left side";
+            this.leftSideToolStripMenuItem1.Click += new System.EventHandler(this.leftSideToolStripMenuItem1_Click);
+            // 
+            // rightSideToolStripMenuItem1
+            // 
+            this.rightSideToolStripMenuItem1.Name = "rightSideToolStripMenuItem1";
+            this.rightSideToolStripMenuItem1.Size = new System.Drawing.Size(142, 22);
+            this.rightSideToolStripMenuItem1.Text = "Right side";
+            this.rightSideToolStripMenuItem1.Click += new System.EventHandler(this.rightSideToolStripMenuItem1_Click);
+            // 
+            // topSideToolStripMenuItem1
+            // 
+            this.topSideToolStripMenuItem1.Name = "topSideToolStripMenuItem1";
+            this.topSideToolStripMenuItem1.Size = new System.Drawing.Size(142, 22);
+            this.topSideToolStripMenuItem1.Text = "Top side";
+            this.topSideToolStripMenuItem1.Click += new System.EventHandler(this.topSideToolStripMenuItem1_Click);
+            // 
+            // bottomSideToolStripMenuItem1
+            // 
+            this.bottomSideToolStripMenuItem1.Name = "bottomSideToolStripMenuItem1";
+            this.bottomSideToolStripMenuItem1.Size = new System.Drawing.Size(142, 22);
+            this.bottomSideToolStripMenuItem1.Text = "Bottom side";
+            this.bottomSideToolStripMenuItem1.Click += new System.EventHandler(this.bottomSideToolStripMenuItem1_Click);
             // 
             // stichOneImageToolStripMenuItem1
             // 
@@ -695,44 +734,30 @@
             // leftSideToolStripMenuItem
             // 
             this.leftSideToolStripMenuItem.Name = "leftSideToolStripMenuItem";
-            this.leftSideToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.leftSideToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
             this.leftSideToolStripMenuItem.Text = "Left side";
             this.leftSideToolStripMenuItem.Click += new System.EventHandler(this.leftSideToolStripMenuItem_Click);
             // 
             // rightSideToolStripMenuItem
             // 
             this.rightSideToolStripMenuItem.Name = "rightSideToolStripMenuItem";
-            this.rightSideToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.rightSideToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
             this.rightSideToolStripMenuItem.Text = "Right side";
             this.rightSideToolStripMenuItem.Click += new System.EventHandler(this.rightSideToolStripMenuItem_Click);
             // 
             // topSideToolStripMenuItem
             // 
             this.topSideToolStripMenuItem.Name = "topSideToolStripMenuItem";
-            this.topSideToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.topSideToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
             this.topSideToolStripMenuItem.Text = "Top side";
             this.topSideToolStripMenuItem.Click += new System.EventHandler(this.topSideToolStripMenuItem_Click);
             // 
             // bottomSideToolStripMenuItem
             // 
             this.bottomSideToolStripMenuItem.Name = "bottomSideToolStripMenuItem";
-            this.bottomSideToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.bottomSideToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
             this.bottomSideToolStripMenuItem.Text = "Bottom side";
             this.bottomSideToolStripMenuItem.Click += new System.EventHandler(this.bottomSideToolStripMenuItem_Click);
-            // 
-            // horizontalStichToolStripMenuItem
-            // 
-            this.horizontalStichToolStripMenuItem.Name = "horizontalStichToolStripMenuItem";
-            this.horizontalStichToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
-            this.horizontalStichToolStripMenuItem.Text = "Horizontal stich";
-            this.horizontalStichToolStripMenuItem.Click += new System.EventHandler(this.horizontalStichToolStripMenuItem_Click);
-            // 
-            // verticalStichToolStripMenuItem
-            // 
-            this.verticalStichToolStripMenuItem.Name = "verticalStichToolStripMenuItem";
-            this.verticalStichToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
-            this.verticalStichToolStripMenuItem.Text = "Vertical stich";
-            this.verticalStichToolStripMenuItem.Click += new System.EventHandler(this.verticalStichToolStripMenuItem_Click);
             // 
             // stichDifferentImagesToolStripMenuItem
             // 
@@ -748,27 +773,41 @@
             // firstLeftToolStripMenuItem
             // 
             this.firstLeftToolStripMenuItem.Name = "firstLeftToolStripMenuItem";
-            this.firstLeftToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.firstLeftToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             this.firstLeftToolStripMenuItem.Text = "First left";
             this.firstLeftToolStripMenuItem.Click += new System.EventHandler(this.firstLeftToolStripMenuItem_Click);
             // 
             // firstRightToolStripMenuItem
             // 
             this.firstRightToolStripMenuItem.Name = "firstRightToolStripMenuItem";
-            this.firstRightToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.firstRightToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             this.firstRightToolStripMenuItem.Text = "First right";
             // 
             // firstTopToolStripMenuItem
             // 
             this.firstTopToolStripMenuItem.Name = "firstTopToolStripMenuItem";
-            this.firstTopToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.firstTopToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             this.firstTopToolStripMenuItem.Text = "First top";
             // 
             // firstBottomToolStripMenuItem
             // 
             this.firstBottomToolStripMenuItem.Name = "firstBottomToolStripMenuItem";
-            this.firstBottomToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.firstBottomToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             this.firstBottomToolStripMenuItem.Text = "First bottom";
+            // 
+            // horizontalStichToolStripMenuItem
+            // 
+            this.horizontalStichToolStripMenuItem.Name = "horizontalStichToolStripMenuItem";
+            this.horizontalStichToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
+            this.horizontalStichToolStripMenuItem.Text = "Horizontal stich";
+            this.horizontalStichToolStripMenuItem.Click += new System.EventHandler(this.horizontalStichToolStripMenuItem_Click);
+            // 
+            // verticalStichToolStripMenuItem
+            // 
+            this.verticalStichToolStripMenuItem.Name = "verticalStichToolStripMenuItem";
+            this.verticalStichToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
+            this.verticalStichToolStripMenuItem.Text = "Vertical stich";
+            this.verticalStichToolStripMenuItem.Click += new System.EventHandler(this.verticalStichToolStripMenuItem_Click);
             // 
             // rotateToolStripMenuItem
             // 
@@ -783,14 +822,14 @@
             // leftToolStripMenuItem
             // 
             this.leftToolStripMenuItem.Name = "leftToolStripMenuItem";
-            this.leftToolStripMenuItem.Size = new System.Drawing.Size(104, 22);
+            this.leftToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.leftToolStripMenuItem.Text = "Left";
             this.leftToolStripMenuItem.Click += new System.EventHandler(this.leftToolStripMenuItem_Click);
             // 
             // rightToolStripMenuItem
             // 
             this.rightToolStripMenuItem.Name = "rightToolStripMenuItem";
-            this.rightToolStripMenuItem.Size = new System.Drawing.Size(104, 22);
+            this.rightToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.rightToolStripMenuItem.Text = "Right";
             this.rightToolStripMenuItem.Click += new System.EventHandler(this.rightToolStripMenuItem_Click);
             // 
@@ -802,9 +841,6 @@
             this.yCbCrToolStripMenuItem,
             this.extractionToolStripMenuItem,
             this.basicExtractionToolStripMenuItem,
-            this.bExtractionToolStripMenuItem,
-            this.gExtractionToolStripMenuItem,
-            this.rExtractionToolStripMenuItem,
             this.realExtractionToolStripMenuItem});
             this.componentsToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.componentsToolStripMenuItem.Name = "componentsToolStripMenuItem";
@@ -814,57 +850,61 @@
             // rGBToolStripMenuItem
             // 
             this.rGBToolStripMenuItem.Name = "rGBToolStripMenuItem";
-            this.rGBToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+            this.rGBToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.rGBToolStripMenuItem.Text = "RGB";
             this.rGBToolStripMenuItem.Click += new System.EventHandler(this.rGBToolStripMenuItem_Click);
             // 
             // rGB2ToolStripMenuItem
             // 
             this.rGB2ToolStripMenuItem.Name = "rGB2ToolStripMenuItem";
-            this.rGB2ToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
-            this.rGB2ToolStripMenuItem.Text = "RGB2";
+            this.rGB2ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.rGB2ToolStripMenuItem.Text = "RGB v2";
             this.rGB2ToolStripMenuItem.Click += new System.EventHandler(this.rGB2ToolStripMenuItem_Click);
             // 
             // yCbCrToolStripMenuItem
             // 
             this.yCbCrToolStripMenuItem.Name = "yCbCrToolStripMenuItem";
-            this.yCbCrToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+            this.yCbCrToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.yCbCrToolStripMenuItem.Text = "YCbCr";
             this.yCbCrToolStripMenuItem.Click += new System.EventHandler(this.yCbCrToolStripMenuItem_Click);
             // 
             // extractionToolStripMenuItem
             // 
             this.extractionToolStripMenuItem.Name = "extractionToolStripMenuItem";
-            this.extractionToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+            this.extractionToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.extractionToolStripMenuItem.Text = "Extraction";
             this.extractionToolStripMenuItem.Click += new System.EventHandler(this.extractionToolStripMenuItem_Click);
             // 
             // basicExtractionToolStripMenuItem
             // 
+            this.basicExtractionToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.bRExtractionToolStripMenuItem,
+            this.bGExtractionToolStripMenuItem,
+            this.bBExtractionToolStripMenuItem});
             this.basicExtractionToolStripMenuItem.Name = "basicExtractionToolStripMenuItem";
-            this.basicExtractionToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+            this.basicExtractionToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.basicExtractionToolStripMenuItem.Text = "Basic Extraction";
             // 
-            // bExtractionToolStripMenuItem
+            // bRExtractionToolStripMenuItem
             // 
-            this.bExtractionToolStripMenuItem.Name = "bExtractionToolStripMenuItem";
-            this.bExtractionToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
-            this.bExtractionToolStripMenuItem.Text = "bB-Extraction";
-            this.bExtractionToolStripMenuItem.Click += new System.EventHandler(this.bExtractionToolStripMenuItem_Click);
+            this.bRExtractionToolStripMenuItem.Name = "bRExtractionToolStripMenuItem";
+            this.bRExtractionToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.bRExtractionToolStripMenuItem.Text = "bR-Extraction";
+            this.bRExtractionToolStripMenuItem.Click += new System.EventHandler(this.bRExtractionToolStripMenuItem_Click);
             // 
-            // gExtractionToolStripMenuItem
+            // bGExtractionToolStripMenuItem
             // 
-            this.gExtractionToolStripMenuItem.Name = "gExtractionToolStripMenuItem";
-            this.gExtractionToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
-            this.gExtractionToolStripMenuItem.Text = "bG-Extraction";
-            this.gExtractionToolStripMenuItem.Click += new System.EventHandler(this.gExtractionToolStripMenuItem_Click);
+            this.bGExtractionToolStripMenuItem.Name = "bGExtractionToolStripMenuItem";
+            this.bGExtractionToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.bGExtractionToolStripMenuItem.Text = "bG-Extraction";
+            this.bGExtractionToolStripMenuItem.Click += new System.EventHandler(this.bGExtractionToolStripMenuItem_Click);
             // 
-            // rExtractionToolStripMenuItem
+            // bBExtractionToolStripMenuItem
             // 
-            this.rExtractionToolStripMenuItem.Name = "rExtractionToolStripMenuItem";
-            this.rExtractionToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
-            this.rExtractionToolStripMenuItem.Text = "bR-Extraction";
-            this.rExtractionToolStripMenuItem.Click += new System.EventHandler(this.rExtractionToolStripMenuItem_Click);
+            this.bBExtractionToolStripMenuItem.Name = "bBExtractionToolStripMenuItem";
+            this.bBExtractionToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.bBExtractionToolStripMenuItem.Text = "bB-Extraction";
+            this.bBExtractionToolStripMenuItem.Click += new System.EventHandler(this.bBExtractionToolStripMenuItem_Click);
             // 
             // realExtractionToolStripMenuItem
             // 
@@ -876,48 +916,48 @@
             this.rMExtractionToolStripMenuItem,
             this.rYExtractionToolStripMenuItem});
             this.realExtractionToolStripMenuItem.Name = "realExtractionToolStripMenuItem";
-            this.realExtractionToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+            this.realExtractionToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.realExtractionToolStripMenuItem.Text = "Real Extraction";
             // 
             // rRExtractionToolStripMenuItem
             // 
             this.rRExtractionToolStripMenuItem.Name = "rRExtractionToolStripMenuItem";
-            this.rRExtractionToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.rRExtractionToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.rRExtractionToolStripMenuItem.Text = "rR-Extraction";
             this.rRExtractionToolStripMenuItem.Click += new System.EventHandler(this.rRExtractionToolStripMenuItem_Click);
             // 
             // rGExtractionToolStripMenuItem
             // 
             this.rGExtractionToolStripMenuItem.Name = "rGExtractionToolStripMenuItem";
-            this.rGExtractionToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.rGExtractionToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.rGExtractionToolStripMenuItem.Text = "rG-Extraction";
             this.rGExtractionToolStripMenuItem.Click += new System.EventHandler(this.rGExtractionToolStripMenuItem_Click);
             // 
             // rBExtractionToolStripMenuItem
             // 
             this.rBExtractionToolStripMenuItem.Name = "rBExtractionToolStripMenuItem";
-            this.rBExtractionToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.rBExtractionToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.rBExtractionToolStripMenuItem.Text = "rB-Extraction";
             this.rBExtractionToolStripMenuItem.Click += new System.EventHandler(this.rBExtractionToolStripMenuItem_Click);
             // 
             // rCExtractionToolStripMenuItem
             // 
             this.rCExtractionToolStripMenuItem.Name = "rCExtractionToolStripMenuItem";
-            this.rCExtractionToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.rCExtractionToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.rCExtractionToolStripMenuItem.Text = "rC-Extraction";
             this.rCExtractionToolStripMenuItem.Click += new System.EventHandler(this.rCExtractionToolStripMenuItem_Click);
             // 
             // rMExtractionToolStripMenuItem
             // 
             this.rMExtractionToolStripMenuItem.Name = "rMExtractionToolStripMenuItem";
-            this.rMExtractionToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.rMExtractionToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.rMExtractionToolStripMenuItem.Text = "rM-Extraction";
             this.rMExtractionToolStripMenuItem.Click += new System.EventHandler(this.rMExtractionToolStripMenuItem_Click);
             // 
             // rYExtractionToolStripMenuItem
             // 
             this.rYExtractionToolStripMenuItem.Name = "rYExtractionToolStripMenuItem";
-            this.rYExtractionToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.rYExtractionToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.rYExtractionToolStripMenuItem.Text = "rY-Extraction";
             this.rYExtractionToolStripMenuItem.Click += new System.EventHandler(this.rYExtractionToolStripMenuItem_Click);
             // 
@@ -1249,45 +1289,6 @@
             this.Clear_button.UseVisualStyleBackColor = true;
             this.Clear_button.Click += new System.EventHandler(this.Clear_button_Click);
             // 
-            // stichOneImageToolStripMenuItem2
-            // 
-            this.stichOneImageToolStripMenuItem2.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.leftSideToolStripMenuItem1,
-            this.rightSideToolStripMenuItem1,
-            this.topSideToolStripMenuItem1,
-            this.bottomSideToolStripMenuItem1});
-            this.stichOneImageToolStripMenuItem2.Name = "stichOneImageToolStripMenuItem2";
-            this.stichOneImageToolStripMenuItem2.Size = new System.Drawing.Size(200, 22);
-            this.stichOneImageToolStripMenuItem2.Text = "Stich one image";
-            // 
-            // leftSideToolStripMenuItem1
-            // 
-            this.leftSideToolStripMenuItem1.Name = "leftSideToolStripMenuItem1";
-            this.leftSideToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
-            this.leftSideToolStripMenuItem1.Text = "Left side";
-            this.leftSideToolStripMenuItem1.Click += new System.EventHandler(this.leftSideToolStripMenuItem1_Click);
-            // 
-            // rightSideToolStripMenuItem1
-            // 
-            this.rightSideToolStripMenuItem1.Name = "rightSideToolStripMenuItem1";
-            this.rightSideToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
-            this.rightSideToolStripMenuItem1.Text = "Right side";
-            this.rightSideToolStripMenuItem1.Click += new System.EventHandler(this.rightSideToolStripMenuItem1_Click);
-            // 
-            // topSideToolStripMenuItem1
-            // 
-            this.topSideToolStripMenuItem1.Name = "topSideToolStripMenuItem1";
-            this.topSideToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
-            this.topSideToolStripMenuItem1.Text = "Top side";
-            this.topSideToolStripMenuItem1.Click += new System.EventHandler(this.topSideToolStripMenuItem1_Click);
-            // 
-            // bottomSideToolStripMenuItem1
-            // 
-            this.bottomSideToolStripMenuItem1.Name = "bottomSideToolStripMenuItem1";
-            this.bottomSideToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
-            this.bottomSideToolStripMenuItem1.Text = "Bottom side";
-            this.bottomSideToolStripMenuItem1.Click += new System.EventHandler(this.bottomSideToolStripMenuItem1_Click);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1437,9 +1438,6 @@
         private System.Windows.Forms.ToolStripMenuItem extractionToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem edgeWhiteOnBlackToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem rGB2ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem rExtractionToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem gExtractionToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem bExtractionToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem basicExtractionToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem realExtractionToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem rRExtractionToolStripMenuItem;
@@ -1461,5 +1459,8 @@
         private System.Windows.Forms.ToolStripMenuItem rightSideToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem topSideToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem bottomSideToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem bRExtractionToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem bGExtractionToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem bBExtractionToolStripMenuItem;
     }
 }

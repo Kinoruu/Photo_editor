@@ -2829,21 +2829,6 @@ namespace Podstawowy_foto_edytor
             comp_rgb2();
         }
 
-        private void rExtractionToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            comp_bR();
-        }
-
-        private void gExtractionToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            comp_bG();
-        }
-
-        private void bExtractionToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            comp_bB();
-        }
-
         private void yCbCrToolStripMenuItem_Click(object sender, EventArgs e)
         {
             comp_ycbcr();
@@ -2998,6 +2983,21 @@ namespace Podstawowy_foto_edytor
         private void bottomSideToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             stich_bottom();
+        }
+
+        private void bRExtractionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            comp_bR();
+        }
+
+        private void bGExtractionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            comp_bG();
+        }
+
+        private void bBExtractionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            comp_bB();
         }
     }
 }
