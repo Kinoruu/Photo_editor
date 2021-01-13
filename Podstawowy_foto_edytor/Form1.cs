@@ -51,8 +51,9 @@ namespace Podstawowy_foto_edytor
             statisticsToolStripMenuItem.Enabled = false;
             biCubicToolStripMenuItem.Enabled = false;
             yCbCrToolStripMenuItem.Enabled = false;
-            //extractionToolStripMenuItem.Enabled = false;
+            extractionToolStripMenuItem.Enabled = false;
             //stichDifferentImagesToolStripMenuItem.Enabled = false;
+
         }
 
         void openImage()  //funkcja otwierająca obraz 
@@ -391,8 +392,11 @@ namespace Podstawowy_foto_edytor
                         }
                         catch (Exception) { }
                     }
+                    Form1_progressBar.Value = (100 * y) / newBitmap.Height;
                 }
+                Form1_progressBar.Value = 0;
                 pictureBox.Image = newBitmapTemp;
+
             }
         }
 
@@ -422,7 +426,9 @@ namespace Podstawowy_foto_edytor
                         }
                         catch (Exception) { }
                     }
+                    Form1_progressBar.Value = (100 * y) / newBitmap.Height;
                 }
+                Form1_progressBar.Value = 0;
                 pictureBox.Image = newBitmapTemp;
             }
         }
@@ -445,7 +451,7 @@ namespace Podstawowy_foto_edytor
             }
         }
 
-        void grayscale()   //funkcja zmieniająca kolory w odcienie szarości
+        void grayscale()   //funkcja zmieniająca kolory w odcienie szarości || brak progressbara i wielowątkowości
         {
             if (!opened)
             {
@@ -478,7 +484,7 @@ namespace Podstawowy_foto_edytor
             }
         }
 
-        void sepia()   //funkcja zmieniająca oryginalny obraz w jego odpowiednik w kolorach sepii
+        void sepia()   //funkcja zmieniająca oryginalny obraz w jego odpowiednik w kolorach sepii || brak progres i wielo
         {
             if (!opened)
             {
@@ -552,9 +558,10 @@ namespace Podstawowy_foto_edytor
                             catch (Exception) { }
                         });
                     }//);
-                    newBitmapTemp = newBitmapTemp2;
+                    Form1_progressBar.Value = (100 * i) / blur;
                 }
                 pictureBox.Image = newBitmapTemp2;
+                Form1_progressBar.Value = 0;
             }
         }
 
@@ -661,21 +668,23 @@ namespace Podstawowy_foto_edytor
                 for (int x = 0; x < newBitmap.Width; x++)
                 {
                     for (int y = 0; y < newBitmap.Height; y++)
-                    {
-                        try
-                        {
-                            Color pixel = newBitmap.GetPixel(x, y);
+                   {
+                       try
+                       {
+                           Color pixel = newBitmap.GetPixel(x, y);
 
-                            int red = pixel.R;
-                            int green = pixel.G;
-                            int blue = pixel.B;
+                           int red = pixel.R;
+                           int green = pixel.G;
+                           int blue = pixel.B;
 
-                            newBitmap.SetPixel(x, y, Color.FromArgb(255 - red, 255 - green, 255 - blue));
-                        }
-                        catch (Exception) { }
-                    }
+                           newBitmap.SetPixel(x, y, Color.FromArgb(255 - red, 255 - green, 255 - blue));
+                       }
+                       catch (Exception) { }
+                   }
+                    Form1_progressBar.Value = (x * 100) / newBitmap.Width;
                 }
                 pictureBox.Image = newBitmap;
+                Form1_progressBar.Value = 0;
             }
         }
 
@@ -696,9 +705,9 @@ namespace Podstawowy_foto_edytor
                         nB.SetPixel(x, y, Color.White);
                     }
                 }
-                for (int x = 1; x <= newBitmap.Width - 1; x++)
+                for (int x = 1; x < newBitmap.Width; x++)
                 {
-                    for (int y = 1; y <= newBitmap.Height - 1; y++)
+                    for (int y = 1; y < newBitmap.Height; y++)
                     {
                         try
                         {
@@ -728,7 +737,7 @@ namespace Podstawowy_foto_edytor
                         catch (Exception) { }
                     }
 
-                    for (int y = 1; y <= newBitmap.Height - 1; y++)
+                    for (int y = 1; y < newBitmap.Height; y++)
                     {
                         try
                         {
@@ -756,8 +765,10 @@ namespace Podstawowy_foto_edytor
                         }
                         catch (Exception) { }
                     }
+                    Form1_progressBar.Value = (100 * x) / newBitmap.Width;
                 }
                 pictureBox.Image = nB;
+                Form1_progressBar.Value = 0;
             }
         }
 
@@ -778,7 +789,7 @@ namespace Podstawowy_foto_edytor
                         nB.SetPixel(x, y, Color.Black);
                     }
                 }
-                for (int x = 1; x <= newBitmap.Width - 1; x++)
+                for (int x = 1; x < newBitmap.Width; x++)
                 {
                     for (int y = 1; y <= newBitmap.Height - 1; y++)
                     {
@@ -838,8 +849,10 @@ namespace Podstawowy_foto_edytor
                         }
                         catch (Exception) { }
                     }
+                    Form1_progressBar.Value = (100 * x) / newBitmap.Width;
                 }
                 pictureBox.Image = nB;
+                Form1_progressBar.Value = 0;
             }
         }
 
@@ -897,9 +910,11 @@ namespace Podstawowy_foto_edytor
                         }
                         catch (Exception) { }
                     }
+                    Form1_progressBar.Value = (100 * x) / newBitmapSize2.Width;
                 }
                 newBitmap = newBitmapSize2;
                 pictureBox.Image = newBitmap;
+                Form1_progressBar.Value = 0;
             }
         }
 
@@ -1000,9 +1015,11 @@ namespace Podstawowy_foto_edytor
                         }
                         catch (Exception) { }
                     }
+                    Form1_progressBar.Value = (100 * x) / newBitmapSize2.Width;
                 }
                 newBitmap = newBitmapSize2;
                 pictureBox.Image = newBitmap;
+                Form1_progressBar.Value = 0;
             }
         }
 
@@ -1025,8 +1042,10 @@ namespace Podstawowy_foto_edytor
                         }
                         catch (Exception) { }
                     }
+                    Form1_progressBar.Value = (100 * xl) / newBitmap.Width;
                 }
                 pictureBox.Image = newBitmap;
+                Form1_progressBar.Value = 0;
             }
         }
 
@@ -1049,8 +1068,10 @@ namespace Podstawowy_foto_edytor
                         }
                         catch (Exception) { }
                     }
+                    Form1_progressBar.Value = (100 * xl) / newBitmap.Width;
                 }
                 pictureBox.Image = newBitmap;
+                Form1_progressBar.Value = 0;
             }
         }
         void mirror_t()    //funkcja odbijająca górną połowę obrazu 
@@ -1072,8 +1093,10 @@ namespace Podstawowy_foto_edytor
                         }
                         catch (Exception) { }
                     }
+                    Form1_progressBar.Value = (100 * x) / newBitmap.Width;
                 }
                 pictureBox.Image = newBitmap;
+                Form1_progressBar.Value = 0;
             }
         }
 
@@ -1096,8 +1119,10 @@ namespace Podstawowy_foto_edytor
                         }
                         catch (Exception) { }
                     }
+                    Form1_progressBar.Value = (100 * x) / newBitmap.Width;
                 }
                 pictureBox.Image = newBitmap;
+                Form1_progressBar.Value = 0;
             }
         }
 
@@ -1120,8 +1145,10 @@ namespace Podstawowy_foto_edytor
                         }
                         catch (Exception) { }
                     }
+                    Form1_progressBar.Value = (100 * xl) / newBitmap.Width;
                 }
                 pictureBox.Image = newBitmapTemp;
+                Form1_progressBar.Value = 0;
             }
         }
 
@@ -1144,8 +1171,10 @@ namespace Podstawowy_foto_edytor
                         }
                         catch (Exception) { }
                     }
+                    Form1_progressBar.Value = (100 * x) / newBitmap.Width;
                 }
                 pictureBox.Image = newBitmapTemp;
+                Form1_progressBar.Value = 0;
             }
         }
 
@@ -1157,8 +1186,8 @@ namespace Podstawowy_foto_edytor
             }
             else
             {
-                int width = pictureBox.Image.Width;
-                int height = pictureBox.Image.Height;
+                int width = newBitmap.Width;
+                int height = newBitmap.Height;
 
                 Bitmap newBitmapTemp = new Bitmap(2 * width, height);
 
@@ -1175,9 +1204,11 @@ namespace Podstawowy_foto_edytor
                         }
                         catch (Exception) { }
                     }
+                    Form1_progressBar.Value = (100 * y) / newBitmap.Height;
                 }
                 newBitmap = newBitmapTemp;
                 pictureBox.Image = newBitmap;
+                Form1_progressBar.Value = 0;
             }
         }
 
@@ -1189,12 +1220,12 @@ namespace Podstawowy_foto_edytor
             }
             else
             {
-                int width = pictureBox.Image.Width;
-                int height = pictureBox.Image.Height;
+                int width = newBitmap.Width;
+                int height = newBitmap.Height;
 
                 Bitmap newBitmapTemp = new Bitmap(width, 2 * height);
 
-                for (int x = 0; x < newBitmap.Height; x++)
+                for (int x = 0; x < newBitmap.Width; x++)
                 {
                     for (int yl = 0, yr = newBitmap.Height; yl < newBitmap.Height; yl++, yr++)
                     {
@@ -1206,9 +1237,11 @@ namespace Podstawowy_foto_edytor
                         }
                         catch (Exception) { }
                     }
+                    Form1_progressBar.Value = (100 * x) / newBitmap.Width;
                 }
                 newBitmap = newBitmapTemp;
                 pictureBox.Image = newBitmap;
+                Form1_progressBar.Value = 0;
             }
         }
 
@@ -1227,7 +1260,7 @@ namespace Podstawowy_foto_edytor
 
                 for (int y = 0; y < newBitmap.Height; y++)
                 {
-                    for (int xl = 0, xr = 2 * newBitmap.Width; xl < newBitmap.Width; xl++, xr--)
+                    for (int xl = 0, xr = (2 * newBitmap.Width) - 1; xl < newBitmap.Width; xl++, xr--)
                     {
                         try
                         {
@@ -1237,9 +1270,11 @@ namespace Podstawowy_foto_edytor
                         }
                         catch (Exception) { }
                     }
+                    Form1_progressBar.Value = (100 * y) / newBitmap.Height;
                 }
                 newBitmap = newBitmapTemp;
                 pictureBox.Image = newBitmap;
+                Form1_progressBar.Value = 0;
             }
         }
 
@@ -1268,9 +1303,11 @@ namespace Podstawowy_foto_edytor
                         }
                         catch (Exception) { }
                     }
+                    Form1_progressBar.Value = (100 * y) / newBitmap.Height;
                 }
                 newBitmap = newBitmapTemp;
                 pictureBox.Image = newBitmap;
+                Form1_progressBar.Value = 0;
             }
         }
 
@@ -1287,9 +1324,9 @@ namespace Podstawowy_foto_edytor
 
                 Bitmap newBitmapTemp = new Bitmap(width, 2 * height);
 
-                for (int x = 0; x < newBitmap.Height; x++)
+                for (int x = 0; x < newBitmap.Width; x++)
                 {
-                    for (int yl = 0, yr = 2 * newBitmap.Height; yl < newBitmap.Height; yl++, yr--)
+                    for (int yl = 0, yr = (2 * newBitmap.Height) - 1; yl < newBitmap.Height; yl++, yr--)
                     {
                         try
                         {
@@ -1299,9 +1336,11 @@ namespace Podstawowy_foto_edytor
                         }
                         catch (Exception) { }
                     }
+                    Form1_progressBar.Value = (100 * x) / newBitmap.Width;
                 }
                 newBitmap = newBitmapTemp;
                 pictureBox.Image = newBitmap;
+                Form1_progressBar.Value = 0;
             }
         }
 
@@ -1318,7 +1357,7 @@ namespace Podstawowy_foto_edytor
 
                 Bitmap newBitmapTemp = new Bitmap(width, 2 * height);
 
-                for (int x = 0; x < newBitmap.Height; x++)
+                for (int x = 0; x < newBitmap.Width; x++)
                 {
                     for (int yl = 0, yr = 2 * newBitmap.Height; yl < newBitmap.Height; yl++, yr--)
                     {
@@ -1330,9 +1369,11 @@ namespace Podstawowy_foto_edytor
                         }
                         catch (Exception) { }
                     }
+                    Form1_progressBar.Value = (100 * x) / newBitmap.Width;
                 }
                 newBitmap = newBitmapTemp;
                 pictureBox.Image = newBitmap;
+                Form1_progressBar.Value = 0;
             }
         }
 
@@ -1361,9 +1402,11 @@ namespace Podstawowy_foto_edytor
                         }
                         catch (Exception) { }
                     }
+                    Form1_progressBar.Value = (100 * y) / newBitmap.Height;
                 }
                 newBitmap = newBitmapTemp;
                 pictureBox.Image = newBitmap;
+                Form1_progressBar.Value = 0;
             }
         }
 
@@ -1392,9 +1435,11 @@ namespace Podstawowy_foto_edytor
                         }
                         catch (Exception) { }
                     }
+                    Form1_progressBar.Value = (100 * y) / newBitmap.Height;
                 }
                 newBitmap = newBitmapTemp;
                 pictureBox.Image = newBitmap;
+                Form1_progressBar.Value = 0;
             }
         }
 
@@ -1411,7 +1456,7 @@ namespace Podstawowy_foto_edytor
 
                 Bitmap newBitmapTemp = new Bitmap(width, 2 * height);
 
-                for (int x = 0; x < newBitmap.Height; x++)
+                for (int x = 0; x < newBitmap.Width; x++)
                 {
                     for (int yl = 0, yr = newBitmap.Height; yl < newBitmap.Height; yl++, yr++)
                     {
@@ -1423,9 +1468,11 @@ namespace Podstawowy_foto_edytor
                         }
                         catch (Exception) { }
                     }
+                    Form1_progressBar.Value = (100 * x) / newBitmap.Width;
                 }
                 newBitmap = newBitmapTemp;
                 pictureBox.Image = newBitmap;
+                Form1_progressBar.Value = 0;
             }
         }
 
@@ -1442,7 +1489,7 @@ namespace Podstawowy_foto_edytor
 
                 Bitmap newBitmapTemp = new Bitmap(width, 2 * height);
 
-                for (int x = 0; x < newBitmap.Height; x++)
+                for (int x = 0; x < newBitmap.Width; x++)
                 {
                     for (int yl = 0, yr = newBitmap.Height; yl < newBitmap.Height; yl++, yr++)
                     {
@@ -1454,13 +1501,15 @@ namespace Podstawowy_foto_edytor
                         }
                         catch (Exception) { }
                     }
+                    Form1_progressBar.Value = (100 * x) / newBitmap.Width;
                 }
                 newBitmap = newBitmapTemp;
                 pictureBox.Image = newBitmap;
+                Form1_progressBar.Value = 0;
             }
         }
 
-        void stich_sec_left()    // funkcja doklejająca to samo zdjęcie z prawej strony
+        void stich_sec_left()    // funkcja doklejająca to samo zdjęcie z prawej strony  || brak progressbara
         {
             if (!opened)
             {
@@ -1533,9 +1582,11 @@ namespace Podstawowy_foto_edytor
                         }
                         catch (Exception) { }
                     }
+                    Form1_progressBar.Value = (100 * y) / newBitmap.Height;
                 }
                 newBitmap = newBitmapTemp;
                 pictureBox.Image = newBitmap;
+                Form1_progressBar.Value = 0;
             }
         }
 
@@ -1563,9 +1614,11 @@ namespace Podstawowy_foto_edytor
                         }
                         catch (Exception) { }
                     }
+                    Form1_progressBar.Value = (100 * y) / newBitmap.Height;
                 }
                 newBitmap = newBitmapTemp;
                 pictureBox.Image = newBitmap;
+                Form1_progressBar.Value = 0;
             }
         }
 
@@ -1588,19 +1641,19 @@ namespace Podstawowy_foto_edytor
                     {
                         try
                         {
-                            if ((x > 0) && (x <= width))
+                            if ((x >= 0) && (x < width))
                             {
                                 Color pixel = newBitmap.GetPixel(x, y);
                                 int R = (int)pixel.R;
                                 newBitmapTemp.SetPixel(x, y, Color.FromArgb(R, 0, 0));
                             }
-                            else if ((x > width) && (x <= 2 * width))
+                            else if ((x >= width) && (x <= ((2 * width) - 1)))
                             {
                                 Color pixel = newBitmap.GetPixel(x - width, y);
                                 int G = (int)pixel.G;
                                 newBitmapTemp.SetPixel(x, y, Color.FromArgb(0, G, 0));
                             }
-                            else if ((x > 2 * width) && (x <= 3 * width))
+                            else if ((x > ((2 * width) - 1)) && (x < (3 * width) - 1))
                             {
                                 Color pixel = newBitmap.GetPixel(x - (2 * width), y);
                                 int B = (int)pixel.B;
@@ -1609,9 +1662,11 @@ namespace Podstawowy_foto_edytor
                         }
                         catch (Exception) { }
                     }
+                    Form1_progressBar.Value = (100 * y) / newBitmap.Height;
                 }
                 newBitmap = newBitmapTemp;
                 pictureBox.Image = newBitmap;
+                Form1_progressBar.Value = 0;
             }
         }
 
@@ -1634,7 +1689,7 @@ namespace Podstawowy_foto_edytor
                     {
                         try
                         {
-                            if ((x > 0) && (x <= width))
+                            if ((x >= 0) && (x < width))
                             {
                                 Color pixel = newBitmap.GetPixel(x, y);
                                 int R = (int)pixel.R;
@@ -1650,7 +1705,7 @@ namespace Podstawowy_foto_edytor
                                     newBitmapTemp.SetPixel(x, y, Color.FromArgb(GRAY, GRAY, GRAY));
                                 }
                             }
-                            else if ((x > width) && (x <= 2 * width))
+                            else if ((x >= width) && (x <= (2 * width) - 1))
                             {
                                 Color pixel = newBitmap.GetPixel(x - width, y);
                                 int R = (int)pixel.R;
@@ -1666,7 +1721,7 @@ namespace Podstawowy_foto_edytor
                                     newBitmapTemp.SetPixel(x, y, Color.FromArgb(GRAY, GRAY, GRAY));
                                 }
                             }
-                            else if ((x > 2 * width) && (x <= 3 * width))
+                            else if ((x > (2 * width) - 1) && (x <= (3 * width) - 1))
                             {
                                 Color pixel = newBitmap.GetPixel(x - (2 * width), y);
                                 int R = (int)pixel.R;
@@ -1685,13 +1740,15 @@ namespace Podstawowy_foto_edytor
                         }
                         catch (Exception) { }
                     }
+                    Form1_progressBar.Value = (100 * y) / newBitmap.Height;
                 }
                 newBitmap = newBitmapTemp;
                 pictureBox.Image = newBitmap;
+                Form1_progressBar.Value = 0;
             }
         }
 
-        void comp_ycbcr()    // funkcja pokazująca składowe YCbCr w postaci kolejnych zdjęć
+        void comp_ycbcr()    // funkcja pokazująca składowe YCbCr w postaci kolejnych zdjęć || brak progressbara
         {
             if (!opened)
             {
@@ -1786,9 +1843,11 @@ namespace Podstawowy_foto_edytor
                         }
                         catch (Exception) { }
                     }
+                    Form1_progressBar.Value = (100 * y) / newBitmap.Height;
                 }
                 newBitmap = newBitmapTemp;
                 pictureBox.Image = newBitmap;
+                Form1_progressBar.Value = 0;
             }
         }
 
@@ -1830,9 +1889,11 @@ namespace Podstawowy_foto_edytor
                         }
                         catch (Exception) { }
                     }
+                    Form1_progressBar.Value = (100 * y) / newBitmap.Height;
                 }
                 newBitmap = newBitmapTemp;
                 pictureBox.Image = newBitmap;
+                Form1_progressBar.Value = 0;
             }
         }
 
@@ -1874,9 +1935,11 @@ namespace Podstawowy_foto_edytor
                         }
                         catch (Exception) { }
                     }
+                    Form1_progressBar.Value = (100 * y) / newBitmap.Height;
                 }
                 newBitmap = newBitmapTemp;
                 pictureBox.Image = newBitmap;
+                Form1_progressBar.Value = 0;
             }
         }
 
@@ -1918,9 +1981,11 @@ namespace Podstawowy_foto_edytor
                         }
                         catch (Exception) { }
                     }
+                    Form1_progressBar.Value = (100 * y) / newBitmap.Height;
                 }
                 newBitmap = newBitmapTemp;
                 pictureBox.Image = newBitmap;
+                Form1_progressBar.Value = 0;
             }
         }
 
@@ -1962,9 +2027,11 @@ namespace Podstawowy_foto_edytor
                         }
                         catch (Exception) { }
                     }
+                    Form1_progressBar.Value = (100 * y) / newBitmap.Height;
                 }
                 newBitmap = newBitmapTemp;
                 pictureBox.Image = newBitmap;
+                Form1_progressBar.Value = 0;
             }
         }
 
@@ -2006,9 +2073,11 @@ namespace Podstawowy_foto_edytor
                         }
                         catch (Exception) { }
                     }
+                    Form1_progressBar.Value = (100 * y) / newBitmap.Height;
                 }
                 newBitmap = newBitmapTemp;
                 pictureBox.Image = newBitmap;
+                Form1_progressBar.Value = 0;
             }
         }
 
@@ -2050,9 +2119,11 @@ namespace Podstawowy_foto_edytor
                         }
                         catch (Exception) { }
                     }
+                    Form1_progressBar.Value = (100 * y) / newBitmap.Height;
                 }
                 newBitmap = newBitmapTemp;
                 pictureBox.Image = newBitmap;
+                Form1_progressBar.Value = 0;
             }
         }
 
@@ -2094,9 +2165,11 @@ namespace Podstawowy_foto_edytor
                         }
                         catch (Exception) { }
                     }
+                    Form1_progressBar.Value = (100 * y) / newBitmap.Height;
                 }
                 newBitmap = newBitmapTemp;
                 pictureBox.Image = newBitmap;
+                Form1_progressBar.Value = 0;
             }
         }
 
@@ -2138,9 +2211,11 @@ namespace Podstawowy_foto_edytor
                         }
                         catch (Exception) { }
                     }
+                    Form1_progressBar.Value = (100 * y) / newBitmap.Height;
                 }
                 newBitmap = newBitmapTemp;
                 pictureBox.Image = newBitmap;
+                Form1_progressBar.Value = 0;
             }
         }
 
@@ -2204,13 +2279,15 @@ namespace Podstawowy_foto_edytor
                         }
                         catch (Exception) { }
                     }
+                    Form1_progressBar.Value = (100 * y) / newBitmap.Height;
                 }
                 newBitmap = newBitmapTemp;
                 pictureBox.Image = newBitmap;
+                Form1_progressBar.Value = 0;
             }
         }
 
-        void bilinear_x2()   // funkcja zmieniająca rozmiar obrazu w sposób biliniowy tj za pomocą wyliczania średniej/stosunku odleglości
+        void bilinear_x2()   // funkcja zmieniająca rozmiar obrazu w sposób biliniowy tj za pomocą wyliczania średniej/stosunku odleglości  || brak progressbara
         {
             if (!opened)
             {
@@ -2286,7 +2363,7 @@ namespace Podstawowy_foto_edytor
             }
         }
 
-        void bilinear_x3()   // funkcja zmieniająca rozmiar obrazu w sposób biliniowy tj za pomocą wyliczania średniej/stosunku odleglości
+        void bilinear_x3()   // funkcja zmieniająca rozmiar obrazu w sposób biliniowy tj za pomocą wyliczania średniej/stosunku odleglości || progressbar z błędem
         {
             if (!opened)
             {
@@ -2341,6 +2418,7 @@ namespace Podstawowy_foto_edytor
                         }
                         catch (Exception) { }
                     }
+                    //Form1_progressBar.Value = ((100 * y) / (newBitmap.Height)) / 2;
                 }
                 for (int x = 0; x <= newBitmapTemp.Width; x++)
                 {
@@ -2384,8 +2462,10 @@ namespace Podstawowy_foto_edytor
                         }
                         catch (Exception) { }
                     }
+                    //Form1_progressBar.Value = 48 + (((100 * x) / (newBitmap.Width)) / 2) ;
                 }
                 pictureBox.Image = newBitmapSize2;
+                //Form1_progressBar.Value = 0; 
             }
         }
 
@@ -2424,9 +2504,11 @@ namespace Podstawowy_foto_edytor
                         }
                         catch (Exception) { }
                     }
+                    Form1_progressBar.Value = ((100 * x) / (3 * newBitmap.Width));
                 }
                 newBitmap = newBitmapSize2;
                 pictureBox.Image = newBitmap;
+                Form1_progressBar.Value = 0;
             }
         }
 
@@ -2898,6 +2980,24 @@ namespace Podstawowy_foto_edytor
                 pictureBox.BackColor = picturebox_color.Color;
         }
 
-        
+        private void leftSideToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            stich_left();
+        }
+
+        private void rightSideToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            stich_right();
+        }
+
+        private void topSideToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            stich_top();
+        }
+
+        private void bottomSideToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            stich_bottom();
+        }
     }
 }
