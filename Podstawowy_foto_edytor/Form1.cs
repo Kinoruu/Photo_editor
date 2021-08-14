@@ -2459,6 +2459,51 @@ namespace Podstawowy_foto_edytor
             }
         }
 
+        void cyan_to_white()
+        {
+            if (!opened)
+            {
+                MessageBox.Show("Open an Image then apply changes");
+            }
+            else
+            {
+                int width = pictureBox.Image.Width;
+                int height = pictureBox.Image.Height;
+
+                Bitmap newBitmapTemp = new Bitmap(width, height);
+
+                for (int y = 0; y < newBitmap.Height; y++)
+                {
+                    for (int x = 0; x < newBitmap.Width; x++)
+                    {
+                        try
+                        {
+                            if ((x > 0) && (x <= width))
+                            {
+                                Color pixel = newBitmap.GetPixel(x, y);
+                                int R = (int)pixel.R;
+                                int G = (int)pixel.G;
+                                int B = (int)pixel.B;
+                                if (((B * 0.65) >= R) && ((G * 0.65) >= R) && (G > (0.75 * B)) && (B > (0.75 * G)))
+                                {
+                                    newBitmapTemp.SetPixel(x, y, Color.FromArgb(255, 255, 255));
+                                }
+                                else
+                                {
+                                    newBitmapTemp.SetPixel(x, y, Color.FromArgb(R, G, B));
+                                }
+                            }
+                        }
+                        catch (Exception) { }
+                    }
+                    Form1_progressBar.Value = (100 * y) / newBitmap.Height;
+                }
+                newBitmap = newBitmapTemp;
+                pictureBox.Image = newBitmap;
+                Form1_progressBar.Value = 0;
+            }
+        }
+
         private void extractionToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (!opened)
@@ -3253,6 +3298,11 @@ namespace Podstawowy_foto_edytor
         private void addRGBV4ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             add_RGB_ver_4();
+        }
+
+        private void cyanToWhiteToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            cyan_to_white();
         }
     }
 }

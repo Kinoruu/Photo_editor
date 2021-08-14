@@ -60,6 +60,8 @@
             this.edgeWhiteOnBlackToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addRGBVersionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addRGBV2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.addRGBV3ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.addRGBV4ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mirrorsInvertsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mirrorLeftSideToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mirrorRightSideToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -121,6 +123,8 @@
             this.rCExtractionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rMExtractionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rYExtractionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.colorSwapToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cyanToWhiteToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
@@ -151,8 +155,6 @@
             this.Threshold_Value_label = new System.Windows.Forms.Label();
             this.Threshold_Name_label = new System.Windows.Forms.Label();
             this.Clear_button = new System.Windows.Forms.Button();
-            this.addRGBV3ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.addRGBV4ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.Red_Bar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Green_Bar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Blue_Bar)).BeginInit();
@@ -175,19 +177,21 @@
             // None_button
             // 
             this.None_button.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.None_button.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.None_button.ForeColor = System.Drawing.SystemColors.Control;
             this.None_button.Location = new System.Drawing.Point(933, 538);
             this.None_button.Name = "None_button";
             this.None_button.Size = new System.Drawing.Size(77, 73);
             this.None_button.TabIndex = 1;
             this.None_button.Text = "None";
-            this.None_button.UseVisualStyleBackColor = true;
+            this.None_button.UseVisualStyleBackColor = false;
             this.None_button.Click += new System.EventHandler(this.None_button_Click);
             // 
             // Red_Bar
             // 
             this.Red_Bar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.Red_Bar.BackColor = System.Drawing.SystemColors.MenuBar;
+            this.Red_Bar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.Red_Bar.LargeChange = 1;
             this.Red_Bar.Location = new System.Drawing.Point(54, 8);
             this.Red_Bar.Maximum = 100;
@@ -200,7 +204,7 @@
             // 
             this.Green_Bar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.Green_Bar.BackColor = System.Drawing.SystemColors.MenuBar;
+            this.Green_Bar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.Green_Bar.LargeChange = 1;
             this.Green_Bar.Location = new System.Drawing.Point(54, 59);
             this.Green_Bar.Maximum = 100;
@@ -213,7 +217,7 @@
             // 
             this.Blue_Bar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.Blue_Bar.BackColor = System.Drawing.SystemColors.MenuBar;
+            this.Blue_Bar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.Blue_Bar.LargeChange = 1;
             this.Blue_Bar.Location = new System.Drawing.Point(54, 110);
             this.Blue_Bar.Maximum = 100;
@@ -256,7 +260,7 @@
             // 
             this.Contrast_Bar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.Contrast_Bar.BackColor = System.Drawing.SystemColors.MenuBar;
+            this.Contrast_Bar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.Contrast_Bar.LargeChange = 1;
             this.Contrast_Bar.Location = new System.Drawing.Point(64, 33);
             this.Contrast_Bar.Maximum = 100;
@@ -272,7 +276,7 @@
             // 
             this.Brightness_Bar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.Brightness_Bar.BackColor = System.Drawing.SystemColors.MenuBar;
+            this.Brightness_Bar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.Brightness_Bar.LargeChange = 1;
             this.Brightness_Bar.Location = new System.Drawing.Point(13, 33);
             this.Brightness_Bar.Maximum = 100;
@@ -364,7 +368,7 @@
             this.Copyrights_label.Name = "Copyrights_label";
             this.Copyrights_label.Size = new System.Drawing.Size(159, 13);
             this.Copyrights_label.TabIndex = 30;
-            this.Copyrights_label.Text = "© Copyrights Jakub Siejak 2020";
+            this.Copyrights_label.Text = "© Copyrights Jakub Siejak 2021";
             // 
             // menuStrip1
             // 
@@ -483,6 +487,20 @@
             this.addRGBV2ToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
             this.addRGBV2ToolStripMenuItem.Text = "Add RGB v2";
             this.addRGBV2ToolStripMenuItem.Click += new System.EventHandler(this.addRGBV2ToolStripMenuItem_Click);
+            // 
+            // addRGBV3ToolStripMenuItem
+            // 
+            this.addRGBV3ToolStripMenuItem.Name = "addRGBV3ToolStripMenuItem";
+            this.addRGBV3ToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
+            this.addRGBV3ToolStripMenuItem.Text = "Add RGB v3";
+            this.addRGBV3ToolStripMenuItem.Click += new System.EventHandler(this.addRGBV3ToolStripMenuItem_Click);
+            // 
+            // addRGBV4ToolStripMenuItem
+            // 
+            this.addRGBV4ToolStripMenuItem.Name = "addRGBV4ToolStripMenuItem";
+            this.addRGBV4ToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
+            this.addRGBV4ToolStripMenuItem.Text = "Add RGB v4";
+            this.addRGBV4ToolStripMenuItem.Click += new System.EventHandler(this.addRGBV4ToolStripMenuItem_Click);
             // 
             // mirrorsInvertsToolStripMenuItem
             // 
@@ -845,7 +863,8 @@
             this.yCbCrToolStripMenuItem,
             this.extractionToolStripMenuItem,
             this.basicExtractionToolStripMenuItem,
-            this.realExtractionToolStripMenuItem});
+            this.realExtractionToolStripMenuItem,
+            this.colorSwapToolStripMenuItem});
             this.componentsToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.componentsToolStripMenuItem.Name = "componentsToolStripMenuItem";
             this.componentsToolStripMenuItem.Size = new System.Drawing.Size(89, 20);
@@ -965,6 +984,21 @@
             this.rYExtractionToolStripMenuItem.Text = "rY-Extraction";
             this.rYExtractionToolStripMenuItem.Click += new System.EventHandler(this.rYExtractionToolStripMenuItem_Click);
             // 
+            // colorSwapToolStripMenuItem
+            // 
+            this.colorSwapToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.cyanToWhiteToolStripMenuItem1});
+            this.colorSwapToolStripMenuItem.Name = "colorSwapToolStripMenuItem";
+            this.colorSwapToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+            this.colorSwapToolStripMenuItem.Text = "Color Swap";
+            // 
+            // cyanToWhiteToolStripMenuItem1
+            // 
+            this.cyanToWhiteToolStripMenuItem1.Name = "cyanToWhiteToolStripMenuItem1";
+            this.cyanToWhiteToolStripMenuItem1.Size = new System.Drawing.Size(147, 22);
+            this.cyanToWhiteToolStripMenuItem1.Text = "CyanToWhite";
+            this.cyanToWhiteToolStripMenuItem1.Click += new System.EventHandler(this.cyanToWhiteToolStripMenuItem1_Click);
+            // 
             // aboutToolStripMenuItem1
             // 
             this.aboutToolStripMenuItem1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
@@ -994,7 +1028,7 @@
             // 
             this.Gamma_Bar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.Gamma_Bar.BackColor = System.Drawing.SystemColors.MenuBar;
+            this.Gamma_Bar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.Gamma_Bar.LargeChange = 1;
             this.Gamma_Bar.Location = new System.Drawing.Point(115, 33);
             this.Gamma_Bar.Maximum = 100;
@@ -1021,7 +1055,7 @@
             this.pictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBox.BackColor = System.Drawing.SystemColors.Window;
+            this.pictureBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.pictureBox.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.pictureBox.Location = new System.Drawing.Point(187, 33);
             this.pictureBox.Name = "pictureBox";
@@ -1062,7 +1096,7 @@
             // pictureBox1
             // 
             this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.pictureBox1.BackColor = System.Drawing.SystemColors.Window;
+            this.pictureBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.pictureBox1.Location = new System.Drawing.Point(12, 538);
             this.pictureBox1.Name = "pictureBox1";
@@ -1075,7 +1109,7 @@
             // 
             this.RGB_groupbox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.RGB_groupbox.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.RGB_groupbox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.RGB_groupbox.Controls.Add(this.Blue_Value_label);
             this.RGB_groupbox.Controls.Add(this.Green_Value_label);
             this.RGB_groupbox.Controls.Add(this.Red_Value_label);
@@ -1090,13 +1124,12 @@
             this.RGB_groupbox.Size = new System.Drawing.Size(740, 165);
             this.RGB_groupbox.TabIndex = 40;
             this.RGB_groupbox.TabStop = false;
-            this.RGB_groupbox.Text = "RGB";
             // 
             // Hue_groupbox
             // 
             this.Hue_groupbox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.Hue_groupbox.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.Hue_groupbox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.Hue_groupbox.Controls.Add(this.Gamma_Value_label);
             this.Hue_groupbox.Controls.Add(this.Gamma_Bar);
             this.Hue_groupbox.Controls.Add(this.Gamma_Name_label);
@@ -1111,7 +1144,6 @@
             this.Hue_groupbox.Size = new System.Drawing.Size(169, 499);
             this.Hue_groupbox.TabIndex = 41;
             this.Hue_groupbox.TabStop = false;
-            this.Hue_groupbox.Text = "HUE";
             // 
             // Form1_progressBar
             // 
@@ -1126,7 +1158,7 @@
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox1.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.groupBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.groupBox1.Controls.Add(this.Pixelate_Bar);
             this.groupBox1.Controls.Add(this.Pixelate_Value_label);
             this.groupBox1.Controls.Add(this.Pixelate_Name_label);
@@ -1145,12 +1177,11 @@
             this.groupBox1.Size = new System.Drawing.Size(156, 499);
             this.groupBox1.TabIndex = 43;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Processing";
             // 
             // Pixelate_Bar
             // 
             this.Pixelate_Bar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.Pixelate_Bar.BackColor = System.Drawing.SystemColors.MenuBar;
+            this.Pixelate_Bar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.Pixelate_Bar.Location = new System.Drawing.Point(90, 270);
             this.Pixelate_Bar.Maximum = 7;
             this.Pixelate_Bar.Name = "Pixelate_Bar";
@@ -1181,7 +1212,7 @@
             // Blur_Bar
             // 
             this.Blur_Bar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.Blur_Bar.BackColor = System.Drawing.SystemColors.MenuBar;
+            this.Blur_Bar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.Blur_Bar.Location = new System.Drawing.Point(23, 270);
             this.Blur_Bar.Name = "Blur_Bar";
             this.Blur_Bar.Orientation = System.Windows.Forms.Orientation.Vertical;
@@ -1222,7 +1253,7 @@
             // Color_Shallowing_Bar
             // 
             this.Color_Shallowing_Bar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.Color_Shallowing_Bar.BackColor = System.Drawing.SystemColors.MenuBar;
+            this.Color_Shallowing_Bar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.Color_Shallowing_Bar.Location = new System.Drawing.Point(90, 33);
             this.Color_Shallowing_Bar.Maximum = 7;
             this.Color_Shallowing_Bar.Name = "Color_Shallowing_Bar";
@@ -1254,7 +1285,7 @@
             // Threshold_Bar
             // 
             this.Threshold_Bar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.Threshold_Bar.BackColor = System.Drawing.SystemColors.MenuBar;
+            this.Threshold_Bar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.Threshold_Bar.Location = new System.Drawing.Point(22, 33);
             this.Threshold_Bar.Name = "Threshold_Bar";
             this.Threshold_Bar.Orientation = System.Windows.Forms.Orientation.Vertical;
@@ -1285,33 +1316,20 @@
             // Clear_button
             // 
             this.Clear_button.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.Clear_button.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.Clear_button.Location = new System.Drawing.Point(1016, 538);
             this.Clear_button.Name = "Clear_button";
             this.Clear_button.Size = new System.Drawing.Size(74, 73);
             this.Clear_button.TabIndex = 44;
             this.Clear_button.Text = "Clear";
-            this.Clear_button.UseVisualStyleBackColor = true;
+            this.Clear_button.UseVisualStyleBackColor = false;
             this.Clear_button.Click += new System.EventHandler(this.Clear_button_Click);
-            // 
-            // addRGBV3ToolStripMenuItem
-            // 
-            this.addRGBV3ToolStripMenuItem.Name = "addRGBV3ToolStripMenuItem";
-            this.addRGBV3ToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
-            this.addRGBV3ToolStripMenuItem.Text = "Add RGB v3";
-            this.addRGBV3ToolStripMenuItem.Click += new System.EventHandler(this.addRGBV3ToolStripMenuItem_Click);
-            // 
-            // addRGBV4ToolStripMenuItem
-            // 
-            this.addRGBV4ToolStripMenuItem.Name = "addRGBV4ToolStripMenuItem";
-            this.addRGBV4ToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
-            this.addRGBV4ToolStripMenuItem.Text = "Add RGB v4";
-            this.addRGBV4ToolStripMenuItem.Click += new System.EventHandler(this.addRGBV4ToolStripMenuItem_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.BackColor = System.Drawing.Color.Gray;
             this.ClientSize = new System.Drawing.Size(1102, 746);
             this.Controls.Add(this.Clear_button);
             this.Controls.Add(this.groupBox1);
@@ -1324,6 +1342,7 @@
             this.Controls.Add(this.None_button);
             this.Controls.Add(this.pictureBox);
             this.Controls.Add(this.menuStrip1);
+            this.ForeColor = System.Drawing.SystemColors.Control;
             this.MainMenuStrip = this.menuStrip1;
             this.MinimumSize = new System.Drawing.Size(1118, 785);
             this.Name = "Form1";
@@ -1482,5 +1501,8 @@
         private System.Windows.Forms.ToolStripMenuItem bBExtractionToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem addRGBV3ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem addRGBV4ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem colorSwapToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem cyanToWhiteToolStripMenuItem1;
     }
 }
