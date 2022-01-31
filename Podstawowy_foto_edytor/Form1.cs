@@ -15,6 +15,7 @@ using System.IO;
 using System.Drawing.Printing;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Runtime.Serialization;
+using System.Diagnostics;
 
 namespace Podstawowy_foto_edytor
 {
@@ -516,8 +517,7 @@ namespace Podstawowy_foto_edytor
                 pictureBox.Image = bmpInverted;
             }
         }
-
-        void blur()   // funkcja rozmywająca obraz poprzez uśrednianie wartości pikseli
+                void blur()   // funkcja rozmywająca obraz poprzez uśrednianie wartości pikseli
         {
             if (!opened)
             {
@@ -697,7 +697,6 @@ namespace Podstawowy_foto_edytor
             else
             {
                 Bitmap nB = new Bitmap(newBitmap.Width, newBitmap.Height);
-
                 for (int x = 0; x <= newBitmap.Width - 1; x++)
                 {
                     for (int y = 0; y <= newBitmap.Height - 1; y++)
@@ -712,13 +711,9 @@ namespace Podstawowy_foto_edytor
                         try
                         {
                             Color pixel = newBitmap.GetPixel(x, y);
-
                             int colVal = (pixel.R + pixel.G + pixel.B);
-
                             if (lastCol == 0) lastCol = (pixel.R + pixel.G + pixel.B);
-
                             int diff;
-
                             if (colVal > lastCol)
                             {
                                 diff = colVal - lastCol;
@@ -727,7 +722,6 @@ namespace Podstawowy_foto_edytor
                             {
                                 diff = lastCol - colVal;
                             }
-
                             if (diff > 100)
                             {
                                 nB.SetPixel(x, y, Color.Black);
@@ -736,19 +730,14 @@ namespace Podstawowy_foto_edytor
                         }
                         catch (Exception) { }
                     }
-
                     for (int y = 1; y < newBitmap.Height; y++)
                     {
                         try
                         {
                             Color pixel = newBitmap.GetPixel(x, y);
-
                             int colVal = (pixel.R + pixel.G + pixel.B);
-
                             if (lastCol == 0) lastCol = (pixel.R + pixel.G + pixel.B);
-
                             int diff;
-
                             if (colVal > lastCol)
                             {
                                 diff = colVal - lastCol;
@@ -781,7 +770,6 @@ namespace Podstawowy_foto_edytor
             else
             {
                 Bitmap nB = new Bitmap(newBitmap.Width, newBitmap.Height);
-
                 for (int x = 0; x <= newBitmap.Width - 1; x++)
                 {
                     for (int y = 0; y <= newBitmap.Height - 1; y++)
@@ -796,13 +784,9 @@ namespace Podstawowy_foto_edytor
                         try
                         {
                             Color pixel = newBitmap.GetPixel(x, y);
-
                             int colVal = (pixel.R + pixel.G + pixel.B);
-
                             if (lastCol == 0) lastCol = (pixel.R + pixel.G + pixel.B);
-
                             int diff;
-
                             if (colVal > lastCol)
                             {
                                 diff = colVal - lastCol;
@@ -820,19 +804,14 @@ namespace Podstawowy_foto_edytor
                         }
                         catch (Exception) { }
                     }
-
                     for (int y = 1; y <= newBitmap.Height - 1; y++)
                     {
                         try
                         {
                             Color pixel = newBitmap.GetPixel(x, y);
-
                             int colVal = (pixel.R + pixel.G + pixel.B);
-
                             if (lastCol == 0) lastCol = (pixel.R + pixel.G + pixel.B);
-
                             int diff;
-
                             if (colVal > lastCol)
                             {
                                 diff = colVal - lastCol;
@@ -3303,6 +3282,40 @@ namespace Podstawowy_foto_edytor
         private void cyanToWhiteToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             cyan_to_white();
+        }
+
+        private void nNOCRToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            /* 
+            if (!opened)
+            {
+                MessageBox.Show("Open an Image then apply changes");
+            }
+            else
+            {
+                Process p = new Process();
+                p.StartInfo.UseShellExecute = false;
+                p.StartInfo.RedirectStandardOutput = true;
+                p.StartInfo.FileName = "C:/Users/Jakub/AppData/Local/Programs/Python/Python37/python.exe";
+                p.StartInfo.Arguments = string.Format("{0} {1}", "main.py", "");
+                p.StartInfo.UseShellExecute = false;
+                p.StartInfo.RedirectStandardInput = true;
+                p.Start();
+
+                using (var memoryStream = new MemoryStream())
+                {
+                    newBitmap.Save(memoryStream, System.Drawing.Imaging.ImageFormat.Jpeg);
+                    var bytes = memoryStream.ToArray();
+                    memoryStream.Seek(0, SeekOrigin.Begin);
+                    p.StandardInput.BaseStream.Write(bytes, 0, bytes.Length);
+                    p.StandardInput.BaseStream.Flush();
+                    p.StandardInput.BaseStream.Close();
+                }
+
+                string output = p.StandardOutput.ReadToEnd();
+                p.WaitForExit();
+            }
+            */
         }
     }
 }

@@ -155,6 +155,7 @@
             this.Threshold_Value_label = new System.Windows.Forms.Label();
             this.Threshold_Name_label = new System.Windows.Forms.Label();
             this.Clear_button = new System.Windows.Forms.Button();
+            this.nNOCRToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.Red_Bar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Green_Bar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Blue_Bar)).BeginInit();
@@ -382,6 +383,7 @@
             this.stichOneImageToolStripMenuItem,
             this.rotateToolStripMenuItem,
             this.componentsToolStripMenuItem,
+            this.nNOCRToolStripMenuItem,
             this.aboutToolStripMenuItem1,
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
@@ -1325,6 +1327,14 @@
             this.Clear_button.UseVisualStyleBackColor = false;
             this.Clear_button.Click += new System.EventHandler(this.Clear_button_Click);
             // 
+            // nNOCRToolStripMenuItem
+            // 
+            this.nNOCRToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.nNOCRToolStripMenuItem.Name = "nNOCRToolStripMenuItem";
+            this.nNOCRToolStripMenuItem.Size = new System.Drawing.Size(64, 20);
+            this.nNOCRToolStripMenuItem.Text = "NN OCR";
+            this.nNOCRToolStripMenuItem.Click += new System.EventHandler(this.nNOCRToolStripMenuItem_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1504,5 +1514,6 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem colorSwapToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem cyanToWhiteToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem nNOCRToolStripMenuItem;
     }
 }
